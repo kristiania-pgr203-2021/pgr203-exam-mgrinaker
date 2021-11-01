@@ -1,7 +1,11 @@
 package no.kristiania.http;
 
+import no.kristiania.person.PersonDao;
+import no.kristiania.person.RoleDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.FileReader;
@@ -9,8 +13,21 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class SurveyServer {
-    public static void main(String[] args) {
+    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
+    public static void main(String[] args) throws IOException {
+        DataSource dataSource = createDataSource();
+        RoleDao roleDao = new RoleDao(dataSource);
+        PersonDao personDao = new PersonDao(dataSource);
+
+        HttpServer httpServer = new HttpServer(1962);
+        httpServer.addController("/api/roleOptions", new no.kristiania.http.RoleOptionsController(roleDao));
+        httpServer.addController("/api/newPerson", new no.kristiania.http.AddPersonController(personDao));
+        httpServer.addController("/api/people", new no.kristiania.http.ListPeopleController(personDao));
+
+        // logger.info, logger.debug, logger.error, logger.warning etc
+        // {} er placeholder for parameteret httpServer.getPort()
+        logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
 
     private static DataSource createDataSource() throws IOException {
