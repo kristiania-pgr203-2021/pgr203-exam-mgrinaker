@@ -6,7 +6,7 @@ import no.kristiania.person.PersonDao;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class AddPersonController implements no.kristiania.http.HttpController {
+public class AddPersonController implements HttpController {
     private PersonDao personDao;
 
     public AddPersonController(PersonDao personDao) {
@@ -43,7 +43,6 @@ public class AddPersonController implements no.kristiania.http.HttpController {
                     "Both first name and last name must be provided"
             );
         }
-
         personDao.save(person);
 
         return new HttpMessage("HTTP/1.1 200 OK", "It is done");

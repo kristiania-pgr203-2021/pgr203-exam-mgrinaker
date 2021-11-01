@@ -5,7 +5,7 @@ import no.kristiania.person.PersonDao;
 
 import java.sql.SQLException;
 
-public class ListPeopleController implements no.kristiania.http.HttpController {
+public class ListPeopleController implements HttpController {
     private PersonDao personDao;
 
     public ListPeopleController(PersonDao personDao) {

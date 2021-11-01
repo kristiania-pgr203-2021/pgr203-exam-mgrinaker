@@ -4,7 +4,7 @@ import no.kristiania.person.RoleDao;
 
 import java.sql.SQLException;
 
-public class RoleOptionsController implements no.kristiania.http.HttpController {
+public class RoleOptionsController implements HttpController {
     private RoleDao roleDao;
 
     public RoleOptionsController(RoleDao roleDao) {
