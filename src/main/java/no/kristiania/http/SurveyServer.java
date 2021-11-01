@@ -21,9 +21,9 @@ public class SurveyServer {
         PersonDao personDao = new PersonDao(dataSource);
 
         HttpServer httpServer = new HttpServer(1962);
-        httpServer.addController("/api/roleOptions", new no.kristiania.http.RoleOptionsController(roleDao));
-        httpServer.addController("/api/newPerson", new no.kristiania.http.AddPersonController(personDao));
-        httpServer.addController("/api/people", new no.kristiania.http.ListPeopleController(personDao));
+        httpServer.addController(new RoleOptionsController(roleDao));
+        httpServer.addController(new AddPersonController(personDao));
+        httpServer.addController(new ListPeopleController(personDao));
 
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()

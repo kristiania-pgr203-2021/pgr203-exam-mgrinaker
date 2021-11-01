@@ -12,6 +12,11 @@ public class RoleOptionsController implements no.kristiania.http.HttpController 
     }
 
     @Override
+    public String getPath() {
+        return "/api/roleOptions";
+    }
+
+    @Override
     public HttpMessage handle(HttpMessage request) throws SQLException {
         String responseText = "";
         String contentType = "text/html; charset=utf-8";

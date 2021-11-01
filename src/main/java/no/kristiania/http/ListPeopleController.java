@@ -13,6 +13,11 @@ public class ListPeopleController implements no.kristiania.http.HttpController {
     }
 
     @Override
+    public String getPath() {
+        return "/api/people";
+    }
+
+    @Override
     public HttpMessage handle(HttpMessage request) throws SQLException {
         String response = "";
 
