@@ -31,12 +31,14 @@ public class PersonDao {
     public void save(Person person) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into person (first_name, last_name, email) values (?, ?, ?)",
+                    "insert into person (first_name, last_name, email, profession_id, workplace_id) values (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, person.getFirstName());
                 statement.setString(2, person.getLastName());
                 statement.setString(3, person.getMailAddress());
+                statement.setLong(4, person.getProfessionId());
+                statement.setLong(5, person.getWorkplaceId());
 
                 statement.executeUpdate();
                 try (ResultSet rs = statement.getGeneratedKeys()) {

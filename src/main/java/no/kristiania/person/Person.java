@@ -5,6 +5,24 @@ public class Person { //aka User
     private String firstName;
     private String lastName;
     private String mailAddress;
+    private long professionId;
+    private long workplaceId;
+
+    public long getProfessionId() {
+        return professionId;
+    }
+
+    public void setProfessionId(long professionId) {
+        this.professionId = professionId;
+    }
+
+    public long getWorkplaceId() {
+        return workplaceId;
+    }
+
+    public void setWorkplaceId(long workplaceId) {
+        this.workplaceId = workplaceId;
+    }
 
     public long getUserId() {
         return userId;
