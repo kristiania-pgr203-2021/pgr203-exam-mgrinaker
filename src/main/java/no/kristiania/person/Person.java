@@ -1,7 +1,7 @@
 package no.kristiania.person;
 
 public class Person { //aka User
-    private long userId;
+    private long person_id;
     private String firstName;
     private String lastName;
     private String mailAddress;
@@ -24,12 +24,12 @@ public class Person { //aka User
         this.workplaceId = workplaceId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getPerson_id() {
+        return person_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setPerson_id(long person_id) {
+        this.person_id = person_id;
     }
 
     public String getFirstName() {

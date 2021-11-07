@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 public class PersonDaoTest {
 
     private PersonDao dao = new PersonDao(TestData.testDataSource());
@@ -14,7 +15,7 @@ public class PersonDaoTest {
     void shouldRetrieveSavedPerson() throws SQLException {
         Person person = examplePerson();
         dao.save(person);
-        assertThat(dao.retrieve(person.getUserId()))
+        assertThat(dao.retrieve(person.getPerson_id()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(person)
@@ -30,8 +31,8 @@ public class PersonDaoTest {
         dao.save(anotherPerson);
 
         assertThat(dao.listAll())
-                .extracting((Person::getUserId))
-                .contains(person.getUserId(), anotherPerson.getUserId());
+                .extracting((Person::getPerson_id))
+                .contains(person.getPerson_id(), anotherPerson.getPerson_id());
     }
 
     public static Person examplePerson() {
@@ -44,4 +45,5 @@ public class PersonDaoTest {
         return person;
 
     }
+
 }

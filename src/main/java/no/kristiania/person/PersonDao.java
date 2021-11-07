@@ -43,16 +43,16 @@ public class PersonDao {
                 statement.executeUpdate();
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    person.setUserId(rs.getLong("person_id"));
+                    person.setPerson_id(rs.getLong("person_id"));
                 }
             }
         }
     }
 
-    public Person retrieve(long userId) throws SQLException {
+    public Person retrieve(long person_id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select * from person where person_id = ?")) {
-                statement.setLong(1, userId);
+                statement.setLong(1, person_id);
 
                 try (ResultSet rs = statement.executeQuery()) {
                     rs.next();
@@ -79,10 +79,12 @@ public class PersonDao {
 
     private Person readFromResultSet(ResultSet rs) throws SQLException {
         Person person = new Person();
-        person.setUserId(rs.getLong("person_id"));
+        person.setPerson_id(rs.getLong("person_id"));
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setMailAddress(rs.getString("email"));
+        person.setProfessionId(rs.getLong("profession_id"));
+        person.setWorkplaceId(rs.getLong("workplace_id"));
         return person;
     }
 
