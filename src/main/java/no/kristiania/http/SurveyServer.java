@@ -24,7 +24,7 @@ public class SurveyServer {
         httpServer.addController(new RoleOptionsController(roleDao));
         httpServer.addController(new AddPersonController(personDao));
         httpServer.addController(new ListPeopleController(personDao));
-        httpServer.addController(new HelloFileTargetController());
+        httpServer.addController(new FileTargetController());
         //httpServer.addController(new checkFileExtensionController());
 
         // logger.info, logger.debug, logger.error, logger.warning etc
