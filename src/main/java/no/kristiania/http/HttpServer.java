@@ -1,6 +1,8 @@
 package no.kristiania.http;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -49,6 +51,23 @@ public class HttpServer {
             HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
             response.write(clientSocket);
         } else {
+            InputStream fileResource = getClass().getResourceAsStream(fileTarget);
+            if(fileResource != null){
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                fileResource.transferTo(buffer);
+                String responseText = buffer.toString();
+
+                String contentType = "text/plain";
+                if(requestTarget.endsWith(".html")){
+                    contentType = "text/html; charset=utf-8";
+                } else if (requestTarget.endsWith(".css")) {
+                    contentType ="text/css";
+                }
+
+                writeOkResponse(clientSocket, responseText, contentType);
+                return;
+            }
+
             String responseText = "File not found: " + requestTarget;
 
             String response = "HTTP/1.1 404 Not found\r\n" +
