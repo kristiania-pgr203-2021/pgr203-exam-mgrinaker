@@ -16,7 +16,7 @@ public class AnswerDaoTest {
         Answer answer = exampleAnswer();
         dao.saveAnswer(answer);
 
-        assertThat(dao.retrieveAnswer(answer.getQuestion_id(), answer.getPerson_id()))
+        assertThat(dao.retrieveAnswer(answer.getAnswer_id()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(answer);
@@ -31,8 +31,8 @@ public class AnswerDaoTest {
         dao.saveAnswer(anotherAnswer);
 
         assertThat(dao.listAllAnswers())
-                .extracting(Answer::getPerson_id)
-                .contains(answer.getQuestion_id(), anotherAnswer.getQuestion_id());
+                .extracting(Answer::getAnswer_id)
+                .contains(answer.getAnswer_id(), anotherAnswer.getAnswer_id());
 
     }
 

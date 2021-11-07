@@ -39,15 +39,19 @@ public class AnswerDao {
 
                 statement.executeUpdate();
 
+                try (ResultSet rs = statement.getGeneratedKeys()) {
+                    rs.next();
+                    answer.setAnswer_id(rs.getLong("answer_id"));
+                }
+
             }
         }
     }
 
-    public Answer retrieveAnswer(long question_id, long person_id) throws SQLException {
+    public Answer retrieveAnswer(long answer_id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from answer where question_id = ? AND person_id = ?")) {
-                statement.setLong(1, question_id);
-                statement.setLong(2, person_id);
+            try (PreparedStatement statement = connection.prepareStatement("select * from answer where answer_id = ?")) {
+                statement.setLong(1, answer_id);
 
                 try (ResultSet rs = statement.executeQuery()) {
                     rs.next();
@@ -60,6 +64,7 @@ public class AnswerDao {
 
     private Answer readFromResultSetAnswer(ResultSet rs) throws SQLException {
         Answer answer = new Answer();
+        answer.setAnswer_id(rs.getLong("answer_id"));
         answer.setQuestion_id(rs.getLong("question_id"));
         answer.setPerson_id(rs.getLong("person_id"));
         answer.setResponse(rs.getInt("response"));
