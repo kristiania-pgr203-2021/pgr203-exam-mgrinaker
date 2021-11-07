@@ -9,6 +9,7 @@ import java.sql.*;
 public class ProfessionDao {
     private final DataSource dataSource;
 
+    ///KAN DERE SE DETTE
     public ProfessionDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
