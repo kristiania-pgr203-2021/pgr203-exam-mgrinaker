@@ -16,8 +16,8 @@ public class WorkplaceDao {
     public static DataSource createDataSource() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl("jdbc:postgresql://localhost:5432/person_db");
-        dataSource.setUser("person_dbuser");
-        dataSource.setPassword("PASSORDHER");
+        dataSource.setUser("survey_dbuser");
+        dataSource.setPassword("TvsVM5wRCdh");
 
         Flyway flyway = Flyway.configure().dataSource(dataSource).load();
         flyway.migrate();

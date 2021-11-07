@@ -20,4 +20,7 @@ public class TestData {
     public static String pickOne(String ... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }
+    public static Integer pickOne(Integer ... alternatives) {
+        return alternatives[random.nextInt(alternatives.length)];
+    }
 }
