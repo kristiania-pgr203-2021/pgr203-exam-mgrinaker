@@ -14,7 +14,7 @@ public class PersonDaoTest {
     void shouldRetrieveSavedPerson() throws SQLException {
         Person person = examplePerson();
         dao.save(person);
-        assertThat(dao.retrieve(person.getId()))
+        assertThat(dao.retrieve(person.getUserId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(person)
@@ -30,14 +30,15 @@ public class PersonDaoTest {
         dao.save(anotherPerson);
 
         assertThat(dao.listAll())
-                .extracting((Person::getId))
-                .contains(person.getId(), anotherPerson.getId());
+                .extracting((Person::getUserId))
+                .contains(person.getUserId(), anotherPerson.getUserId());
     }
 
     public static Person examplePerson() {
         Person person = new Person();
-        person.setFirstName(TestData.pickOne("Johannes", "Jill", "Jane", "James", "Jacob"));
-        person.setLastName(TestData.pickOne("James", "July", "Jenkin", "Jolly", "Jin"));
+        person.setFirstName(TestData.pickOne("Johannes", "Jill", "Jane", "James", "Jacob", "Nora", "Emil", "Noah", "Emma", "Maja", "Oliver", "Filip", "Lukas","Liam", "Henrik", "Sofia", "Emilie"));
+        person.setLastName(TestData.pickOne("Hansen", "Johansen", "Olsen", "Larsen", "Andersen", "Pedersen", "Nilsen", "Kristiansen", "Jensen", "Karlsen", "Johnsen"));
+        person.setMailAddress(TestData.pickOne("romantic01@online.no", "crypt@gmail.com", "kramulous@comcast.net", "gomor@icloud.com", "dbrobins@att.net", "lampcht@online.net", "mleary@mac.com", "gward@verizon.net", "dexter@msn.com", "oiyou-47@mail.com", "essi389@mail.com", "brovade5@ymail.com", "tebei41@yopl.com", "pauda9@mail.com", "blomster@yahoo.com", "boot.32@gmail.com"));
         return person;
 
     }

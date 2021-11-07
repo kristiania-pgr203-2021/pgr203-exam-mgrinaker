@@ -10,7 +10,7 @@ import static no.kristiania.http.HttpServer.requestTarget;
 class CheckFileExtensionController implements HttpController {
     @Override
     public String getPath() {
-        return requestTarget;
+        return " ";
     }
 
     @Override

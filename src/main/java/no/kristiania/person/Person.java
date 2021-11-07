@@ -1,9 +1,18 @@
 package no.kristiania.person;
 
-public class Person {
+public class Person { //aka User
+    private long userId;
     private String firstName;
     private String lastName;
-    private long id;
+    private String mailAddress;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -21,11 +30,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public long getId() {
-        return id;
+    public String getMailAddress() {
+        return mailAddress;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
     }
 }

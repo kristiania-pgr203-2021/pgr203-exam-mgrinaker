@@ -29,28 +29,28 @@ public class PersonDao {
     }
 
     public void save(Person person) throws SQLException {
-
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into people (first_name, last_name) values (?, ?)",
+                    "insert into person (first_name, last_name, email) values (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, person.getFirstName());
                 statement.setString(2, person.getLastName());
+                statement.setString(3, person.getMailAddress());
 
                 statement.executeUpdate();
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    person.setId(rs.getLong("id"));
+                    person.setUserId(rs.getLong("person_id"));
                 }
             }
         }
     }
 
-    public Person retrieve(long id) throws SQLException {
+    public Person retrieve(long userId) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from people where id = ?")) {
-                statement.setLong(1, id);
+            try (PreparedStatement statement = connection.prepareStatement("select * from person where person_id = ?")) {
+                statement.setLong(1, userId);
 
                 try (ResultSet rs = statement.executeQuery()) {
                     rs.next();
@@ -63,7 +63,7 @@ public class PersonDao {
 
     public List<Person> listAll() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from people")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from person")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<Person> result = new ArrayList<>();
                     while(rs.next()){
@@ -77,9 +77,10 @@ public class PersonDao {
 
     private Person readFromResultSet(ResultSet rs) throws SQLException {
         Person person = new Person();
-        person.setId(rs.getLong("id"));
+        person.setUserId(rs.getLong("person_id"));
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
+        person.setMailAddress(rs.getString("email"));
         return person;
     }
 
@@ -91,6 +92,6 @@ public class PersonDao {
         Scanner scanner = new Scanner(System.in);
         String lastName = scanner.nextLine().trim();
 
-//        System.out.println(dao.listByLastName(lastName));
+//      //System.out.println(dao.listByLastName(lastName));
     }
 }
