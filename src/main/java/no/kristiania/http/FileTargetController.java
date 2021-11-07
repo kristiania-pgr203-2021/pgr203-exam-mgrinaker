@@ -5,7 +5,7 @@ import java.util.Map;
 
 import static no.kristiania.http.HttpServer.query;
 
-public class HelloFileTargetController implements HttpController{
+public class FileTargetController implements HttpController{
     @Override
     public String getPath() {
         return "/hello";

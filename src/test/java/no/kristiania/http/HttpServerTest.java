@@ -34,7 +34,7 @@ public class HttpServerTest {
 
     @Test
     void shouldRespondWith200forKnownRequestTarget() throws IOException {
-        server.addController(new HelloFileTargetController());
+        server.addController(new FileTargetController());
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertAll(
@@ -46,14 +46,14 @@ public class HttpServerTest {
 
     @Test
     void shouldHandleMoreThanOneRequest() throws IOException {
-        server.addController(new HelloFileTargetController());
+        server.addController(new FileTargetController());
         assertEquals(200, new HttpClient("localhost", server.getPort(), "/hello").getStatusCode());
         assertEquals(200, new HttpClient("localhost", server.getPort(), "/hello").getStatusCode());
     }
 
     @Test
     void shouldEchoQueryParameter() throws IOException {
-        server.addController(new HelloFileTargetController());
+        server.addController(new FileTargetController());
         HttpClient client = new HttpClient(
                 "localhost",
                 server.getPort(),
