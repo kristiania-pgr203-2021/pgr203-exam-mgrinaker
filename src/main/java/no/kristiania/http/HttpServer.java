@@ -1,18 +1,6 @@
 package no.kristiania.http;
 
-import no.kristiania.person.Person;
-import no.kristiania.person.PersonDao;
-import no.kristiania.person.RoleDao;
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -22,12 +10,13 @@ public class HttpServer {
 
     private final ServerSocket serverSocket;
     private final HashMap<String, HttpController> controllers = new HashMap<>();
+    public static String query = null;
+    public static String requestTarget;
+    public static String fileTarget;
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
-
         new Thread(this::handleClients).start();
-        //new Thread(() -> handleClients()).start(); // lambda
     }
 
     private void handleClients() {
@@ -45,11 +34,9 @@ public class HttpServer {
 
         HttpMessage httpMessage = new HttpMessage(clientSocket);
         String[] requestLine = httpMessage.startLine.split(" ");
-        String requestTarget = requestLine[1];
+        requestTarget = requestLine[1];
 
         int questionPos = requestTarget.indexOf('?');
-        String fileTarget;
-        String query = null;
 
         if (questionPos != -1){
             fileTarget = requestTarget.substring(0, questionPos);
@@ -61,37 +48,7 @@ public class HttpServer {
         if(controllers.containsKey(fileTarget)){
             HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
             response.write(clientSocket);
-        } else if (fileTarget.equals("/hello")) {
-            String yourName = "world";
-            if (query != null) {
-                Map<String, String> queryMap = HttpMessage.parseRequestParameters(query);
-                yourName = queryMap.get("lastName") + ", " + queryMap.get("firstName");
-            }
-            String responseText = "<p>Hello " + yourName + "!</p>";
-            String contentType = "text/html; charset=utf-8";
-            // html.getBytes().length og charset=utf-8, bra til eksamen
-            // + URL-encoding
-
-            writeOkResponse(clientSocket, responseText, contentType);
-
         } else {
-            InputStream fileResource = getClass().getResourceAsStream(fileTarget);
-            if(fileResource != null){
-                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                fileResource.transferTo(buffer);
-                String responseText = buffer.toString();
-
-                String contentType = "text/plain";
-                if(requestTarget.endsWith(".html")){
-                    contentType = "text/html; charset=utf-8";
-                } else if (requestTarget.endsWith(".css")) {
-                    contentType ="text/css";
-                }
-
-                writeOkResponse(clientSocket, responseText, contentType);
-                return;
-            }
-
             String responseText = "File not found: " + requestTarget;
 
             String response = "HTTP/1.1 404 Not found\r\n" +
@@ -103,17 +60,6 @@ public class HttpServer {
 
             clientSocket.getOutputStream().write(response.getBytes());
         }
-    }
-
-    private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + responseText.getBytes().length + "\r\n" +
-                "Content-Type: " + contentType + "\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                responseText;
-
-        clientSocket.getOutputStream().write(response.getBytes());
     }
 
     public int getPort() {
