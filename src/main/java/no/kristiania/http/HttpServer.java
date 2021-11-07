@@ -62,6 +62,17 @@ public class HttpServer {
         }
     }
 
+    private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
+        String response = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: " + responseText.getBytes().length + "\r\n" +
+                "Content-Type: " + contentType + "\r\n" +
+                "Connection: close\r\n" +
+                "\r\n" +
+                responseText;
+
+        clientSocket.getOutputStream().write(response.getBytes());
+    }
+
     public int getPort() {
         return serverSocket.getLocalPort();
     }
