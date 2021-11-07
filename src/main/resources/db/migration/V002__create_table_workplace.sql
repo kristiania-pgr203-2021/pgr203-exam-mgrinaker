@@ -7,5 +7,7 @@ create table workplace
 
 INSERT INTO workplace (workplace_name, workplace_address)
 VALUES ('Karlson AS', 'Gurivegen 23');
+INSERT INTO workplace (workplace_name, workplace_address)
 VALUES ('Vertmo AS', 'Karl Johans gate 45');
+INSERT INTO workplace (workplace_name, workplace_address)
 VALUES ('Kimmisons AS', 'Henrik Ibsens veg 91');
