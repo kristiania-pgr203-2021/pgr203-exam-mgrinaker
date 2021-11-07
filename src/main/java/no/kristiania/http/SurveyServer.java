@@ -22,7 +22,7 @@ public class SurveyServer {
 
         HttpServer httpServer = new HttpServer(1962);
         httpServer.addController(new RoleOptionsController(roleDao));
-        httpServer.addController(new AddPersonController(personDao));
+        httpServer.addController(new AddQuestionController(personDao));
         httpServer.addController(new ListPeopleController(personDao));
         httpServer.addController(new FileTargetController());
         //httpServer.addController(new checkFileExtensionController());

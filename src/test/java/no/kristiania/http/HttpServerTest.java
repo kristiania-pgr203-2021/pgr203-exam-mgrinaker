@@ -117,7 +117,7 @@ public class HttpServerTest {
     @Test
     void shouldCreateNewPerson() throws IOException, SQLException {
         PersonDao personDao = new PersonDao(TestData.testDataSource());
-        server.addController(new AddPersonController(personDao));
+        server.addController(new AddQuestionController(personDao));
 
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",

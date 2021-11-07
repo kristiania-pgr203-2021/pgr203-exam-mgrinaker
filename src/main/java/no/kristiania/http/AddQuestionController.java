@@ -6,10 +6,10 @@ import no.kristiania.person.PersonDao;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class AddPersonController implements HttpController {
+public class AddQuestionController implements HttpController {
     private PersonDao personDao;
 
-    public AddPersonController(PersonDao personDao) {
+    public AddQuestionController(PersonDao personDao) {
         this.personDao = personDao;
     }
 
