@@ -32,6 +32,7 @@ public class SurveyServer {
         httpServer.addController(new AddQuestionController(questionDao));
         httpServer.addController(new ListPeopleController(questionDao));
         httpServer.addController(new FileTargetController());
+        httpServer.addController(new AddOptionController(questionDao));
         //httpServer.addController(new checkFileExtensionController());
 
         // logger.info, logger.debug, logger.error, logger.warning etc
