@@ -12,8 +12,9 @@ public class HttpServer {
 
     private final ServerSocket serverSocket;
     private final HashMap<String, HttpController> controllers = new HashMap<>();
-    public static String query = null;
+
     public static String requestTarget;
+    public static String query = null;
     public static String fileTarget;
 
     public HttpServer(int serverPort) throws IOException {
@@ -26,7 +27,7 @@ public class HttpServer {
             while (true){
                 handleClient();
             }
-        } catch (IOException | SQLException e) {
+        } catch (IndexOutOfBoundsException | IOException | SQLException e) {
             e.printStackTrace();
         }
     }
