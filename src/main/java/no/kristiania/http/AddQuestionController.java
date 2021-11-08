@@ -31,18 +31,18 @@ public class AddQuestionController implements HttpController {
         if (question.getQuestionTitle() == null || question.getQuestionTitle().isBlank()){
             return new HttpMessage(
                     "HTTP/1.1 400 request error",
-                    "First name must be provided"
+                    "Title must be provided"
             );
         } else if (question.getQuestionDescription() == null || question.getQuestionDescription().isBlank()){
             return new HttpMessage(
                     "HTTP/1.1 400 request error",
-                    "Last name must be provided"
+                    "Description must be provided"
             );
         } else if ((question.getQuestionTitle() == null || question.getQuestionTitle().isBlank()) &&
                     (question.getQuestionDescription() == null || question.getQuestionDescription().isBlank())){
             return new HttpMessage(
                     "HTTP/1.1 400 request error",
-                    "Both first name and last name must be provided"
+                    "Both title and description must be provided"
             );
         }
         questionDao.saveQuestion(question);
