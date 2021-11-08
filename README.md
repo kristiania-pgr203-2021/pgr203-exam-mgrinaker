@@ -40,8 +40,8 @@
 
 ### Funksjonalitet
 
-* [ ] Programmet kan opprette spørsmål og lagrer disse i databasen (påkrevd for bestått)
-* [ ] Programmet kan vise spørsmål (påkrevd for D)
+* [x] Programmet kan opprette spørsmål og lagrer disse i databasen (påkrevd for bestått)
+* [x] Programmet kan vise spørsmål (påkrevd for D)
 * [ ] Programmet kan legge til alternativ for spørsmål (påkrevd for D)
 * [ ] Programmet kan registrere svar på spørsmål (påkrevd for C)
 * [ ] Programmet kan endre tittel og tekst på et spørsmål (påkrevd for B)
