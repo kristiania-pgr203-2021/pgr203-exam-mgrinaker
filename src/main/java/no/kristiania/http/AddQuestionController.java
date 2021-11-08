@@ -16,7 +16,7 @@ public class AddQuestionController implements HttpController {
 
     @Override
     public String getPath() {
-        return "/api/question";
+        return "/api/newQuestion";
     }
 
     @Override
