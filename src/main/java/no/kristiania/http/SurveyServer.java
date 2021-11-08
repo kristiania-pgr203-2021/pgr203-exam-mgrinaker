@@ -38,6 +38,7 @@ public class SurveyServer {
         httpServer.addController(new ListAnswersController(answerDao));
         //httpServer.addController(new checkFileExtensionController());
         httpServer.addController(new QuestionOptionsController(questionDao));
+        httpServer.addController(new AddNewAnswerController(answerDao));
 
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()
