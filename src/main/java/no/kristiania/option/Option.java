@@ -4,6 +4,15 @@ public class Option {
 
     private long optionId;
     private String optionName;
+    private long questionId;
+
+    public long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
+    }
 
     public long getOptionId() {
         return optionId;

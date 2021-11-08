@@ -37,6 +37,7 @@ public class OptionDaoTest {
     public static Option exampleOption() {
         Option option = new Option();
         option.setOptionName(TestData.pickOne("Bra", "Dårlig", "Okei"));
+        option.setQuestionId(TestData.pickOneInteger(1, 2, 3, 4));
         return option;
     }
 

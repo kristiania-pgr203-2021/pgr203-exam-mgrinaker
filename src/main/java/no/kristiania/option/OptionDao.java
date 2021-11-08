@@ -16,10 +16,11 @@ public class OptionDao {
     public void saveOption(Option option) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into option (option_name) values (?)",
+                    "insert into option (option_name, question_id) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, option.getOptionName());
+                statement.setLong(2, option.getQuestionId());
 
                 statement.executeUpdate();
 
@@ -49,6 +50,7 @@ public class OptionDao {
         Option option = new Option();
         option.setOptionId(rs.getLong("option_id"));
         option.setOptionName(rs.getString("option_name"));
+        option.setQuestionId(rs.getLong("question_id"));
         return option;
     }
 

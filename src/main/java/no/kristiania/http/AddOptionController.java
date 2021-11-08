@@ -24,6 +24,7 @@ public class AddOptionController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Option option = new Option();
+        option.setQuestionId(Long.parseLong(queryMap.get("questionId")));
         option.setOptionName(queryMap.get("optionName"));
         optionDao.saveOption(option);
 
