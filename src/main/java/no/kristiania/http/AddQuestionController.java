@@ -26,8 +26,8 @@ public class AddQuestionController implements HttpController {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Question question = new Question();
 
-        question.setQuestionTitle(queryMap.get("question_title")); //LEGGE INN STRINGS
-        question.setQuestionDescription(queryMap.get("question_description")); //LEGGE INN STRINGS
+        question.setQuestionTitle(queryMap.get("questionTitle")); //LEGGE INN STRINGS
+        question.setQuestionDescription(queryMap.get("questionDescription")); //LEGGE INN STRINGS
 
         // Skrive test for at inputfelt ikke er tomt!
         if (question.getQuestionTitle() == null || question.getQuestionTitle().isBlank()){
