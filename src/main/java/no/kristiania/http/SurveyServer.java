@@ -28,8 +28,8 @@ public class SurveyServer {
         AnswerDao answerDao = new AnswerDao(dataSource);
 
 
-        HttpServer httpServer = new HttpServer(1962);
-        httpServer.addController(new AddQuestionController(personDao));
+        HttpServer httpServer = new HttpServer(1963);
+        httpServer.addController(new AddQuestionController(questionDao));
         httpServer.addController(new ListPeopleController(personDao));
         httpServer.addController(new FileTargetController());
         //httpServer.addController(new checkFileExtensionController());

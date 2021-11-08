@@ -2,6 +2,8 @@ package no.kristiania.http;
 
 import no.kristiania.TestData;
 import no.kristiania.person.*;
+import no.kristiania.question.Question;
+import no.kristiania.question.QuestionDao;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -105,7 +107,7 @@ public class HttpServerTest {
     @Test
     void shouldCreateNewPerson() throws IOException, SQLException {
         PersonDao personDao = new PersonDao(TestData.testDataSource());
-        server.addController(new AddQuestionController(personDao));
+        //server.addController(new AddQuestionController(personDao));
 
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",
@@ -120,4 +122,20 @@ public class HttpServerTest {
                     assertThat(p.getLastName()).isEqualTo("Persson");
                 });
     }
+
+    /*@Test
+    void shouldCreateNewQuestion() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "Examplequestion?"
+        );
+        assertEquals(200, postclient.getStatusCode());
+        Question question = questionDao.listAllQuestion().get(0);
+        assertEquals();
+    }*/
 }
