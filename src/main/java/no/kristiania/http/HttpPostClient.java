@@ -14,6 +14,7 @@ public class HttpPostClient {
                 "Host: " + host + "\r\n" +
                 "Connection: close\r\n" +
                 "Content-Length: " + contentBody.length() + "\r\n" +
+                "Content-Type: text/html; utf-8\r\n" +
                 "\r\n" +
                 contentBody;
 

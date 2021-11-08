@@ -40,6 +40,7 @@ public class SurveyServer {
         httpServer.addController(new QuestionOptionsController(questionDao));
         httpServer.addController(new AddNewAnswerController(answerDao));
         httpServer.addController(new EditSurveyController(questionDao));
+        httpServer.addController(new SetCookieController());
 
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()

@@ -8,13 +8,17 @@
 <body>
     <h1>Questionnaire</h1>
 
+    <form method="POST" action="/api/setCookie">
+        <label>Hi! Whats your name?<br><input type="text" name="cookieName" /></label>
+        <button>OK</button>
+    </form>
+
     <div id="questions">
         <form method="POST" action="/api/newAnswer">
 
         </form>
     </div>
-
-
+    
     <div>
         <a href="newQuestion.html">Add new question</a><br>
         <a href="addOption.html">Add options</a><br>

@@ -78,6 +78,7 @@ public class HttpMessage {
     public void write(Socket socket) throws IOException {
         String response = startLine + "\r\n" +
                 "Content-Length: " + messageBody.getBytes().length + "\r\n" +
+                "Content-Type: text/html; utf-8\r\n" +
                 "Connection: close\r\n" +
                 "\r\n" +
                 messageBody;
