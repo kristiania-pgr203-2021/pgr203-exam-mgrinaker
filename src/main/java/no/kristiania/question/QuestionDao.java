@@ -1,9 +1,5 @@
 package no.kristiania.question;
 
-import no.kristiania.person.Person;
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +16,7 @@ public class QuestionDao {
     public void saveQuestion(Question question) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into question (questionTitle, questionDescription) values (?, ?)",
+                    "insert into question (question_title, question_description) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, question.getQuestionTitle());
@@ -30,7 +26,7 @@ public class QuestionDao {
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    question.setQuestion_id(rs.getLong("questionId"));
+                    question.setQuestionId(rs.getLong("question_id"));
                 }
             }
         }
@@ -38,7 +34,7 @@ public class QuestionDao {
 
     public Question retrieveQuestion(long questionId) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question where questionId = ?")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id = ?")) {
                 statement.setLong(1, questionId);
 
                 try (ResultSet rs = statement.executeQuery()) {
@@ -52,9 +48,9 @@ public class QuestionDao {
 
     private Question readFromResultSetQuestion(ResultSet rs) throws SQLException {
         Question question = new Question();
-        question.setQuestion_id(rs.getLong("questionId"));
-        question.setQuestionTitle(rs.getString("questionTitle"));
-        question.setQuestionDescription(rs.getString("questionDescription"));
+        question.setQuestionId(rs.getLong("question_id"));
+        question.setQuestionTitle(rs.getString("question_title"));
+        question.setQuestionDescription(rs.getString("question_description"));
         return question;
     }
 

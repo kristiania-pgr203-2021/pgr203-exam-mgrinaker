@@ -1,7 +1,5 @@
 package no.kristiania.http;
 
-import no.kristiania.person.Person;
-import no.kristiania.person.PersonDao;
 import no.kristiania.question.Question;
 import no.kristiania.question.QuestionDao;
 
