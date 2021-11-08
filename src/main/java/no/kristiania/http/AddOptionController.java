@@ -17,7 +17,7 @@ public class AddOptionController implements HttpController {
 
     @Override
     public String getPath() {
-        return "/api/questionOptions";
+        return "/api/alternativeAnswers";
     }
 
     @Override
@@ -26,6 +26,8 @@ public class AddOptionController implements HttpController {
         Option option = new Option();
         option.setOptionName(queryMap.get("optionName"));
         optionDao.saveOption(option);
+
+
 
         return new HttpMessage("HTTP/1.1 200 OK", "It is done");
     }
