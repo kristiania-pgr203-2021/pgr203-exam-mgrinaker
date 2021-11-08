@@ -2,27 +2,29 @@ package no.kristiania.http;
 
 import no.kristiania.person.Person;
 import no.kristiania.person.PersonDao;
+import no.kristiania.question.Question;
+import no.kristiania.question.QuestionDao;
 
 import java.sql.SQLException;
 
 public class ListPeopleController implements HttpController {
-    private PersonDao personDao;
+    private QuestionDao questionDao;
 
-    public ListPeopleController(PersonDao personDao) {
-        this.personDao = personDao;
+    public ListPeopleController(QuestionDao questionDao) {
+        this.questionDao = questionDao;
     }
 
     @Override
     public String getPath() {
-        return "/api/people";
+        return "/api/question";
     }
 
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException {
         String response = "";
 
-        for (Person person : personDao.listAll()){
-            response += "<div>" + person.getLastName() + ", " + person.getFirstName() + "</div>";
+        for (Question question : questionDao.listAllQuestion()){
+            response += "<div>" + question.getQuestionTitle() + ", " + question.getQuestionDescription() + "</div>";
         }
         return new HttpMessage("HTTP/1.1 200 OK", response);
     }

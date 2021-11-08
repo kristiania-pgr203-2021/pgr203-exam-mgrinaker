@@ -30,7 +30,7 @@ public class SurveyServer {
 
         HttpServer httpServer = new HttpServer(1963);
         httpServer.addController(new AddQuestionController(questionDao));
-        httpServer.addController(new ListPeopleController(personDao));
+        httpServer.addController(new ListPeopleController(questionDao));
         httpServer.addController(new FileTargetController());
         //httpServer.addController(new checkFileExtensionController());
 

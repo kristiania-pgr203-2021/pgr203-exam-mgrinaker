@@ -4,6 +4,7 @@ import no.kristiania.TestData;
 import no.kristiania.person.*;
 import no.kristiania.question.Question;
 import no.kristiania.question.QuestionDao;
+import no.kristiania.question.QuestionDaoTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -88,19 +89,19 @@ public class HttpServerTest {
 
     @Test
     void shouldListPeopleFormDatabase() throws SQLException, IOException {
-        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
 
-        Person person1 = PersonDaoTest.examplePerson();
-        personDao.save(person1);
-        Person person2 = PersonDaoTest.examplePerson();
-        personDao.save(person2);
+        Question question1 = QuestionDaoTest.exampleQuestion();
+        questionDao.saveQuestion(question1);
+        Question question2 = QuestionDaoTest.exampleQuestion();
+        questionDao.saveQuestion(question2);
 
-        server.addController(new ListPeopleController(personDao));
+        server.addController(new ListPeopleController(questionDao));
 
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/people");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(person1.getLastName() + ", " + person1.getFirstName())
-                .contains(person2.getLastName() + ", " + person2.getFirstName());
+                .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription())
+                .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
 
     }
 
