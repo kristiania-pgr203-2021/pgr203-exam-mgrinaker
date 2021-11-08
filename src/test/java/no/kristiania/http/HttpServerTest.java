@@ -1,6 +1,7 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
+import no.kristiania.option.OptionDao;
 import no.kristiania.person.*;
 import no.kristiania.question.Question;
 import no.kristiania.question.QuestionDao;
@@ -90,13 +91,14 @@ public class HttpServerTest {
     @Test
     void shouldListPeopleFormDatabase() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        OptionDao optionDao = new OptionDao(TestData.testDataSource());
 
         Question question1 = QuestionDaoTest.exampleQuestion();
         questionDao.saveQuestion(question1);
         Question question2 = QuestionDaoTest.exampleQuestion();
         questionDao.saveQuestion(question2);
 
-        server.addController(new ListPeopleController(questionDao));
+        server.addController(new ListQuestionController(questionDao, optionDao));
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())

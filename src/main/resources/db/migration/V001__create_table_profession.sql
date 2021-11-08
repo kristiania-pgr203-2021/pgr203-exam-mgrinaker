@@ -10,3 +10,4 @@ insert into profession ( profession_title)
 values ('Danser');
 insert into profession ( profession_title)
 values ('Konsulent');
+

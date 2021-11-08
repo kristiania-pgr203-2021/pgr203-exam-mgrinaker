@@ -1,6 +1,7 @@
 package no.kristiania.http;
 
 import no.kristiania.answer.AnswerDao;
+import no.kristiania.option.OptionDao;
 import no.kristiania.person.PersonDao;
 import no.kristiania.profession.ProfessionDao;
 import no.kristiania.question.QuestionDao;
@@ -26,15 +27,17 @@ public class SurveyServer {
         QuestionDao questionDao = new QuestionDao(dataSource);
         WorkplaceDao workplaceDao = new WorkplaceDao(dataSource);
         AnswerDao answerDao = new AnswerDao(dataSource);
+        OptionDao optionDao = new OptionDao(dataSource);
 
 
         HttpServer httpServer = new HttpServer(1963);
         httpServer.addController(new AddQuestionController(questionDao));
-        httpServer.addController(new ListPeopleController(questionDao));
+        httpServer.addController(new ListQuestionController(questionDao, optionDao));
         httpServer.addController(new FileTargetController());
-        httpServer.addController(new AddOptionController(questionDao));
+        httpServer.addController(new AddOptionController(optionDao));
         httpServer.addController(new ListAnswersController(answerDao));
         //httpServer.addController(new checkFileExtensionController());
+        httpServer.addController(new QuestionOptionsController(questionDao));
 
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()
