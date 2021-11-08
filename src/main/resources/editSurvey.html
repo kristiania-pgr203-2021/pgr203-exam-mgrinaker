@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Kristiania Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Edit the survey</h1>
+    <p>Feel free to change any of the title and descripton in the question, to a title/description you feel will suit you better.</p>
+    <h3>Edit the title of your chosen title</h3>
+    <form method="POST" action="/api/editSurvey">
+        <label for="questions">Titles:<select id="questions" name="questionTitle"/></label>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <h4>Editing to:</h4>
+    <form action="/api/editTitle">
+        <label for="newTitle">New title:</label>
+        <input type="text" id="newTitle" name="newTitle">
+        <input type="submit" value="Submit">
+    </form>
+    <br><br>
+
+    <h3>Edit description of chosen description</h3>
+    <br><br>
+    <div>
+        <a href="index.html">Back to frontpage</a>
+    </div>
+
+</body>
+<script>
+    fetch("/api/questionOptions")
+        .then(function(response){
+            return response.text();
+        }).then(function(text){
+        document.getElementById("questions").innerHTML = text;
+    });
+</script>
+</html>
