@@ -123,7 +123,7 @@ public class HttpServerTest {
                 });
     }
 
-    /*@Test
+    @Test
     void shouldCreateNewQuestion() throws IOException, SQLException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         server.addController(new AddQuestionController(questionDao));
@@ -132,10 +132,10 @@ public class HttpServerTest {
                 "localhost",
                 server.getPort(),
                 "/api/newQuestion",
-                "Examplequestion?"
+                "ExampleQuestion"
         );
         assertEquals(200, postclient.getStatusCode());
         Question question = questionDao.listAllQuestion().get(0);
-        assertEquals();
-    }*/
+        assertEquals(question, "Hvordan trives du på jobb?");
+    }
 }
