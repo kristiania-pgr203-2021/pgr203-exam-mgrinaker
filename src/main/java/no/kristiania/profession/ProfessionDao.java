@@ -1,4 +1,4 @@
-package no.kristiania.person;
+package no.kristiania.profession;
 
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -9,21 +9,8 @@ import java.sql.*;
 public class ProfessionDao {
     private final DataSource dataSource;
 
-    ///KAN DERE SE DETTE
     public ProfessionDao(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
-
-    public static DataSource createDataSource() {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/person_db");
-        dataSource.setUser("survey_dbuser");
-        dataSource.setPassword("TvsVM5wRCdh");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
-
-        return dataSource;
     }
 
     public void save(Profession profession) throws SQLException {

@@ -1,5 +1,6 @@
-package no.kristiania.person;
+package no.kristiania.profession;
 
+import no.kristiania.TestData;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;

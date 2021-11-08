@@ -1,13 +1,9 @@
 package no.kristiania.person;
 
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class PersonDao {
     private final DataSource dataSource;
@@ -16,24 +12,11 @@ public class PersonDao {
         this.dataSource = dataSource;
     }
 
-    public static DataSource createDataSource() {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/person_db");
-        dataSource.setUser("survey_dbuser");
-        dataSource.setPassword("TvsVM5wRCdh");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
-
-        return dataSource;
-    }
-
     public void save(Person person) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
                     "insert into person (first_name, last_name, email, profession_id, workplace_id) values (?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-            )) {
+                    Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, person.getFirstName());
                 statement.setString(2, person.getLastName());
                 statement.setString(3, person.getMailAddress());
@@ -86,16 +69,5 @@ public class PersonDao {
         person.setProfessionId(rs.getLong("profession_id"));
         person.setWorkplaceId(rs.getLong("workplace_id"));
         return person;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        PersonDao dao = new PersonDao(createDataSource());
-
-        System.out.println("Please enter a last name: ");
-
-        Scanner scanner = new Scanner(System.in);
-        String lastName = scanner.nextLine().trim();
-
-//      //System.out.println(dao.listByLastName(lastName));
     }
 }

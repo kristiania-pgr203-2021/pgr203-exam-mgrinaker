@@ -15,18 +15,6 @@ public class AnswerDao {
         this.dataSource = dataSource;
     }
 
-    public static DataSource createDataSource(){
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/survey_db");
-        dataSource.setUser("servey_dbuser");
-        dataSource.setPassword("TvsVM5wRCdh");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
-
-        return dataSource;
-    }
-
     public void saveAnswer(Answer answer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(

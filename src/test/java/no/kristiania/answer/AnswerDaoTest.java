@@ -1,5 +1,6 @@
 package no.kristiania.answer;
 
+import no.kristiania.TestData;
 import no.kristiania.question.Question;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AnswerDaoTest {
 
-    private AnswerDao dao = new AnswerDao(TestDataAnswer.testDataSource());
+    private AnswerDao dao = new AnswerDao(TestData.testDataSource());
 
     @Test
     void shouldRetrieveSavedAnswer() throws SQLException {
@@ -38,9 +39,9 @@ public class AnswerDaoTest {
 
     private Answer exampleAnswer(){
         Answer answer = new Answer();
-        answer.setQuestion_id(TestDataAnswer.pickOneInteger(1, 2, 3, 4, 5));
-        answer.setPerson_id(TestDataAnswer.pickOneInteger(1, 2, 3));
-        answer.setResponse(TestDataAnswer.pickOneInteger(1, 2, 3, 4, 5));
+        answer.setQuestion_id(TestData.pickOneInteger(1, 2, 3, 4, 5));
+        answer.setPerson_id(TestData.pickOneInteger(1, 2, 3));
+        answer.setResponse(TestData.pickOneInteger(1, 2, 3, 4, 5));
 
         return answer;
     }

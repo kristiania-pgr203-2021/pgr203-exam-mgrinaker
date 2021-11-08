@@ -1,7 +1,10 @@
 package no.kristiania.http;
 
+import no.kristiania.answer.AnswerDao;
 import no.kristiania.person.PersonDao;
-import no.kristiania.person.RoleDao;
+import no.kristiania.profession.ProfessionDao;
+import no.kristiania.question.QuestionDao;
+import no.kristiania.workplace.WorkplaceDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
@@ -17,11 +20,15 @@ public class SurveyServer {
 
     public static void main(String[] args) throws IOException {
         DataSource dataSource = createDataSource();
-        RoleDao roleDao = new RoleDao(dataSource);
+
         PersonDao personDao = new PersonDao(dataSource);
+        ProfessionDao professionDao = new ProfessionDao(dataSource);
+        QuestionDao questionDao = new QuestionDao(dataSource);
+        WorkplaceDao workplaceDao = new WorkplaceDao(dataSource);
+        AnswerDao answerDao = new AnswerDao(dataSource);
+
 
         HttpServer httpServer = new HttpServer(1962);
-        httpServer.addController(new RoleOptionsController(roleDao));
         httpServer.addController(new AddQuestionController(personDao));
         httpServer.addController(new ListPeopleController(personDao));
         httpServer.addController(new FileTargetController());

@@ -1,6 +1,6 @@
 package no.kristiania.question;
 
-import no.kristiania.person.TestData;
+import no.kristiania.TestData;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuestionDaoTest {
 
-    private QuestionDao dao = new QuestionDao(TestDataQuestion.testDataSource());
+    private QuestionDao dao = new QuestionDao(TestData.testDataSource());
 
     @Test
     void shouldRetrieveSavedQuestion() throws SQLException {
@@ -39,8 +39,8 @@ public class QuestionDaoTest {
 
     private Question exampleQuestion() {
         Question question = new Question();
-        question.setQuestionTitle(TestDataQuestion.pickOne("Hvordan går det?", "Har du det bra?", "Hvordan trives du?", "Hei"));
-        question.setQuestionDescription(TestDataQuestion.pickOne("Vi ønsker å se hvordan du har det", "Vi vil se din tilstand", "Vi mene"));
+        question.setQuestionTitle(TestData.pickOne("Hvordan går det?", "Har du det bra?", "Hvordan trives du?", "Hei"));
+        question.setQuestionDescription(TestData.pickOne("Vi ønsker å se hvordan du har det", "Vi vil se din tilstand", "Vi mene"));
         return question;
     }
 }

@@ -1,4 +1,4 @@
-package no.kristiania.person;
+package no.kristiania.workplace;
 
 public class Workplace {
     private long workplaceId;

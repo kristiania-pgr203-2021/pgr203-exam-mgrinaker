@@ -1,4 +1,4 @@
-package no.kristiania.person;
+package no.kristiania.workplace;
 
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -11,18 +11,6 @@ public class WorkplaceDao {
 
     public WorkplaceDao(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
-
-    public static DataSource createDataSource() {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/person_db");
-        dataSource.setUser("survey_dbuser");
-        dataSource.setPassword("TvsVM5wRCdh");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
-
-        return dataSource;
     }
 
     public void save(Workplace workplace) throws SQLException {

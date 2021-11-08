@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import no.kristiania.TestData;
 import no.kristiania.person.*;
 import org.junit.jupiter.api.Test;
 
@@ -81,19 +82,6 @@ public class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/example-file.html");
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
-    }
-
-    @Test
-    void shouldReturnRolesFromServer() throws IOException, SQLException {
-        RoleDao roleDao = new RoleDao(TestData.testDataSource());
-        roleDao.save("Teacher");
-        roleDao.save("Student");
-        server.addController(new RoleOptionsController(roleDao));
-
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/roleOptions");
-        assertEquals(
-                "<option value=1>Teacher</option><option value=2>Student</option>",
-                client.getMessageBody());
     }
 
     @Test

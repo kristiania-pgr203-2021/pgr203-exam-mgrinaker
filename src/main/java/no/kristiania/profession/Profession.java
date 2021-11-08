@@ -1,4 +1,4 @@
-package no.kristiania.person;
+package no.kristiania.profession;
 
 public class Profession {
     private long professionId;

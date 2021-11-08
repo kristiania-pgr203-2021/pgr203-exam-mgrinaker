@@ -1,5 +1,6 @@
 package no.kristiania.person;
 
+import no.kristiania.TestData;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -40,10 +41,11 @@ public class PersonDaoTest {
         person.setFirstName(TestData.pickOne("Johannes", "Jill", "Jane", "James", "Jacob", "Nora", "Emil", "Noah", "Emma", "Maja", "Oliver", "Filip", "Lukas","Liam", "Henrik", "Sofia", "Emilie"));
         person.setLastName(TestData.pickOne("Hansen", "Johansen", "Olsen", "Larsen", "Andersen", "Pedersen", "Nilsen", "Kristiansen", "Jensen", "Karlsen", "Johnsen"));
         person.setMailAddress(TestData.pickOne("romantic01@online.no", "crypt@gmail.com", "kramulous@comcast.net", "gomor@icloud.com", "dbrobins@att.net", "lampcht@online.net", "mleary@mac.com", "gward@verizon.net", "dexter@msn.com", "oiyou-47@mail.com", "essi389@mail.com", "brovade5@ymail.com", "tebei41@yopl.com", "pauda9@mail.com", "blomster@yahoo.com", "boot.32@gmail.com"));
-        person.setProfessionId(TestData.pickOne(1, 2, 2));
-        person.setWorkplaceId(TestData.pickOne(1, 2, 3));
+        person.setProfessionId(TestData.pickOneInteger(1, 2, 2));
+        person.setWorkplaceId(TestData.pickOneInteger(1, 2, 3));
         return person;
-
     }
+
+
 
 }
