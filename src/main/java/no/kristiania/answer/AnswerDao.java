@@ -19,7 +19,7 @@ public class AnswerDao {
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setLong(1, answer.getQuestionId());
-                statement.setLong(2, answer.getPersonId());
+                statement.setLong(2, 1);
                 statement.setInt(3, answer.getOptionId());
 
                 statement.executeUpdate();

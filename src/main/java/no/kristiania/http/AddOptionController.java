@@ -4,6 +4,8 @@ import no.kristiania.option.Option;
 import no.kristiania.option.OptionDao;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -24,8 +26,12 @@ public class AddOptionController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Option option = new Option();
-        option.setQuestionId(Long.parseLong(queryMap.get("questionId")));
-        option.setOptionName(queryMap.get("optionName"));
+
+        String decodedQuestionId = URLDecoder.decode(queryMap.get("questionId"), StandardCharsets.UTF_8);
+        String decodedOptionName = URLDecoder.decode(queryMap.get("optionName"), StandardCharsets.UTF_8);
+
+        option.setQuestionId(Long.parseLong(decodedQuestionId));
+        option.setOptionName(decodedOptionName);
         optionDao.saveOption(option);
 
 

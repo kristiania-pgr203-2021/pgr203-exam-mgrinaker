@@ -22,9 +22,13 @@ public class AddNewAnswerController implements HttpController{
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
-        Answer answer = new Answer();
 
-        answer.setOptionId(Integer.parseInt(queryMap.get("optionId")));
+        String question = queryMap.get("questionId");
+        String option = queryMap.get("optionId");
+
+        Answer answer = new Answer();
+        answer.setQuestionId(Long.parseLong(question));
+        answer.setOptionId(Integer.parseInt(option));
         //answer.setQuestionId(Integer.parseInt(queryMap.get("questionId")));
 
         answerDao.saveAnswer(answer);
