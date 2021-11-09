@@ -141,4 +141,22 @@ public class HttpServerTest {
         Question question = questionDao.listAllQuestion().get(0);
         assertEquals(question, "Hvordan trives du på jobb?");
     }
+
+    @Test
+    void shouldEditTitle() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new EditQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editQuestion",
+                "questionTitle=Question&newTitle=Lol"
+        );
+        assertEquals(200, postclient.getStatusCode());
+        assertThat(questionDao.listAllQuestion())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getQuestionTitle()).isEqualTo("Question");
+                });
+    }
 }

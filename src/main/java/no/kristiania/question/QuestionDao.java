@@ -59,7 +59,6 @@ public class QuestionDao {
             try (PreparedStatement statement = connection.prepareStatement(
                     "select * from question"
             )) {
-
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<Question> result = new ArrayList<>();
 
@@ -73,15 +72,46 @@ public class QuestionDao {
         }
     }
 
-    public void editQuestion(String questionTitle, String newTitle) throws SQLException {
+    /*public void editQuestion(String questionTitle, String newTitle) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE question SET question_title = ? where question_title = 'Har du noen venner?'")) {
+                    "UPDATE question SET question_title = ? where question_title = 'ugh'")) {
+                statement.setString(1, newTitle);
+                statement.setString(2, questionTitle);
+                makeNewTitle(newTitle);
+                statement.executeUpdate();
+
+            }
+        }
+    }*/
+
+    public int editQuestion(String questionTitle, String newTitle) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            int affectedRows;
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE question SET question_title = ? where question_title = ?")) {
+                statement.setString(1, newTitle);
+                statement.setString(2, questionTitle);
+
+                affectedRows = statement.executeUpdate();
+
+
+                statement.executeUpdate();
+                System.out.println(statement.executeUpdate());
+                return affectedRows;
+            }
+        }
+    }
+
+    /*private void makeNewTitle(String newTitle) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE question SET question_title = ? where question_title = ?")) {
                 statement.setString(1, newTitle);
                 //statement.setString(2, questionTitle);
 
                 statement.executeUpdate();
             }
         }
-    }
+    }*/
 }
