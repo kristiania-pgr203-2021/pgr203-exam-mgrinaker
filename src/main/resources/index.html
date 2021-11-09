@@ -8,9 +8,9 @@
 <body>
     <h1>Questionnaire</h1>
 
-    <form method="POST" action="/api/setCookie">
-        <label>Hi! Whats your name?<br><input type="text" name="cookieName" /></label>
-        <button>OK</button>
+    <form method="POST" action="/api/setCookie" id="setCookie" >
+        <label>Hi! Whats your name?<br><input type="text" id="cookieName" name="cookieName" placeholder="Enter your first name" /></label>
+        <button type="submit">OK</button>
     </form>
 
     <div id="questions">
@@ -28,8 +28,13 @@
 </body>
 
 <script>
-    document.cookie = "username=cookieName; path=/localhost/1963/";
-    var addName = prompt()
+    const form = document.getElementById('setCookie');
+    form.addEventListener('submit', (event) =>{
+        //gjøre noe greier her med cookies
+        var nameValue = document.getElementById("cookieName").value;
+        return nameValue;
+    });
+
     fetch("/api/question")
     .then(function(response){
         return response.text();
