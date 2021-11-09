@@ -72,4 +72,16 @@ public class QuestionDao {
             }
         }
     }
+
+    public void editQuestion(String questionTitle, String newTitle) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE question SET question_title = ? where question_title = 'Har du noen venner?'")) {
+                statement.setString(1, newTitle);
+                //statement.setString(2, questionTitle);
+
+                statement.executeUpdate();
+            }
+        }
+    }
 }
