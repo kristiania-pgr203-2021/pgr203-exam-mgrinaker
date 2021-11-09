@@ -5,13 +5,13 @@
     <title>Kristiania Survey</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="checkCookie()">
     <h1>Questionnaire</h1>
-
-    <form method="POST" action="/api/setCookie" id="setCookie" >
+    <!--
+    <form method="POST" action="/api/setCookie" id="setCookie"> onsubmit="checkCookie()"
         <label>Hi! Whats your name?<br><input type="text" id="cookieName" name="cookieName" placeholder="Enter your first name" /></label>
         <button type="submit">OK</button>
-    </form>
+    </form>-->
 
     <div id="questions">
         <form method="POST" action="/api/newAnswer">
@@ -28,12 +28,45 @@
 </body>
 
 <script>
-    const form = document.getElementById('setCookie');
+    function setCookie(cookieName, cookieValue, expireDays) {
+        const date = new Date();
+        date.setTime(date.getTime() + (expireDays * 24 * 60 * 60 * 1000));
+        let expires = "expires="+date.toUTCString();
+        document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cookieName) {
+        let name = cookieName + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        let user = getCookie("cookiename");
+        if (user != "") {
+            alert("Welcome again " + user);
+        } else {
+            user = prompt("Please enter your name:", "");
+            if (user != "" && user != null) {
+                setCookie("cookiename", user, 365);
+            }
+        }
+    }
+    /*const form = document.getElementById('setCookie');
     form.addEventListener('submit', (event) =>{
         //gjøre noe greier her med cookies
         var nameValue = document.getElementById("cookieName").value;
         return nameValue;
-    });
+    });*/
 
     fetch("/api/question")
     .then(function(response){
