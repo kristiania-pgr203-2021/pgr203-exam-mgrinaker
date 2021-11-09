@@ -25,7 +25,7 @@ public class QuestionOptionsController implements HttpController{
 
         int value = 1;
         for(Question question : questionDao.listAllQuestion()){
-            responseText += "<option value=" + (value++) + ">" + question.getQuestionTitle() + "</option>";
+            responseText += "<option value=" + question.getQuestionId() + ">" + question.getQuestionTitle() + "</option>";
         }
 
         return new HttpMessage("HTTP/1.1 200 OK", responseText);

@@ -97,13 +97,13 @@ public class QuestionDao {
         }
     }
 
-    public void editQuestion(String questionTitle, String newTitle) throws SQLException {
+    public void editQuestion(Long questionTitle, String newTitle) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             int affectedRows;
             try (PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE question SET question_title = ? where question_title = 'Hvem er du?'")) {
+                    "UPDATE question SET question_title = ? where question_id = ?")) {
                 statement.setString(1, newTitle);
-                //statement.setString(2, questionTitle);
+                statement.setLong(2, questionTitle);
 
                 statement.executeUpdate();
 

@@ -3,6 +3,8 @@ package no.kristiania.http;
 import no.kristiania.question.QuestionDao;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -22,13 +24,15 @@ public class EditQuestionController implements HttpController{
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
 
-        String questionTitle = queryMap.get("questionTitle");
-        String newTitle = queryMap.get("newTitle");
+        long questionTitle = Long.parseLong(queryMap.get("questionTitle"));
+        String newTitle = URLDecoder.decode(queryMap.get("newTitle"), StandardCharsets.UTF_8);
 
         //questionDao.getQuestionId(questionTitle);
 
         questionDao.editQuestion(questionTitle, newTitle);
 
-        return new HttpMessage("HTTP/1.1 200 OK", "It is done");
+        String tester = String.valueOf(questionTitle);
+
+        return new HttpMessage("HTTP/1.1 200 OK", tester);
     }
 }
