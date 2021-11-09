@@ -47,6 +47,6 @@ public class AddQuestionController implements HttpController {
         }
         questionDao.saveQuestion(question);
 
-        return new HttpMessage("HTTP/1.1 200 OK", "It is done");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/addOption.html" );
     }
 }
