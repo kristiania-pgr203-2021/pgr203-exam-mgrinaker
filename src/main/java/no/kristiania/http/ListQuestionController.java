@@ -26,8 +26,8 @@ public class ListQuestionController implements HttpController {
         String response = "";
 
         for (Question question : questionDao.listAllQuestion()){
-            response += "<form>" +
-                    "<h2><input type='checkbox' checked='true' name='questionId' value='" + question.getQuestionId() + "' +>" + question.getQuestionTitle() + "</input></h2>" +
+            response += "<form method='POST' action='/api/newAnswer'>" +
+                    "<h2><input type='hidden' checked='true' name='questionId' value='" + question.getQuestionId() + "' +>" + question.getQuestionTitle() + "</input></h2>" +
                     question.getQuestionDescription() + "<br>";
 
             for (Option option : optionDao.listAllOption()){
