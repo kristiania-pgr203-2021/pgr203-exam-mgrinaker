@@ -28,11 +28,14 @@
 </body>
 
 <script>
+    document.cookie = "username=cookieName; path=/localhost/1963/";
+    var addName = prompt()
     fetch("/api/question")
     .then(function(response){
         return response.text();
     }).then(function(text){
         document.getElementById("questions").innerHTML = text;
     });
+
 </script>
 </html>
