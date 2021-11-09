@@ -25,7 +25,7 @@ public class ListAnswersController implements HttpController {
         String response = "";
 
         for (Answer answer : answerDao.listAllAnswers()){
-            response += "<div>" + answer.getPerson_id() + ", " + answer.getQuestion_id() + ", " + answer.getResponse() + "</div>";
+            response += "<div>" + answer.getPersonId() + ", " + answer.getQuestionId() + ", " + answer.getOptionId() + "</div>";
 
         }
 

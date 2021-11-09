@@ -10,6 +10,7 @@ public class HttpMessage {
     public String startLine;
     public final HashMap<String, String> headerFields = new HashMap<>();
     public String messageBody;
+    public String location;
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = HttpMessage.readLine(socket);
@@ -22,6 +23,12 @@ public class HttpMessage {
     public HttpMessage(String startLine, String messageBody){
         this.startLine = startLine;
         this.messageBody = messageBody;
+    }
+
+    public HttpMessage(String startLine, String messageBody, String location){
+        this.startLine = startLine;
+        this.messageBody = messageBody;
+        this.location = location;
     }
 
     public static Map<String, String> parseRequestParameters(String query) {
@@ -80,6 +87,7 @@ public class HttpMessage {
                 "Content-Length: " + messageBody.getBytes().length + "\r\n" +
                 "Content-Type: text/html; utf-8\r\n" +
                 "Connection: close\r\n" +
+                "Location: " + location + "\r\n" +
                 "\r\n" +
                 messageBody;
 

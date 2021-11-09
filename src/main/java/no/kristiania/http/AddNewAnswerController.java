@@ -24,9 +24,10 @@ public class AddNewAnswerController implements HttpController{
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Answer answer = new Answer();
 
-        answer.setQuestion_id(Long.parseLong(queryMap.get("1")));
+        answer.setOptionId(Integer.parseInt(queryMap.get("optionId")));
+        //answer.setQuestionId(Integer.parseInt(queryMap.get("questionId")));
 
         answerDao.saveAnswer(answer);
-        return new HttpMessage("HTTP/1.1 200 OK", "It is done");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/newQuestion.html");
     }
 }

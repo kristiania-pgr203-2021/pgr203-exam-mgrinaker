@@ -1,8 +1,5 @@
 package no.kristiania.answer;
 
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,18 +15,18 @@ public class AnswerDao {
     public void saveAnswer(Answer answer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into answer (question_id, person_id, response) values (?,?,?)",
+                    "insert into answer (question_id, person_id, option_id) values (?,?,?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
-                statement.setLong(1, answer.getQuestion_id());
-                statement.setLong(2, answer.getPerson_id());
-                statement.setInt(3, answer.getResponse());
+                statement.setLong(1, answer.getQuestionId());
+                statement.setLong(2, answer.getPersonId());
+                statement.setInt(3, answer.getOptionId());
 
                 statement.executeUpdate();
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    answer.setAnswer_id(rs.getLong("answer_id"));
+                    answer.setAnswerId(rs.getLong("answer_id"));
                 }
 
             }
@@ -52,10 +49,10 @@ public class AnswerDao {
 
     private Answer readFromResultSetAnswer(ResultSet rs) throws SQLException {
         Answer answer = new Answer();
-        answer.setAnswer_id(rs.getLong("answer_id"));
-        answer.setQuestion_id(rs.getLong("question_id"));
-        answer.setPerson_id(rs.getLong("person_id"));
-        answer.setResponse(rs.getInt("response"));
+        answer.setAnswerId(rs.getLong("answer_id"));
+        answer.setQuestionId(rs.getLong("question_id"));
+        answer.setPersonId(rs.getLong("person_id"));
+        answer.setOptionId(rs.getInt("response"));
         return answer;
     }
 

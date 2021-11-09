@@ -2,40 +2,40 @@ package no.kristiania.answer;
 
 public class Answer {
 
-    private long answer_id;
-    private long question_id;
-    private long person_id;
-    private int response;
+    private long answerId;
+    private long questionId;
+    private long personId;
+    private int optionId;
 
-    public long getAnswer_id() {
-        return answer_id;
+    public long getAnswerId() {
+        return answerId;
     }
 
-    public void setAnswer_id(long answer_id) {
-        this.answer_id = answer_id;
+    public void setAnswerId(long answerId) {
+        this.answerId = answerId;
     }
 
-    public long getQuestion_id() {
-        return question_id;
+    public long getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestion_id(long question_id) {
-        this.question_id = question_id;
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
     }
 
-    public long getPerson_id() {
-        return person_id;
+    public long getPersonId() {
+        return personId;
     }
 
-    public void setPerson_id(long person_id) {
-        this.person_id = person_id;
+    public void setPersonId(long personId) {
+        this.personId = personId;
     }
 
-    public Integer getResponse() {
-        return response;
+    public Integer getOptionId() {
+        return optionId;
     }
 
-    public void setResponse(int response) {
-        this.response = response;
+    public void setOptionId(int optionId) {
+        this.optionId = optionId;
     }
 }

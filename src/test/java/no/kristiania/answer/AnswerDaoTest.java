@@ -1,7 +1,6 @@
 package no.kristiania.answer;
 
 import no.kristiania.TestData;
-import no.kristiania.question.Question;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ public class AnswerDaoTest {
         Answer answer = exampleAnswer();
         dao.saveAnswer(answer);
 
-        assertThat(dao.retrieveAnswer(answer.getAnswer_id()))
+        assertThat(dao.retrieveAnswer(answer.getAnswerId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(answer);
@@ -32,16 +31,16 @@ public class AnswerDaoTest {
         dao.saveAnswer(anotherAnswer);
 
         assertThat(dao.listAllAnswers())
-                .extracting(Answer::getAnswer_id)
-                .contains(answer.getAnswer_id(), anotherAnswer.getAnswer_id());
+                .extracting(Answer::getAnswerId)
+                .contains(answer.getAnswerId(), anotherAnswer.getAnswerId());
 
     }
 
     private Answer exampleAnswer(){
         Answer answer = new Answer();
-        answer.setQuestion_id(TestData.pickOneInteger(1, 2, 3, 4, 5));
-        answer.setPerson_id(TestData.pickOneInteger(1, 2, 3));
-        answer.setResponse(TestData.pickOneInteger(1, 2, 3, 4, 5));
+        answer.setQuestionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
+        answer.setPersonId(TestData.pickOneInteger(1, 2, 3));
+        answer.setOptionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
 
         return answer;
     }
