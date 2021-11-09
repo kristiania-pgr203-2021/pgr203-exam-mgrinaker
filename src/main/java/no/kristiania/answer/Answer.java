@@ -5,7 +5,7 @@ public class Answer {
     private long answerId;
     private long questionId;
     private long personId;
-    private int optionId;
+    private long optionId;
 
     public long getAnswerId() {
         return answerId;
@@ -31,11 +31,11 @@ public class Answer {
         this.personId = personId;
     }
 
-    public Integer getOptionId() {
+    public long getOptionId() {
         return optionId;
     }
 
-    public void setOptionId(int optionId) {
+    public void setOptionId(long optionId) {
         this.optionId = optionId;
     }
 }

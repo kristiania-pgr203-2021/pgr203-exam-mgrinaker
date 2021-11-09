@@ -20,7 +20,7 @@ public class AnswerDao {
             )) {
                 statement.setLong(1, answer.getQuestionId());
                 statement.setLong(2, 1);
-                statement.setInt(3, answer.getOptionId());
+                statement.setLong(3, answer.getOptionId());
 
                 statement.executeUpdate();
 

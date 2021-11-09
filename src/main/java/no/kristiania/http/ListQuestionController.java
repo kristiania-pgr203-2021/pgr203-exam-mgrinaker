@@ -26,20 +26,20 @@ public class ListQuestionController implements HttpController {
         String response = "";
 
         for (Question question : questionDao.listAllQuestion()){
-            response += "<div>" +
-                    "<h2 name='questionId' value='" + question.getQuestionId() + "' +>" + question.getQuestionTitle() + "</h2>" +
+            response += "<form>" +
+                    "<h2><input type='checkbox' checked='true' name='questionId' value='" + question.getQuestionId() + "' +>" + question.getQuestionTitle() + "</input></h2>" +
                     question.getQuestionDescription() + "<br>";
 
             for (Option option : optionDao.listAllOption()){
                 if(question.getQuestionId() == option.getQuestionId()){
                     response +=
                             "<input type='checkbox' name='optionId' value='" + option.getOptionId() + "'>" +
-                            "<input type='checkbox' name='questionId' value='" + option.getQuestionId() + "'>" +
+                           // "<input type='checkbox' name='questionId' value='" + option.getQuestionId() + "'>" +
                             option.getOptionId() + ". " + option.getOptionName()
                     ;
                 }
             }
-        response += "<br><button>Add</button>";
+        response += "<br><button>Add</button></form>";
         }
 
         return new HttpMessage("HTTP/1.1 200 OK", response);

@@ -28,10 +28,9 @@ public class AddNewAnswerController implements HttpController{
 
         Answer answer = new Answer();
         answer.setQuestionId(Long.parseLong(question));
-        answer.setOptionId(Integer.parseInt(option));
-        //answer.setQuestionId(Integer.parseInt(queryMap.get("questionId")));
+        answer.setOptionId(Long.parseLong(option));
 
         answerDao.saveAnswer(answer);
-        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/newQuestion.html");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/index.html");
     }
 }
