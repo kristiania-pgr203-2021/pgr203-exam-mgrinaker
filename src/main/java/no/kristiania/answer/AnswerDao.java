@@ -53,7 +53,6 @@ public class AnswerDao {
         answer.setAnswerId(rs.getLong("answer_id"));
         answer.setQuestionId(rs.getLong("question_id"));
         answer.setPersonId(rs.getLong("person_id"));
-        answer.setOptionId(rs.getInt("response"));
         return answer;
     }
 

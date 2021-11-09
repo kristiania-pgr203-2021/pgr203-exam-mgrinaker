@@ -99,7 +99,6 @@ public class QuestionDao {
 
     public void editQuestion(Long questionTitle, String newTitle) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            int affectedRows;
             try (PreparedStatement statement = connection.prepareStatement(
                     "UPDATE question SET question_title = ? where question_id = ?")) {
                 statement.setString(1, newTitle);
@@ -107,6 +106,18 @@ public class QuestionDao {
 
                 statement.executeUpdate();
 
+            }
+        }
+    }
+
+    public void editQuestionDescription(Long questionTitle, String newDescription) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE question SET question_description = ? where question_id = ?")) {
+                statement.setString(1, newDescription);
+                statement.setLong(2, questionTitle);
+
+                statement.executeUpdate();
             }
         }
     }

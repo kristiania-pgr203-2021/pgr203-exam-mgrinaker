@@ -8,12 +8,16 @@
 <body>
     <h1>Edit the survey</h1>
     <p>Feel free to change any of the title and descripton in the question, to a title/description you feel will suit you better.</p>
-    <h3>Edit the title of your chosen title</h3>
+    <h3>Edit either the title or description of the question, or edit both the title and the description</h3>
     <form method="POST" encoding="UTF-8" action="/api/editQuestion">
         <label>Titles:<select type="number" id="questions" name="questionTitle"/></label>
         <input type="text" id="newTitle" name="newTitle" placeholder="New title here">
+        <input type="text" id="newDescription" name="newDescription" placeholder="New description here">
         <button>Edit</button>
+        <br>
+        <br>
     </form>
+
     <br><br>
     <div>
         <a href="index.html">Back to frontpage</a>

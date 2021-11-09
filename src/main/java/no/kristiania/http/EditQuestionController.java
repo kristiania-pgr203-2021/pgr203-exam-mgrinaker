@@ -26,13 +26,20 @@ public class EditQuestionController implements HttpController{
 
         long questionTitle = Long.parseLong(queryMap.get("questionTitle"));
         String newTitle = URLDecoder.decode(queryMap.get("newTitle"), StandardCharsets.UTF_8);
-
+        String newDescription = URLDecoder.decode(queryMap.get("newDescription"), StandardCharsets.UTF_8);
         //questionDao.getQuestionId(questionTitle);
 
-        questionDao.editQuestion(questionTitle, newTitle);
+        if(newTitle == ""){
+            questionDao.editQuestionDescription(questionTitle, newDescription);
+        }else if(newDescription == ""){
+            questionDao.editQuestion(questionTitle, newTitle);
+        }else {
+            questionDao.editQuestion(questionTitle, newTitle);
+            questionDao.editQuestionDescription(questionTitle, newDescription);
+        }
 
         String tester = String.valueOf(questionTitle);
 
-        return new HttpMessage("HTTP/1.1 200 OK", tester);
+        return new HttpMessage("HTTP/1.1 200 OK", "A question has been edited to: " + newTitle + ": " + newDescription);
     }
 }
