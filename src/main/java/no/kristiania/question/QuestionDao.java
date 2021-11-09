@@ -85,20 +85,28 @@ public class QuestionDao {
         }
     }*/
 
-    public int editQuestion(String questionTitle, String newTitle) throws SQLException {
+    public void getQuestionId(String questionTitle) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+
+
+            try (PreparedStatement statement = connection.prepareStatement("select question_id from question where question_title = ?")) {
+                statement.setString(1, questionTitle);
+
+            }
+
+        }
+    }
+
+    public void editQuestion(String questionTitle, String newTitle) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             int affectedRows;
             try (PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE question SET question_title = ? where question_title = ?")) {
+                    "UPDATE question SET question_title = ? where question_title = 'Hvem er du?'")) {
                 statement.setString(1, newTitle);
-                statement.setString(2, questionTitle);
-
-                affectedRows = statement.executeUpdate();
-
+                //statement.setString(2, questionTitle);
 
                 statement.executeUpdate();
-                System.out.println(statement.executeUpdate());
-                return affectedRows;
+
             }
         }
     }

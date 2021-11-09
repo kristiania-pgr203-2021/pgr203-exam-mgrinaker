@@ -25,6 +25,8 @@ public class EditQuestionController implements HttpController{
         String questionTitle = queryMap.get("questionTitle");
         String newTitle = queryMap.get("newTitle");
 
+        //questionDao.getQuestionId(questionTitle);
+
         questionDao.editQuestion(questionTitle, newTitle);
 
         return new HttpMessage("HTTP/1.1 200 OK", "It is done");
