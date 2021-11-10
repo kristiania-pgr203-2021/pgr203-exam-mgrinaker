@@ -37,12 +37,11 @@ public class SurveyServer {
         //httpServer.addController(new FileTargetController());
         httpServer.addController(new AddOptionController(optionDao));
         httpServer.addController(new ListAnswersController(answerDao, questionDao, optionDao, personDao));
-        //httpServer.addController(new checkFileExtensionController());
+        httpServer.addController(new CheckFileExtensionController());
         httpServer.addController(new QuestionOptionsController(questionDao));
         httpServer.addController(new AddNewAnswerController(answerDao));
         httpServer.addController(new EditQuestionController(questionDao));
         httpServer.addController(new SetCookieController());
-        httpServer.addController(new FileController());
 
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()
