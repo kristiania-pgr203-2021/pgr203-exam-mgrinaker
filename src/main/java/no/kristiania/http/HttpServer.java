@@ -54,7 +54,6 @@ public class HttpServer {
             HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
             response.write(clientSocket);
         } else {
-            /*
             InputStream fileResource = getClass().getResourceAsStream(fileTarget);
             if(fileResource != null) {
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -69,7 +68,7 @@ public class HttpServer {
                 }
                 writeOkResponse(clientSocket, responseText, contentType);
                 return;
-            }*/
+            }
 
                 String responseText = "File not found: " + requestTarget;
 
@@ -80,10 +79,8 @@ public class HttpServer {
                         "\r\n" +
                         responseText;
                 clientSocket.getOutputStream().write(response.getBytes());
-                return;
         }
     }
-
 
     private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
         String response = "HTTP/1.1 200 OK\r\n" +
@@ -103,6 +100,4 @@ public class HttpServer {
     public void addController(HttpController controller) {
         controllers.put(controller.getPath(), controller);
     }
-
-
 }
