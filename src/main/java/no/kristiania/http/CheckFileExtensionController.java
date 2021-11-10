@@ -30,6 +30,8 @@ class CheckFileExtensionController implements HttpController {
                 contentType = "text/html; charset=utf-8";
             } else if (requestTarget.endsWith(".css")) {
                 contentType ="text/css; charset=utf-8";
+            }else if(requestTarget.endsWith(".txt")){
+                contentType ="text/plain";
             }
         }
         return new HttpMessage("HTTP/1.1 200 OK", responseText);

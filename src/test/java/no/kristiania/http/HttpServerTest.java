@@ -80,6 +80,19 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldReadFileFromDisk() throws IOException {
+        server.addController(new FileController());
+        String file = "Testing read file from disk";
+        File filePath = new File("src/main/resources");
+
+        Files.writeString(new File(filePath, "file.txt").toPath(), file);
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/file.txt");
+        assertEquals(file, client.getMessageBody());
+        assertEquals("text/plain", client.getHeader("Content-Type"));
+    }
+
+    @Test
     void shouldUseFileExtensionForContentType() throws IOException {
         //server.addController(new CheckFileExtensionController());
         String fileContent = "<p>Hello</p>";
@@ -106,20 +119,6 @@ public class HttpServerTest {
                 .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
                 //.contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
 
-    }
-
-
-
-    @Test
-    void shouldReadFileFromDisk() throws IOException {
-        String file = "Testing read file from disk";
-        File filePath = new File("src/main/resources");
-
-        Files.writeString(new File(filePath, "file.txt").toPath(), file);
-
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/file.txt");
-        assertEquals(file, client.getMessageBody());
-        assertEquals("text/plain", client.getHeader("Content-Type"));
     }
 
     @Test
