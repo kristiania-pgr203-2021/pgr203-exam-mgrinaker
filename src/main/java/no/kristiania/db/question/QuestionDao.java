@@ -74,7 +74,7 @@ public class QuestionDao extends AbstractDao<Question> {
     public List<Question> listAllQuestion() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "select * from question"
+                    "select * from question order by id"
             )) {
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<Question> result = new ArrayList<>();
