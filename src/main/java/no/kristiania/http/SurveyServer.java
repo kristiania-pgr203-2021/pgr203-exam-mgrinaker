@@ -47,7 +47,7 @@ public class SurveyServer {
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()
 
-        logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
+        logger.info("Go to http://localhost:{}/index.html", httpServer.getPort());
     }
 
     private static DataSource createDataSource() throws IOException {
