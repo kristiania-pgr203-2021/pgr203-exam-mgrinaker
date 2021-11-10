@@ -45,7 +45,7 @@ public class AddQuestionController implements HttpController {
                     "Both title and description must be provided"
             );
         }
-        questionDao.saveQuestion(question);
+        questionDao.insert(question);
 
         return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/addOption.html" );
     }

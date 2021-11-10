@@ -2,11 +2,10 @@ package no.kristiania.http;
 
 import no.kristiania.TestData;
 import no.kristiania.option.OptionDao;
-import no.kristiania.person.*;
+import no.kristiania.person.PersonDao;
 import no.kristiania.question.Question;
 import no.kristiania.question.QuestionDao;
 import no.kristiania.question.QuestionDaoTest;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -15,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -23,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class HttpServerTest {
     private HttpServer server = new HttpServer(0); // server port 0 gir tilfeldig port
-
     public HttpServerTest() throws IOException {
     }
 
@@ -105,10 +102,12 @@ public class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription())
                 .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
+                //.contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
 
     }
+
+
 
     @Test
     void shouldReadFileFromDisk() throws IOException {

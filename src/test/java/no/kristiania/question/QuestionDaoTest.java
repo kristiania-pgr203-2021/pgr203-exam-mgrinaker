@@ -11,11 +11,16 @@ public class QuestionDaoTest {
 
     private QuestionDao dao = new QuestionDao(TestData.testDataSource());
 
-    @Test
-    void shouldRetrieveSavedQuestion() throws SQLException {
-        Question question = exampleQuestion();
 
-        dao.saveQuestion(question);
+    @Test
+    void shouldRetrievedInsertedQuestion() throws SQLException {
+
+        dao.insert(exampleQuestion());
+        dao.insert(exampleQuestion());
+
+        Question question = exampleQuestion();
+        question.setQuestionId(dao.insert(question));
+
 
         assertThat(dao.retrieveQuestion(question.getQuestionId()))
                 .hasNoNullFieldsOrProperties()
@@ -23,17 +28,22 @@ public class QuestionDaoTest {
                 .isEqualTo(question);
     }
 
+
     @Test
     void shouldListAllQuestions() throws SQLException {
-        Question question = exampleQuestion();
-        dao.saveQuestion(question);
+
+        Question question1 = exampleQuestion();
+        dao.insert(question1);
 
         Question anotherQuestion = exampleQuestion();
-        dao.saveQuestion(anotherQuestion);
+        dao.insert(anotherQuestion);
+
+        Question question = exampleQuestion();
+        question.setQuestionId(dao.insert(question));
 
         assertThat(dao.listAllQuestion())
-                .extracting(Question::getQuestionId)
-                .contains(question.getQuestionId(), anotherQuestion.getQuestionId());
+                .extracting(Question :: getQuestionTitle)
+                .contains(question.getQuestionTitle(), anotherQuestion.getQuestionTitle());
 
     }
 

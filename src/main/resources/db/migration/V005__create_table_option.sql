@@ -2,7 +2,7 @@ create table option
 (
     option_id serial primary key,
     option_name varchar(20) not null,
-    question_id integer references question (question_id)
+    question_id integer references question (id)
 );
 
 insert into option (option_name, question_id) VALUES ('Meget bra', 1);

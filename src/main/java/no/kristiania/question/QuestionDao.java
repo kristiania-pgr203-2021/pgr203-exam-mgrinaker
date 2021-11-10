@@ -1,17 +1,29 @@
 package no.kristiania.question;
 
+import no.kristiania.http.AbstractDao;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDao {
+public class QuestionDao extends AbstractDao<Question> {
 
-    private final DataSource dataSource;
 
     public QuestionDao(DataSource dataSource){
-        this.dataSource = dataSource;
+        super(dataSource);
     }
+
+    @Override
+    protected void insertObject(Question obj, PreparedStatement insertStatement) throws SQLException {
+        insertStatement.setString(1, obj.getQuestionTitle());
+        insertStatement.setString(2, obj.getQuestionDescription());
+    }
+
+    public long insert(Question question) throws SQLException {
+        return insert(question, "INSERT into question (question_title, question_description) values(?, ?)");
+    }
+
 
     public void saveQuestion(Question question) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -26,7 +38,7 @@ public class QuestionDao {
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    question.setQuestionId(rs.getLong("question_id"));
+                    question.setQuestionId(rs.getLong("id"));
                 }
             }
         }
@@ -34,7 +46,7 @@ public class QuestionDao {
 
     public Question retrieveQuestion(long questionId) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id = ?")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from question where id = ?")) {
                 statement.setLong(1, questionId);
 
                 try (ResultSet rs = statement.executeQuery()) {
@@ -48,7 +60,7 @@ public class QuestionDao {
 
     private Question readFromResultSetQuestion(ResultSet rs) throws SQLException {
         Question question = new Question();
-        question.setQuestionId(rs.getLong("question_id"));
+        question.setQuestionId(rs.getLong("id"));
         question.setQuestionTitle(rs.getString("question_title"));
         question.setQuestionDescription(rs.getString("question_description"));
         return question;

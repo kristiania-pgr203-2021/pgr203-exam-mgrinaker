@@ -38,7 +38,6 @@ public class EditQuestionController implements HttpController{
             questionDao.editQuestionDescription(questionTitle, newDescription);
         }
 
-        String tester = String.valueOf(questionTitle);
 
         return new HttpMessage("HTTP/1.1 303 see other", "A question has been edited to: " + newTitle + ": " + newDescription, "http://localhost:1963/addOption.html");
     }
