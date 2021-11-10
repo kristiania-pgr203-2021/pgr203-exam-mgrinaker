@@ -1,14 +1,23 @@
 package no.kristiania.db.option;
 
 import no.kristiania.TestData;
+import no.kristiania.http.AbstractDao;
 import org.junit.jupiter.api.Test;
 
+import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class OptionDaoTest {
+public class OptionDaoTest extends AbstractDao<Option> {
     private OptionDao dao = new OptionDao(TestData.testDataSource());
+
+    public OptionDaoTest(DataSource dataSource) {
+        super(dataSource);
+    }
 
     @Test
     void shouldRetrieveSavedOption() throws SQLException {
@@ -41,4 +50,23 @@ public class OptionDaoTest {
         return option;
     }
 
+    @Override
+    public List<Option> listAll() throws SQLException {
+        return super.listAll("SELECT * FROM option");
+    }
+
+    @Override
+    protected Option rowToObject(ResultSet rs) throws SQLException {
+        Option option = new Option();
+        option.setOptionId(rs.getLong("id"));
+        option.setOptionName(rs.getString("option_name"));
+        option.setQuestionId(rs.getLong("question_id"));
+
+        return option;
+    }
+
+    @Override
+    protected void insertObject(Option obj, PreparedStatement insertStatement) throws SQLException {
+
+    }
 }

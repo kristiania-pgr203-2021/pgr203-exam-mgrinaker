@@ -1,17 +1,46 @@
 package no.kristiania.db.option;
 
+import no.kristiania.http.AbstractDao;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionDao {
+public class OptionDao extends AbstractDao<Option> {
 
-    private final DataSource dataSource;
 
     public OptionDao(DataSource dataSource){
-        this.dataSource = dataSource;
+        super(dataSource);
     }
+
+    @Override
+    public List<Option> listAll() throws SQLException {
+        return super.listAll("SELECT * FROM option");
+    }
+
+    @Override
+    protected Option rowToObject(ResultSet rs) throws SQLException {
+        Option option = new Option();
+        option.setOptionId(rs.getLong("id"));
+        option.setOptionName(rs.getString("option_name"));
+        option.setQuestionId(rs.getLong("question_id"));
+        return option;
+    }
+
+    @Override
+    protected void insertObject(Option obj, PreparedStatement insertStatement) throws SQLException {
+        insertStatement.setString(1, obj.getOptionName());
+        insertStatement.setLong(2, obj.getQuestionId());
+    }
+
+    public Option retrieve(long id) throws SQLException {
+        return super.retrieve("SELECT * FROM option WHERE id= ?", id);
+    }
+/*
+    public long insert(Option option){
+        return insert(option, "INSERT into option (option_name)");
+    }*/
 
     public void saveOption(Option option) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
