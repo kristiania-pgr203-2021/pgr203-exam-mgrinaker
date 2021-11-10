@@ -82,6 +82,7 @@ public class HttpServerTest {
     @Test
     void shouldReadFileFromDisk() throws IOException {
         server.addController(new FileController());
+
         String file = "Testing read file from disk";
         File filePath = new File("src/main/resources");
 
