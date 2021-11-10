@@ -31,7 +31,7 @@ public class ListQuestionController implements HttpController {
                     "<h2><input type='hidden' checked='true' name='questionId' value='" + question.getQuestionId() + "' +>" + question.getQuestionTitle() + "</input></h2>" +
                     question.getQuestionDescription() + "<br>";
 
-            for (Option option : optionDao.listAllOption()){
+            for (Option option : optionDao.listAll()){
                 if(question.getQuestionId() == option.getQuestionId()){
                     response +=
                             "<input type='checkbox' name='optionId' value='" + option.getOptionId() + "'>" +

@@ -33,7 +33,7 @@ public class AddOptionController implements HttpController {
 
         option.setQuestionId(Long.parseLong(decodedQuestionId));
         option.setOptionName(decodedOptionName);
-        optionDao.saveOption(option);
+        optionDao.insert(option);
 
 
 

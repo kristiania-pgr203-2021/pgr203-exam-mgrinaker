@@ -22,8 +22,8 @@ public class OptionDaoTest extends AbstractDao<Option> {
     @Test
     void shouldRetrieveSavedOption() throws SQLException {
         Option option = exampleOption();
-        dao.saveOption(option);
-        assertThat(dao.retrieveOption(option.getOptionId()))
+        dao.insert(option);
+        assertThat(dao.retrieve(option.getOptionId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(option)
@@ -33,12 +33,12 @@ public class OptionDaoTest extends AbstractDao<Option> {
     @Test
     void shouldListAllPeople() throws SQLException {
         Option option = exampleOption();
-        dao.saveOption(option);
+        dao.insert(option);
 
         Option anotherOption = exampleOption();
-        dao.saveOption(anotherOption);
+        dao.insert(anotherOption);
 
-        assertThat(dao.listAllOption())
+        assertThat(dao.listAll())
                 .extracting((Option::getOptionId))
                 .contains(option.getOptionId(), anotherOption.getOptionId());
     }
