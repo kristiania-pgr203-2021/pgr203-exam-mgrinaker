@@ -1,16 +1,45 @@
 package no.kristiania.db.answer;
 
+import no.kristiania.http.AbstractDao;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnswerDao {
-    private final DataSource dataSource;
+public class AnswerDao extends AbstractDao<Answer> {
 
     public AnswerDao(DataSource dataSource){
-        this.dataSource = dataSource;
+        super(dataSource);
     }
+
+    @Override
+    public List<Answer> listAll() throws SQLException {
+        return super.listAll("SELECT * FROM answer");
+    }
+
+    @Override
+    protected Answer rowToObject(ResultSet rs) throws SQLException {
+        Answer answer = new Answer();
+        answer.setAnswerId(rs.getLong("id"));
+        answer.setQuestionId(rs.getLong("question_id"));
+        answer.setOptionId(rs.getLong("option_id"));
+        answer.setPersonId(rs.getLong("person_id"));
+        return answer;
+    }
+
+    @Override
+    protected void insertObject(Answer obj, PreparedStatement insertStatement) throws SQLException {
+        insertStatement.setLong(1, obj.getQuestionId());
+        insertStatement.setLong(2, obj.getPersonId());
+        insertStatement.setLong(3, obj.getOptionId());
+    }
+
+    public Answer retrieve(long id) throws SQLException {
+        return super.retrieve("SELECT * FROM question WHERE id = ?", id);
+    }
+
+
 
     public void saveAnswer(Answer answer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {

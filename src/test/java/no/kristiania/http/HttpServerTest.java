@@ -1,12 +1,12 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
-import no.kristiania.http.controllers.*;
 import no.kristiania.db.option.OptionDao;
 import no.kristiania.db.person.PersonDao;
 import no.kristiania.db.question.Question;
 import no.kristiania.db.question.QuestionDao;
 import no.kristiania.db.question.QuestionDaoTest;
+import no.kristiania.http.controllers.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -153,7 +153,7 @@ public class HttpServerTest {
                 "ExampleQuestion"
         );
         assertEquals(200, postclient.getStatusCode());
-        Question question = questionDao.listAllQuestion().get(0);
+        Question question = questionDao.listAll().get(0);
         assertEquals(question, "Hvordan trives du på jobb?");
     }
 
@@ -169,7 +169,7 @@ public class HttpServerTest {
                 "questionTitle=Question&newTitle=Lol"
         );
         assertEquals(200, postclient.getStatusCode());
-        assertThat(questionDao.listAllQuestion())
+        assertThat(questionDao.listAll())
                 .anySatisfy(edit -> {
                     assertThat(edit.getQuestionTitle()).isEqualTo("Question");
                 });

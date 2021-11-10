@@ -41,7 +41,7 @@ public class QuestionDaoTest {
         Question question = exampleQuestion();
         question.setQuestionId(dao.insert(question));
 
-        assertThat(dao.listAllQuestion())
+        assertThat(dao.listAll())
                 .extracting(Question :: getQuestionTitle)
                 .contains(question.getQuestionTitle(), anotherQuestion.getQuestionTitle());
 
