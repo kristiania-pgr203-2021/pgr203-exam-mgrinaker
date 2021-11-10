@@ -28,12 +28,12 @@ public class AddOptionController implements HttpController {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Option option = new Option();
 
-        String questionId = URLDecoder.decode(queryMap.get("questionId"), StandardCharsets.UTF_8);
-        String optionName = URLDecoder.decode(queryMap.get("optionName"), StandardCharsets.UTF_8);
+        String decodedQuestionId = URLDecoder.decode(queryMap.get("questionId"), StandardCharsets.UTF_8);
+        String decodedOptionName = URLDecoder.decode(queryMap.get("optionName"), StandardCharsets.UTF_8);
 
-        option.setQuestionId(Long.parseLong(questionId));
-        option.setOptionName(optionName);
-        optionDao.saveOption(option);
+        option.setQuestionId(Long.parseLong(decodedQuestionId));
+        option.setOptionName(decodedOptionName);
+        optionDao.insert(option);
 
 
 

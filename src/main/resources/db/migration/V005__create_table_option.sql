@@ -1,6 +1,6 @@
 create table option
 (
-    option_id serial primary key,
+    id serial primary key,
     option_name varchar(20) not null,
     question_id integer references question (id)
 );
