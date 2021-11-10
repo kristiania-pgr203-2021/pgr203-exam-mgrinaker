@@ -38,7 +38,7 @@ public class HttpServerTest {
         assertEquals("File not found: /non-existing", client.getMessageBody());
     }
 
-    @Test
+    /*@Test
     void shouldRespondWith200forKnownRequestTarget() throws IOException {
         server.addController(new FileTargetController());
 
@@ -48,7 +48,7 @@ public class HttpServerTest {
         //        () -> assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type")),
                 () -> assertEquals("<p>Hello world!</p>", client.getMessageBody())
         );
-    }
+    }*/
 
     @Test
     void shouldHandleMoreThanOneRequest() throws IOException {
