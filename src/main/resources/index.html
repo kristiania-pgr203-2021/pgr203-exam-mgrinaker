@@ -16,13 +16,13 @@
 
     <div id="cookieDiv">
     <form action="/api/setCookie" method="post" id="personInfo">
-        <input class="field" type="text" id="firstName" name="first-name" placeholder="first name" style="text-transform: capitalize;" autofocus><br>
-        <input class="field" type="text" id="lastName" name="last-name" placeholder="last name" style="text-transform: capitalize;"><br>
+        <input class="field" type="text" id="firstName" placeholder="first name" style="text-transform: capitalize;" autofocus><br>
+        <input class="field" type="text" id="lastName" name="lastName" placeholder="last name" style="text-transform: capitalize;"><br>
         <input class="field" type="email" id="email" name="email" placeholder="name@email.com"><br>
-        <input class="field" type="number" id="professionId" name="profession-id" placeholder="profession id"><br>
-        <input class="field" type="number" id="workplaceId" name="workplace-id" placeholder="workplace id"><br><br>
+        <input class="field" type="number" id="professionId" name="professionId" placeholder="profession id"><br>
+        <input class="field" type="number" id="workplaceId" name="workplaceId" placeholder="workplace id"><br><br>
 
-        <button type="submit" onclick="setCookie('firstName', 'lastName', 'email', 'professionId', 'workplaceId')">Submit</button><br>
+        <button type="submit" onclick="setCookie('firstName')">Submit</button><br>
     </form>
     </div>
 
@@ -43,21 +43,10 @@
     let today = new Date();
     let expiry = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 
-    function setCookie(firstName, lastName, email, professionId, workplaceId) {
-
+    function setCookie(firstName) {
         let firstNameValue = document.getElementById(firstName).value;
-        let lastNameValue = document.getElementById(lastName).value;
-        let emailValue = document.getElementById(email).value;
-        let professionValue = document.getElementById(professionId).value;
-        let workplaceValue = document.getElementById(workplaceId).value;
 
         document.cookie = firstName + "=" + firstNameValue + "; path=/; expires=" + expiry.toUTCString();
-        document.cookie = lastName + "=" + lastNameValue + "; path=/; expires=" + expiry.toUTCString();
-        document.cookie = email + "=" + emailValue + "; path=/; expires=" + expiry.toUTCString();
-        document.cookie = professionId + "=" + professionValue + "; path=/; expires=" + expiry.toUTCString();
-        document.cookie = workplaceId + "=" + workplaceValue + "; path=/; expires=" + expiry.toUTCString();
-
-        //console.log(document.cookie);
     }
 
     function storeValues(form) {
@@ -74,17 +63,9 @@
     function checkCookie() {
         let user = getCookie("firstName");
         if (user != "" || user != null) {
-            document.getElementById("cookieDiv").innerHTML = "<p>Welcome back, " + user + "!</p>";
+            //document.getElementById("cookieDiv").innerHTML = "<p>Welcome back, " + user + "!</p>";
         }
     }
-
-
-
-
-
-
-
-
 
     /*
     function setCookie(cookieName, cookieValue, expireDays) {
@@ -110,15 +91,6 @@
         }
         return "";
     }
-    */
-
-    /*
-    const form = document.getElementById('setCookie');
-    form.addEventListener('submit', (event) =>{
-        //gjøre noe greier her med cookies
-        var nameValue = document.getElementById("cookieName").value;
-        return nameValue;
-    });
     */
 
     fetch("/api/question")

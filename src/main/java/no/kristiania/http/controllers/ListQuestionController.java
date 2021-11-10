@@ -35,7 +35,6 @@ public class ListQuestionController implements HttpController {
                 if(question.getQuestionId() == option.getQuestionId()){
                     response +=
                             "<input type='checkbox' name='optionId' value='" + option.getOptionId() + "'>" +
-                           // "<input type='checkbox' name='questionId' value='" + option.getQuestionId() + "'>" +
                             option.getOptionId() + ". " + option.getOptionName()
                     ;
                 }

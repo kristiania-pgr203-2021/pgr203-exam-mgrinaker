@@ -3,10 +3,13 @@ package no.kristiania.http.controllers;
 import no.kristiania.http.HttpMessage;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SetCookieController implements HttpController {
+    public final HashMap<String, String> cookieFields = new HashMap<>();
 
     @Override
     public String getPath() {
@@ -24,8 +27,11 @@ public class SetCookieController implements HttpController {
         }
 
         String responseText = "<p>Hello " + yourName + "!</p>";
-        String contentType = "text/html; charset=utf-8";
         System.out.println(responseText);
         return new HttpMessage("HTTP/1.1 200 OK", responseText);
     }
 }
+
+
+
+
