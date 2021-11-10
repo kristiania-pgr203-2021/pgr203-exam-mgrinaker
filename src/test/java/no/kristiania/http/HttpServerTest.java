@@ -6,13 +6,16 @@ import no.kristiania.person.*;
 import no.kristiania.question.Question;
 import no.kristiania.question.QuestionDao;
 import no.kristiania.question.QuestionDaoTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -105,6 +108,18 @@ public class HttpServerTest {
                 .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription())
                 .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
 
+    }
+
+    @Test
+    void shouldReadFileFromDisk() throws IOException {
+        File contentRoot = new File("src/main/resources");
+
+        String file = "Testing read file from disc";
+        Files.writeString(new File(contentRoot, "file.txt").toPath(), file);
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/file.txt");
+        assertEquals(file, client.getMessageBody());
+        assertEquals("text/plain", client.getHeader("Content-Type"));
     }
 
     @Test
