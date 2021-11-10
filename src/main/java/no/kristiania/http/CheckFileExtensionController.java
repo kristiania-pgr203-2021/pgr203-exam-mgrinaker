@@ -1,5 +1,7 @@
 package no.kristiania.http;
 
+import no.kristiania.http.controllers.HttpController;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

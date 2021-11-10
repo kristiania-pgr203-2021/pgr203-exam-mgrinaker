@@ -1,11 +1,12 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
-import no.kristiania.option.OptionDao;
-import no.kristiania.person.PersonDao;
-import no.kristiania.question.Question;
-import no.kristiania.question.QuestionDao;
-import no.kristiania.question.QuestionDaoTest;
+import no.kristiania.http.controllers.*;
+import no.kristiania.db.option.OptionDao;
+import no.kristiania.db.person.PersonDao;
+import no.kristiania.db.question.Question;
+import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.question.QuestionDaoTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

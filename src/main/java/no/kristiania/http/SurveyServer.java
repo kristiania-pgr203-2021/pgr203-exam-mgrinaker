@@ -1,11 +1,12 @@
 package no.kristiania.http;
 
-import no.kristiania.answer.AnswerDao;
-import no.kristiania.option.OptionDao;
-import no.kristiania.person.PersonDao;
-import no.kristiania.profession.ProfessionDao;
-import no.kristiania.question.QuestionDao;
-import no.kristiania.workplace.WorkplaceDao;
+import no.kristiania.db.answer.AnswerDao;
+import no.kristiania.http.controllers.*;
+import no.kristiania.db.option.OptionDao;
+import no.kristiania.db.person.PersonDao;
+import no.kristiania.db.profession.ProfessionDao;
+import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.workplace.WorkplaceDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
