@@ -40,7 +40,7 @@ public class AddPersonController implements HttpController {
         person.setProfessionId(Long.parseLong(profession));
         person.setWorkplaceId(Long.parseLong(workplace));
 
-        personDao.save(person);
+        personDao.insert(person);
 
         return new HttpMessage("HTTP/1.1 200 OK", "WOOP");
     }
