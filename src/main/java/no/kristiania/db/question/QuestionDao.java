@@ -41,40 +41,6 @@ public class QuestionDao extends AbstractDao<Question> {
         return insert(question, "INSERT into question (question_title, question_description) values(?, ?)");
     }
 
-
-    public void saveQuestion(Question question) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into question (question_title, question_description) values (?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-            )) {
-                statement.setString(1, question.getQuestionTitle());
-                statement.setString(2, question.getQuestionDescription());
-
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    question.setQuestionId(rs.getLong("id"));
-                }
-            }
-        }
-    }
-
-
-    public void getQuestionId(String questionTitle) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-
-
-            try (PreparedStatement statement = connection.prepareStatement("select question_id from question where question_title = ?")) {
-                statement.setString(1, questionTitle);
-
-            }
-
-        }
-    }
-
-
     public void updateQuestionTitle(String questionTitle, long id) throws SQLException {
         updateQuestionTitle(questionTitle, id, "UPDATE question set question_title = ? WHERE id = ?");
     }

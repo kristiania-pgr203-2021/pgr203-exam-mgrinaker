@@ -14,9 +14,9 @@ public class AnswerDaoTest {
     @Test
     void shouldRetrieveSavedAnswer() throws SQLException {
         Answer answer = exampleAnswer();
-        dao.saveAnswer(answer);
+        dao.insert(answer);
 
-        assertThat(dao.retrieveAnswer(answer.getAnswerId()))
+        assertThat(dao.retrieve(answer.getAnswerId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(answer);
@@ -25,12 +25,12 @@ public class AnswerDaoTest {
     @Test
     void shouldListAllAnswers() throws SQLException {
         Answer answer = exampleAnswer();
-        dao.saveAnswer(answer);
+        dao.insert(answer);
 
         Answer anotherAnswer = exampleAnswer();
-        dao.saveAnswer(anotherAnswer);
+        dao.insert(anotherAnswer);
 
-        assertThat(dao.listAllAnswers())
+        assertThat(dao.listAll())
                 .extracting(Answer::getAnswerId)
                 .contains(answer.getAnswerId(), anotherAnswer.getAnswerId());
 

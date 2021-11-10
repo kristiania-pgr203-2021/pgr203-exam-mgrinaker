@@ -31,7 +31,7 @@ public class AddNewAnswerController implements HttpController{
         answer.setQuestionId(Long.parseLong(question));
         answer.setOptionId(Long.parseLong(option));
 
-        answerDao.saveAnswer(answer);
+        answerDao.insert(answer);
         return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/index.html");
     }
 }

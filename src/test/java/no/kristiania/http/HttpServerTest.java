@@ -109,9 +109,9 @@ public class HttpServerTest {
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
 
         Question question1 = QuestionDaoTest.exampleQuestion();
-        questionDao.saveQuestion(question1);
+        questionDao.insert(question1);
         Question question2 = QuestionDaoTest.exampleQuestion();
-        questionDao.saveQuestion(question2);
+        questionDao.insert(question2);
 
         server.addController(new ListQuestionController(questionDao, optionDao));
 
