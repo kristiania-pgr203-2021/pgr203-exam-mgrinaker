@@ -1,66 +1,33 @@
 package no.kristiania.db.person;
 
+import no.kristiania.http.AbstractDao;
+
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class PersonDao {
-    private final DataSource dataSource;
+public class PersonDao extends AbstractDao<Person> {
 
     public PersonDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
-    public void save(Person person) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into person (first_name, last_name, email, profession_id, workplace_id) values (?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, person.getFirstName());
-                statement.setString(2, person.getLastName());
-                statement.setString(3, person.getMailAddress());
-                statement.setLong(4, person.getProfessionId());
-                statement.setLong(5, person.getWorkplaceId());
 
-                statement.executeUpdate();
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    person.setPerson_id(rs.getLong("person_id"));
-                }
-            }
-        }
+    public Person retrieve(long id) throws SQLException {
+        return super.retrieve("SELECT * FROM person WHERE id = ?", id);
     }
 
-    public Person retrieve(long person_id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from person where person_id = ?")) {
-                statement.setLong(1, person_id);
-
-                try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-
-                    return readFromResultSet(rs);
-                }
-            }
-        }
+    public long insert(Person person) throws SQLException {
+        return insert(person, "insert into person (first_name, last_name, email, profession_id, workplace_id) values (?, ?, ?, ?, ?)");
     }
 
+    @Override
     public List<Person> listAll() throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from person")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<Person> result = new ArrayList<>();
-                    while(rs.next()){
-                        result.add(readFromResultSet(rs));
-                    }
-                    return result;
-                }
-            }
-        }
+        return super.listAll("SELECT * FROM person");
     }
 
-    private Person readFromResultSet(ResultSet rs) throws SQLException {
+    @Override
+    protected Person rowToObject(ResultSet rs) throws SQLException {
         Person person = new Person();
         person.setPerson_id(rs.getLong("person_id"));
         person.setFirstName(rs.getString("first_name"));
@@ -70,4 +37,16 @@ public class PersonDao {
         person.setWorkplaceId(rs.getLong("workplace_id"));
         return person;
     }
+
+    @Override
+    protected void insertObject(Person obj, PreparedStatement insertStatement) throws SQLException {
+        insertStatement.setString(1, obj.getFirstName());
+        insertStatement.setString(2, obj.getLastName());
+        insertStatement.setString(3, obj.getMailAddress());
+        insertStatement.setLong(4, obj.getProfessionId());
+        insertStatement.setLong(5, obj.getWorkplaceId());
+    }
+
+
+
 }

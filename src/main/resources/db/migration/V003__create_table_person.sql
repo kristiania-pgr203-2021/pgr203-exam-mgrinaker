@@ -1,6 +1,6 @@
 create table person
 (
-    person_id serial primary key,
+    id serial primary key,
     first_name varchar(20) not null,
     last_name varchar(20) not null,
     email varchar(20) not null,
