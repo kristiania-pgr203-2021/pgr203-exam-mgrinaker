@@ -112,10 +112,10 @@ public class HttpServerTest {
 
     @Test
     void shouldReadFileFromDisk() throws IOException {
-        File contentRoot = new File("src/main/resources");
+        String file = "Testing read file from disk";
+        File filePath = new File("src/main/resources");
 
-        String file = "Testing read file from disc";
-        Files.writeString(new File(contentRoot, "file.txt").toPath(), file);
+        Files.writeString(new File(filePath, "file.txt").toPath(), file);
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/file.txt");
         assertEquals(file, client.getMessageBody());
