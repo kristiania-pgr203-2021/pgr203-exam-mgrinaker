@@ -15,17 +15,12 @@ public class SetCookieController implements HttpController {
 
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
-        //CookieManager cookieManager = new CookieManager();
         String yourName = "";
-        String headerCookies = request.getHeader("Set-Cookie");
-        //List<HttpCookie> cookies = HttpCookie.parse(headerCookies);
+        String cookieHeaders = request.getHeader("Cookie");
 
-        /*for (HttpCookie cookie:cookies) {
-            cookieManager.getCookieStore().add(null, cookie);
-        }*/
-        if (headerCookies != null) {
-            Map<String, String> queryMap = HttpMessage.parseRequestParameters(headerCookies);
-            yourName = queryMap.get("cookieName");
+        if (cookieHeaders != null) {
+            Map<String, String> queryMap = HttpMessage.parseRequestParameters(cookieHeaders);
+            yourName = queryMap.get("firstName");
         }
 
         String responseText = "<p>Hello " + yourName + "!</p>";
