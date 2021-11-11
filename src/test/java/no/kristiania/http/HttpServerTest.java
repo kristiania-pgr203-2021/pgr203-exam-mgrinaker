@@ -1,6 +1,9 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
+import no.kristiania.db.answer.Answer;
+import no.kristiania.db.answer.AnswerDao;
+import no.kristiania.db.answer.AnswerDaoTest;
 import no.kristiania.db.option.Option;
 import no.kristiania.db.option.OptionDao;
 import no.kristiania.db.person.PersonDao;
@@ -162,6 +165,28 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldListAllAnswers() throws SQLException, IOException {
+        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+        server.addController(new ListAnswersController(answerDao));
+
+        Answer answer1 = AnswerDaoTest.exampleAnswer();
+        answerDao.insert(answer1);
+
+        Answer answer2 = AnswerDaoTest.exampleAnswer();
+        answerDao.insert(answer2);
+
+        HttpClient client = new HttpClient(
+                "localhost",
+                server.getPort(),
+                "/api/answer"
+        );
+        assertEquals(200, client.getStatusCode());
+        assertThat(answerDao.listAll())
+                .extracting(Answer::getQuestionId)
+                .contains(answer1.getQuestionId(), answer2.getQuestionId());
+
+    }
+    @Test
     void shouldCreateNewPerson() throws IOException, SQLException {
         PersonDao personDao = new PersonDao(TestData.testDataSource());
         server.addController(new AddPersonController(personDao));
@@ -201,6 +226,22 @@ public class HttpServerTest {
                 .extracting(Question::getQuestionTitle)
                 .contains("Heihei");
 
+    }
+    @Test
+    void shouldCreateNewAnswer() throws IOException, SQLException {
+        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+        server.addController(new AddNewAnswerController(answerDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newAnswer",
+                "questionId=1&optionId=2"
+        );
+        assertEquals(303, postclient.getStatusCode());
+        assertThat(answerDao.listAll())
+                .extracting(Answer::getQuestionId)
+                .contains(Long.valueOf("1"));
     }
 
     @Test

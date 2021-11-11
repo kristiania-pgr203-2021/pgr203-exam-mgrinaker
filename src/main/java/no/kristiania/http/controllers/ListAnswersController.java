@@ -17,11 +17,9 @@ public class ListAnswersController implements HttpController {
     private OptionDao optionDao;
     private PersonDao personDao;
 
-    public ListAnswersController(AnswerDao answerDao, QuestionDao questionDao, OptionDao optionDao, PersonDao personDao){
+    public ListAnswersController(AnswerDao answerDao){
         this.answerDao = answerDao;
-        this.questionDao = questionDao;
-        this.optionDao = optionDao;
-        this.personDao = personDao;
+
     }
 
 
@@ -37,11 +35,6 @@ public class ListAnswersController implements HttpController {
         for(Answer answer : answerDao.listAll()){
            response += answer.getQuestionId() + answer.getOptionId() + answer.getPersonId();
         }
-
-
-
-
-
         return new HttpMessage("Http/1.1 200 OK", response);
     }
 }
