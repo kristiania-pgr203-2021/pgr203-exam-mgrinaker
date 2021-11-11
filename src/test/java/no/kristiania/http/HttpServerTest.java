@@ -162,7 +162,7 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldEditTitle() throws IOException, SQLException {
+    void shouldUpdateQuestion() throws IOException, SQLException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         server.addController(new EditQuestionController(questionDao));
 
@@ -177,6 +177,7 @@ public class HttpServerTest {
         assertThat(questionDao.listAll())
                 .anySatisfy(edit -> {
                     assertThat(edit.getQuestionTitle()).isEqualTo("Lol");
+                    assertThat(edit.getQuestionDescription()).isEqualTo("Hehe");
                 });
     }
 }
