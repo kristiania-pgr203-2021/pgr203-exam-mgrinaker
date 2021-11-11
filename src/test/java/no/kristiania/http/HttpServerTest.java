@@ -110,7 +110,7 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldListPeopleFormDatabase() throws SQLException, IOException {
+    void shouldListQuestionsFormDatabase() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
 
@@ -123,9 +123,7 @@ public class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
-                //.contains(question1.getQuestionTitle() + ", " + question1.getQuestionDescription());
-
+                .contains(question1.getQuestionTitle() + "</h2>" + question1.getQuestionDescription());
     }
 
     @Test
@@ -156,11 +154,11 @@ public class HttpServerTest {
                 "localhost",
                 server.getPort(),
                 "/api/newQuestion",
-                "ExampleQuestion"
+                "questionTitle=Heihei&questionDescription=Lollol"
         );
-        assertEquals(200, postclient.getStatusCode());
-        Question question = questionDao.listAll().get(0);
-        assertEquals(question, "Hvordan trives du på jobb?");
+        assertEquals(303, postclient.getStatusCode());
+        Question question = questionDao.listAll().get(5);
+        assertEquals(question.getQuestionTitle(), "Heihei");
     }
 
     @Test
@@ -174,6 +172,7 @@ public class HttpServerTest {
                 "/api/editQuestion",
                 "questionTitle=1&newTitle=Lol&newDescription=Hehe"
         );
+
         assertEquals(303, postclient.getStatusCode());
         assertThat(questionDao.listAll())
                 .anySatisfy(edit -> {
