@@ -30,15 +30,11 @@ public class AddPersonController implements HttpController {
         String firstName = URLDecoder.decode(cookieQueryMap.get("firstName"), StandardCharsets.UTF_8);
         String lastName = URLDecoder.decode(queryMap.get("lastName"), StandardCharsets.UTF_8);
         String email = URLDecoder.decode(queryMap.get("email"), StandardCharsets.UTF_8);
-        String profession = queryMap.get("professionId");
-        String workplace = queryMap.get("workplaceId");
 
         Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setMailAddress(email);
-        person.setProfessionId(Long.parseLong(profession));
-        person.setWorkplaceId(Long.parseLong(workplace));
 
         personDao.insert(person);
 

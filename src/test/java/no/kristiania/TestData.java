@@ -49,8 +49,6 @@ public class TestData<T> {
         person.setFirstName(pickOne("Johanne", "Jill", "Jane", "James", "Jacob", "Nora", "Emil", "Noah", "Emma", "Maja", "Oliver", "Filip", "Lukas","Liam", "Henrik", "Sofia", "Emilie"));
         person.setLastName(pickOne("Hansen", "Johansen", "Olsen", "Larsen", "Andersen", "Pedersen", "Nilsen", "Kristiansen", "Jensen", "Karlsen", "Johnsen"));
         person.setMailAddress(pickOne("romantic01@online.no", "crypt@gmail.com", "kramulous@comcast.net", "gomor@icloud.com", "dbrobins@att.net", "lampcht@online.net", "mleary@mac.com", "gward@verizon.net", "dexter@msn.com", "oiyou-47@mail.com", "essi389@mail.com", "brovade5@ymail.com", "tebei41@yopl.com", "pauda9@mail.com", "blomster@yahoo.com", "boot.32@gmail.com"));
-        person.setProfessionId(pickOneInteger(1, 2, 2));
-        person.setWorkplaceId(pickOneInteger(1, 2, 3));
         return person;
     }
 

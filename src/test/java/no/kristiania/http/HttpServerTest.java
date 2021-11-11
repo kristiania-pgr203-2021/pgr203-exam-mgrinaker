@@ -192,7 +192,7 @@ public class HttpServerTest {
                 "localhost",
                 server.getPort(),
                 "/api/setCookie",
-                "lastName=Larsen&email=marit@larsen.no&professionId=1&workplaceId=2",
+                "lastName=Larsen&email=marit@larsen.no",
                 "firstName=Marit"
         );
         assertEquals(303, postClient.getStatusCode());
@@ -201,8 +201,6 @@ public class HttpServerTest {
                     assertThat(p.getFirstName()).isEqualTo("Marit");
                     assertThat(p.getLastName()).isEqualTo("Larsen");
                     assertThat(p.getMailAddress()).isEqualTo("marit@larsen.no");
-                    assertThat(p.getProfessionId()).isEqualTo(1);
-                    assertThat(p.getWorkplaceId()).isEqualTo(2);
                 });
     }
 

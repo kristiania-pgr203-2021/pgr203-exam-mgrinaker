@@ -20,7 +20,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     public long insert(Person person) throws SQLException {
-        return insert(person, "insert into person (first_name, last_name, email, profession_id, workplace_id) values (?, ?, ?, ?, ?)");
+        return insert(person, "insert into person (first_name, last_name, email) values (?, ?, ?, ?, ?)");
     }
 
     @Override
@@ -35,8 +35,6 @@ public class PersonDao extends AbstractDao<Person> {
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setMailAddress(rs.getString("email"));
-        person.setProfessionId(rs.getLong("profession_id"));
-        person.setWorkplaceId(rs.getLong("workplace_id"));
         return person;
     }
 
@@ -45,8 +43,6 @@ public class PersonDao extends AbstractDao<Person> {
         insertStatement.setString(1, obj.getFirstName());
         insertStatement.setString(2, obj.getLastName());
         insertStatement.setString(3, obj.getMailAddress());
-        insertStatement.setLong(4, obj.getProfessionId());
-        insertStatement.setLong(5, obj.getWorkplaceId());
     }
 
     public static Person readFromResultSet(ResultSet rs) throws SQLException {
@@ -55,8 +51,6 @@ public class PersonDao extends AbstractDao<Person> {
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setMailAddress(rs.getString("email"));
-        person.setProfessionId(rs.getLong("profession_id"));
-        person.setWorkplaceId(rs.getLong("workplace_id"));
         return person;
     }
 
