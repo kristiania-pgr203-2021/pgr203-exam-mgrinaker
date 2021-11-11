@@ -136,7 +136,7 @@ public class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(question1.getQuestionTitle() + "</h2>" + question1.getQuestionDescription());
+                .contains(question1.getQuestionTitle() + question1.getQuestionDescription());
     }
 
     @Test
