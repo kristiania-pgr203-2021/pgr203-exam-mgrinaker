@@ -7,11 +7,11 @@ import no.kristiania.db.question.QuestionDao;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class QuestionOptionsController implements HttpController{
+public class listQuestionController implements HttpController{
 
     private QuestionDao questionDao;
 
-    public QuestionOptionsController(QuestionDao questionDao){
+    public listQuestionController(QuestionDao questionDao){
         this.questionDao = questionDao;
     }
 

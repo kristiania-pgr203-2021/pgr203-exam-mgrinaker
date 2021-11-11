@@ -43,7 +43,7 @@ public class AnswerDaoTest {
 
     }
 
-    private Answer exampleAnswer(){
+    public static Answer exampleAnswer(){
         Answer answer = new Answer();
         answer.setQuestionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
         answer.setPersonId(TestData.pickOneInteger(1));

@@ -1,9 +1,11 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
+import no.kristiania.db.answer.Answer;
+import no.kristiania.db.answer.AnswerDao;
+import no.kristiania.db.answer.AnswerDaoTest;
 import no.kristiania.db.option.Option;
 import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.option.OptionDaoTest;
 import no.kristiania.db.person.PersonDao;
 import no.kristiania.db.question.Question;
 import no.kristiania.db.question.QuestionDao;
@@ -24,19 +26,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class HttpServerTest {
     private HttpServer server = new HttpServer(0); // server port 0 gir tilfeldig port
+
     public HttpServerTest() throws IOException {
     }
 
     @Test
     void shouldReturn404ForUnknownRequestTarget() throws IOException {
         // InetSocketAddress
-        HttpClient client= new HttpClient("localhost", server.getPort(), "/non-existing");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals(404, client.getStatusCode());
     }
 
     @Test
     void shouldReturnWithRequestTargetIn404() throws IOException {
-        HttpClient client= new HttpClient("localhost", server.getPort(), "/non-existing");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals("File not found: /non-existing", client.getMessageBody());
     }
 
@@ -47,7 +50,7 @@ public class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertAll(
                 () -> assertEquals(200, client.getStatusCode()),
-        //        () -> assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type")),
+                //        () -> assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type")),
                 () -> assertEquals("<p>Hello world!</p>", client.getMessageBody())
         );
     }
@@ -81,6 +84,7 @@ public class HttpServerTest {
         assertEquals("text/plain", client.getHeader("Content-Type"));
     }
 
+
     @Test
     void shouldReadFileFromDisk() throws IOException {
         server.addController(new CheckFileExtensionController());
@@ -105,9 +109,23 @@ public class HttpServerTest {
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
     }
 
+    @Test
+    void shouldUseFileExtensionForContentTypeCSS() throws IOException {
+        server.addController(new CheckFileExtensionController());
+        String fileContent = "body{ color: white}";
+        Files.write(Paths.get("target/test-classes/style.css"), fileContent.getBytes());
+
+        HttpClient client = new HttpClient(
+                "localhost",
+                server.getPort(),
+                "/style.css");
+
+        assertEquals("text/css; charset=utf-8", client.getHeader("Content-type"));
+    }
+
 
     @Test
-    void shouldListAllQuestions() throws SQLException, IOException {
+    void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
 
@@ -117,24 +135,23 @@ public class HttpServerTest {
         questionDao.insert(question2);
 
 
-        server.addController(new ListQuestionController(questionDao, optionDao));
+        server.addController(new ListQuestionAndOptionController(questionDao, optionDao));
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(question1.getQuestionTitle() + "</h2>" + question1.getQuestionDescription());
+                .contains(question1.getQuestionTitle() + question1.getQuestionDescription());
     }
 
     @Test
-    void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
-        OptionDao optionDao = new OptionDao(TestData.testDataSource());
+    void shouldListAllQuestions() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
-        server.addController(new QuestionOptionsController(questionDao));
+        server.addController(new listQuestionController(questionDao));
 
-        Option option1 = OptionDaoTest.exampleOption();
-        optionDao.insert(option1);
+        Question question1 = QuestionDaoTest.exampleQuestion();
+        questionDao.insert(question1);
 
-        Option option2 = OptionDaoTest.exampleOption();
-        optionDao.insert(option2);
+        Question question2 = QuestionDaoTest.exampleQuestion();
+        questionDao.insert(question2);
 
         HttpClient client = new HttpClient(
                 "localhost",
@@ -143,10 +160,32 @@ public class HttpServerTest {
         );
 
         assertThat(client.getMessageBody())
-                .contains(option1.getOptionName(), option2.getOptionName());
+                .contains(question1.getQuestionTitle(), question2.getQuestionTitle());
 
     }
 
+    @Test
+    void shouldListAllAnswers() throws SQLException, IOException {
+        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+        server.addController(new ListAnswersController(answerDao));
+
+        Answer answer1 = AnswerDaoTest.exampleAnswer();
+        answerDao.insert(answer1);
+
+        Answer answer2 = AnswerDaoTest.exampleAnswer();
+        answerDao.insert(answer2);
+
+        HttpClient client = new HttpClient(
+                "localhost",
+                server.getPort(),
+                "/api/answer"
+        );
+        assertEquals(200, client.getStatusCode());
+        assertThat(answerDao.listAll())
+                .extracting(Answer::getQuestionId)
+                .contains(answer1.getQuestionId(), answer2.getQuestionId());
+
+    }
     @Test
     void shouldCreateNewPerson() throws IOException, SQLException {
         PersonDao personDao = new PersonDao(TestData.testDataSource());
@@ -188,6 +227,65 @@ public class HttpServerTest {
                 .contains("Heihei");
 
     }
+    @Test
+    void shouldCreateNewAnswer() throws IOException, SQLException {
+        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+        server.addController(new AddNewAnswerController(answerDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newAnswer",
+                "questionId=1&optionId=2"
+        );
+        assertEquals(303, postclient.getStatusCode());
+        assertThat(answerDao.listAll())
+                .extracting(Answer::getQuestionId)
+                .contains(Long.valueOf("1"));
+    }
+
+    @Test
+    void shouldFailCreateNewQuestionWithoutTitle() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "questionTitle=&questionDescription=Lollol"
+        );
+        assertEquals(400, postclient.getStatusCode());
+
+    }
+
+    @Test
+    void shouldFailCreateNewQuestionWithoutDescription() throws IOException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "questionTitle=Heihei&questionDescription="
+        );
+        assertEquals(400, postclient.getStatusCode());
+    }
+
+    @Test
+    void shouldFailCreateNewQuestionWithoutTitleAndDescription() throws IOException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "questionTitle=&questionDescription="
+        );
+        assertEquals(400, postclient.getStatusCode());
+    }
 
     @Test
     void shouldCreateNewOption() throws IOException, SQLException {
@@ -226,7 +324,56 @@ public class HttpServerTest {
                 });
     }
 
+    @Test
+    void shouldUpdateQuestionTitle() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new EditQuestionController(questionDao));
 
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editQuestion",
+                "questionTitle=1&newTitle=Lol&newDescription="
+        );
 
+        assertEquals(303, postclient.getStatusCode());
+        assertThat(questionDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getQuestionTitle()).isEqualTo("Lol");
+                });
+    }
 
+    @Test
+    void shouldUpdateQuestionDescription() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new EditQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editQuestion",
+                "questionTitle=1&newTitle=&newDescription=Hehe"
+        );
+
+        assertEquals(303, postclient.getStatusCode());
+        assertThat(questionDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getQuestionDescription()).isEqualTo("Hehe");
+                });
+    }
+
+    @Test
+    void shouldRedirectUser() throws IOException {
+        server.addController(new RedirectController());
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/",
+                ""
+        );
+
+        assertEquals(303, postclient.getStatusCode());
+
+    }
 }
