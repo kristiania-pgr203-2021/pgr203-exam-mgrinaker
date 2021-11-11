@@ -43,7 +43,7 @@ public class SurveyServer {
         httpServer.addController(new EditQuestionController(questionDao));
         httpServer.addController(new SetCookieController());
         httpServer.addController(new AddPersonController(personDao));
-
+        httpServer.addController(new RedirectController());
         // logger.info, logger.debug, logger.error, logger.warning etc
         // {} er placeholder for parameteret httpServer.getPort()
 
