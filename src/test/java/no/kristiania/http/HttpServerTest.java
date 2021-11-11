@@ -123,7 +123,6 @@ public class HttpServerTest {
         assertEquals("text/css; charset=utf-8", client.getHeader("Content-type"));
     }
 
-
     @Test
     void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
@@ -139,7 +138,7 @@ public class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(question1.getQuestionTitle() + question1.getQuestionDescription());
+                .contains(question1.getQuestionTitle() + "</h2>" + question1.getQuestionDescription());
     }
 
     @Test
@@ -227,22 +226,22 @@ public class HttpServerTest {
                 .contains("Heihei");
 
     }
-    @Test
-    void shouldCreateNewAnswer() throws IOException, SQLException {
-        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
-        server.addController(new AddNewAnswerController(answerDao));
-
-        HttpPostClient postclient = new HttpPostClient(
-                "localhost",
-                server.getPort(),
-                "/api/newAnswer",
-                "questionId=1&optionId=2"
-        );
-        assertEquals(303, postclient.getStatusCode());
-        assertThat(answerDao.listAll())
-                .extracting(Answer::getQuestionId)
-                .contains(Long.valueOf("1"));
-    }
+//    @Test
+//    void shouldCreateNewAnswer() throws IOException, SQLException {
+//        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+//        server.addController(new AddNewAnswerController(answerDao));
+//
+//        HttpPostClient postclient = new HttpPostClient(
+//                "localhost",
+//                server.getPort(),
+//                "/api/newAnswer",
+//                "questionId=1&optionId=2"
+//        );
+//        assertEquals(303, postclient.getStatusCode());
+//        assertThat(answerDao.listAll())
+//                .extracting(Answer::getQuestionId)
+//                .contains(Long.valueOf("1"));
+//    }
 
     @Test
     void shouldFailCreateNewQuestionWithoutTitle() throws IOException, SQLException {
@@ -374,6 +373,10 @@ public class HttpServerTest {
         );
 
         assertEquals(303, postclient.getStatusCode());
+    }
+
+    @Test
+    void shouldSetCookie() {
 
     }
 }

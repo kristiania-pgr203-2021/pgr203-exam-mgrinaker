@@ -41,7 +41,6 @@ public class SurveyServer {
         httpServer.addController(new listQuestionController(questionDao));
         httpServer.addController(new AddNewAnswerController(answerDao));
         httpServer.addController(new EditQuestionController(questionDao));
-        httpServer.addController(new SetCookieController());
         httpServer.addController(new AddPersonController(personDao));
         httpServer.addController(new RedirectController());
         // logger.info, logger.debug, logger.error, logger.warning etc

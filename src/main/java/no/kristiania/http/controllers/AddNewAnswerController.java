@@ -33,9 +33,9 @@ public class AddNewAnswerController implements HttpController{
 
         String cookieName = URLDecoder.decode(cookieQueryMap.get("firstName"), StandardCharsets.UTF_8);
 
-        long name = PersonDao.listOutPersonFromCookieName(cookieName);
+        Person name = PersonDao.listOutPersonFromCookieName(cookieName);
 
-        long firstName = name;
+        long firstName = name.getPersonId();
         String question = queryMap.get("questionId");
         String option = queryMap.get("optionId");
 

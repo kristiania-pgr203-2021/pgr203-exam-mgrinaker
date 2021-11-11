@@ -60,20 +60,17 @@ public class PersonDao extends AbstractDao<Person> {
         return person;
     }
 
-    public static long listOutPersonFromCookieName(String cookieName) throws SQLException, IOException {
+    public static Person listOutPersonFromCookieName(String cookieName) throws SQLException, IOException {
         DataSource dataSource = SurveyServer.createDataSource();
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE first_name LIKE ?;")) {
                 statement.setString(1, cookieName);
 
-                ResultSet myId = statement.getResultSet();
-                return myId.getLong("id");
+                try (ResultSet rs = statement.executeQuery()) {
+                    rs.next();
 
-//                try (ResultSet rs = statement.executeQuery()) {
-//                    rs.next();
-//
-//                    return readFromResultSet(rs);
-//                }
+                    return readFromResultSet(rs);
+                }
             }
         }
     }
