@@ -65,7 +65,7 @@ public class QuestionDaoTest {
 
     public static Question exampleQuestion() {
         Question question = new Question();
-        question.setQuestionTitle(TestData.pickOne("Hvordan går det?", "Har du det bra?", "Hvordan trives du?", "Hei"));
+        question.setQuestionTitle(TestData.pickOne("Hvem er du?", "Har du det bra?", "Hvordan trives du?", "Hei"));
         question.setQuestionDescription(TestData.pickOne("Vi ønsker å se hvordan du har det", "Vi vil se din tilstand", "Vi mene"));
         return question;
     }
