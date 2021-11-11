@@ -3,6 +3,7 @@ package no.kristiania.http;
 import no.kristiania.TestData;
 import no.kristiania.db.option.Option;
 import no.kristiania.db.option.OptionDao;
+import no.kristiania.db.option.OptionDaoTest;
 import no.kristiania.db.person.PersonDao;
 import no.kristiania.db.question.Question;
 import no.kristiania.db.question.QuestionDao;
@@ -121,6 +122,29 @@ public class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
                 .contains(question1.getQuestionTitle() + "</h2>" + question1.getQuestionDescription());
+    }
+
+    @Test
+    void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
+        OptionDao optionDao = new OptionDao(TestData.testDataSource());
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new QuestionOptionsController(questionDao));
+
+        Option option1 = OptionDaoTest.exampleOption();
+        optionDao.insert(option1);
+
+        Option option2 = OptionDaoTest.exampleOption();
+        optionDao.insert(option2);
+
+        HttpClient client = new HttpClient(
+                "localhost",
+                server.getPort(),
+                "/api/questionOptions"
+        );
+
+        assertThat(client.getMessageBody())
+                .contains(option1.getOptionName(), option2.getOptionName());
+
     }
 
     @Test
