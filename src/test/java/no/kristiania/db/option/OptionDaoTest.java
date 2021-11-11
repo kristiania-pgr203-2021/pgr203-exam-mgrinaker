@@ -14,10 +14,10 @@ public class OptionDaoTest {
     @Test
     void shouldRetrieveSavedOption() throws SQLException {
 
-        dao.insert(exampleOption());
-        dao.insert(exampleOption());
+        dao.insert(TestData.exampleOption());
+        dao.insert(TestData.exampleOption());
 
-        Option option = exampleOption();
+        Option option = TestData.exampleOption();
         option.setOptionId(dao.insert(option));
 
         assertThat(dao.retrieve(option.getOptionId()))
@@ -29,25 +29,18 @@ public class OptionDaoTest {
 
     @Test
     void shouldListAllPeople() throws SQLException {
-        Option option1 = exampleOption();
+        Option option1 = TestData.exampleOption();
         dao.insert(option1);
 
-        Option anotherOption = exampleOption();
+        Option anotherOption = TestData.exampleOption();
         dao.insert(anotherOption);
 
-        Option option = exampleOption();
+        Option option = TestData.exampleOption();
         option.setOptionId(dao.insert(option));
 
         assertThat(dao.listAll())
                 .extracting((Option::getOptionName))
                 .contains(option.getOptionName(), anotherOption.getOptionName());
-    }
-
-    public static Option exampleOption() {
-        Option option = new Option();
-        option.setOptionName(TestData.pickOne("Bra", "Dårlig", "Okei"));
-        option.setQuestionId(TestData.pickOneInteger(1, 2, 3, 4));
-        return option;
     }
 
 }
