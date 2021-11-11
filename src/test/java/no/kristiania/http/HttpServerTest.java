@@ -119,6 +119,7 @@ public class HttpServerTest {
         Question question2 = QuestionDaoTest.exampleQuestion();
         questionDao.insert(question2);
 
+
         server.addController(new ListQuestionController(questionDao, optionDao));
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
@@ -179,5 +180,9 @@ public class HttpServerTest {
                     assertThat(edit.getQuestionTitle()).isEqualTo("Lol");
                     assertThat(edit.getQuestionDescription()).isEqualTo("Hehe");
                 });
+    }
+
+    @Test
+    void name() {
     }
 }
