@@ -23,7 +23,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     public long insert(Person person) throws SQLException {
-        return insert(person, "insert into person (first_name, last_name, email) values (?, ?, ?, ?, ?)");
+        return insert(person, "insert into person (first_name, last_name, email) values (?, ?, ?)");
     }
 
     @Override
