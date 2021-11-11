@@ -46,6 +46,31 @@ public class QuestionDaoTest {
 
     }
 
+    @Test
+    void shouldReturnEmptyResultSet() throws SQLException {
+        long id = -1;
+        assertThat(dao.retrieve(id))
+            .usingRecursiveComparison()
+            .isEqualTo(null);
+    }
+
+    @Test
+    void shouldUpdateQuestion() throws SQLException {
+        Question question = exampleQuestion();
+        question.setQuestionId(dao.insert(question));
+
+        System.out.println(question.getQuestionDescription());
+
+        Question anotherQuestion = exampleQuestion();
+        anotherQuestion.setQuestionId(dao.insert(anotherQuestion));
+
+        System.out.println(anotherQuestion.getQuestionDescription());
+
+        dao.updateQuestionDescription(anotherQuestion.getQuestionDescription(), question.getQuestionId());
+
+        System.out.println(question.getQuestionDescription());
+    }
+
     public static Question exampleQuestion() {
         Question question = new Question();
         question.setQuestionTitle(TestData.pickOne("Hvordan går det?", "Har du det bra?", "Hvordan trives du?", "Hei"));
