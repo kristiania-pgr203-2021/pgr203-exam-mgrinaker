@@ -130,19 +130,23 @@ public class HttpServerTest {
     @Test
     void shouldCreateNewPerson() throws IOException, SQLException {
         PersonDao personDao = new PersonDao(TestData.testDataSource());
-        //server.addController(new AddQuestionController(personDao));
+        server.addController(new AddPersonController(personDao));
 
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",
                 server.getPort(),
-                "/api/newPerson",
-                "lastName=Persson&firsName=Test"
+                "/api/setCookie",
+                "lastName=Larsen&email=marit@larsen.no&professionId=1&workplaceId=2",
+                "firstName=Marit"
         );
-        assertEquals(204, postClient.getStatusCode());
+        assertEquals(303, postClient.getStatusCode());
         assertThat(personDao.listAll())
                 .anySatisfy(p -> {
-                    assertThat(p.getFirstName()).isEqualTo("Test");
-                    assertThat(p.getLastName()).isEqualTo("Persson");
+                    assertThat(p.getFirstName()).isEqualTo("Marit");
+                    assertThat(p.getLastName()).isEqualTo("Larsen");
+                    assertThat(p.getMailAddress()).isEqualTo("marit@larsen.no");
+                    assertThat(p.getProfessionId()).isEqualTo(1);
+                    assertThat(p.getWorkplaceId()).isEqualTo(2);
                 });
     }
 
