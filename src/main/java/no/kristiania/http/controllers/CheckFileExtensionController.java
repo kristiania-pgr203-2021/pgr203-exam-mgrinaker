@@ -1,14 +1,10 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.http.HttpServer;
-import no.kristiania.http.controllers.HttpController;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import static no.kristiania.http.HttpServer.fileTarget;
 import static no.kristiania.http.HttpServer.requestTarget;

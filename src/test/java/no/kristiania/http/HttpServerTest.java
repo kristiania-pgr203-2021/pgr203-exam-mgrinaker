@@ -23,19 +23,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class HttpServerTest {
     private HttpServer server = new HttpServer(0); // server port 0 gir tilfeldig port
+
     public HttpServerTest() throws IOException {
     }
 
     @Test
     void shouldReturn404ForUnknownRequestTarget() throws IOException {
         // InetSocketAddress
-        HttpClient client= new HttpClient("localhost", server.getPort(), "/non-existing");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals(404, client.getStatusCode());
     }
 
     @Test
     void shouldReturnWithRequestTargetIn404() throws IOException {
-        HttpClient client= new HttpClient("localhost", server.getPort(), "/non-existing");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals("File not found: /non-existing", client.getMessageBody());
     }
 
@@ -46,7 +47,7 @@ public class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertAll(
                 () -> assertEquals(200, client.getStatusCode()),
-        //        () -> assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type")),
+                //        () -> assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type")),
                 () -> assertEquals("<p>Hello world!</p>", client.getMessageBody())
         );
     }
@@ -80,6 +81,7 @@ public class HttpServerTest {
         assertEquals("text/plain", client.getHeader("Content-Type"));
     }
 
+
     @Test
     void shouldReadFileFromDisk() throws IOException {
         server.addController(new CheckFileExtensionController());
@@ -102,6 +104,20 @@ public class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/example-file.html");
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
+    }
+
+    @Test
+    void shouldUseFileExtensionForContentTypeCSS() throws IOException {
+        server.addController(new CheckFileExtensionController());
+        String fileContent = "body{ color: white}";
+        Files.write(Paths.get("target/test-classes/style.css"), fileContent.getBytes());
+
+        HttpClient client = new HttpClient(
+                "localhost",
+                server.getPort(),
+                "/style.css");
+
+        assertEquals("text/css; charset=utf-8", client.getHeader("Content-type"));
     }
 
 
@@ -188,6 +204,49 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldFailCreateNewQuestionWithoutTitle() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "questionTitle=&questionDescription=Lollol"
+        );
+        assertEquals(400, postclient.getStatusCode());
+
+    }
+
+    @Test
+    void shouldFailCreateNewQuestionWithoutDescription() throws IOException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "questionTitle=Heihei&questionDescription="
+        );
+        assertEquals(400, postclient.getStatusCode());
+    }
+
+    @Test
+    void shouldFailCreateNewQuestionWithoutTitleAndDescription() throws IOException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new AddQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newQuestion",
+                "questionTitle=&questionDescription="
+        );
+        assertEquals(400, postclient.getStatusCode());
+    }
+
+    @Test
     void shouldCreateNewOption() throws IOException, SQLException {
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
         server.addController(new AddOptionController(optionDao));
@@ -224,7 +283,56 @@ public class HttpServerTest {
                 });
     }
 
+    @Test
+    void shouldUpdateQuestionTitle() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new EditQuestionController(questionDao));
 
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editQuestion",
+                "questionTitle=1&newTitle=Lol&newDescription="
+        );
 
+        assertEquals(303, postclient.getStatusCode());
+        assertThat(questionDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getQuestionTitle()).isEqualTo("Lol");
+                });
+    }
 
+    @Test
+    void shouldUpdateQuestionDescription() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController(new EditQuestionController(questionDao));
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editQuestion",
+                "questionTitle=1&newTitle=&newDescription=Hehe"
+        );
+
+        assertEquals(303, postclient.getStatusCode());
+        assertThat(questionDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getQuestionDescription()).isEqualTo("Hehe");
+                });
+    }
+
+    @Test
+    void shouldRedirectUser() throws IOException {
+        server.addController(new RedirectController());
+
+        HttpPostClient postclient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/",
+                ""
+        );
+
+        assertEquals(303, postclient.getStatusCode());
+
+    }
 }

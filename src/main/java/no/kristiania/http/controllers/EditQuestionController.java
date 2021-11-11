@@ -34,7 +34,7 @@ public class EditQuestionController implements HttpController{
             questionDao.updateQuestionDescription(newDescription, questionTitle);
         }else if(newDescription == ""){
             questionDao.updateQuestionTitle(newTitle, questionTitle);
-        }else {
+        }else if(newTitle != "" && newDescription != "") {
             questionDao.updateQuestionTitle(newTitle, questionTitle);
             questionDao.updateQuestionDescription(newDescription, questionTitle);
         }
