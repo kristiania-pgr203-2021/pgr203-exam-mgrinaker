@@ -34,7 +34,7 @@ public class OptionDao extends AbstractDao<Option> {
     }
 
     public Option retrieve(long id) throws SQLException {
-        return super.retrieve("SELECT * FROM option WHERE id= ?", id);
+        return super.retrieve("SELECT * FROM option WHERE id = ?", id);
     }
 
     public long insert(Option option) throws SQLException {
