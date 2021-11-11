@@ -80,6 +80,8 @@ public class HttpServer {
                         responseText;
                 clientSocket.getOutputStream().write(response.getBytes());
         }
+
+
     }
 
     private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
