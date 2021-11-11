@@ -3,7 +3,6 @@ package no.kristiania.http;
 import no.kristiania.TestData;
 import no.kristiania.db.option.Option;
 import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.option.OptionDaoTest;
 import no.kristiania.db.person.PersonDao;
 import no.kristiania.db.question.Question;
 import no.kristiania.db.question.QuestionDao;
@@ -107,7 +106,7 @@ public class HttpServerTest {
 
 
     @Test
-    void shouldListAllQuestions() throws SQLException, IOException {
+    void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
 
@@ -117,7 +116,7 @@ public class HttpServerTest {
         questionDao.insert(question2);
 
 
-        server.addController(new ListQuestionController(questionDao, optionDao));
+        server.addController(new ListQuestionAndOptionController(questionDao, optionDao));
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
@@ -125,16 +124,15 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
-        OptionDao optionDao = new OptionDao(TestData.testDataSource());
+    void shouldListAllQuestions() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
-        server.addController(new QuestionOptionsController(questionDao));
+        server.addController(new listQuestionController(questionDao));
 
-        Option option1 = OptionDaoTest.exampleOption();
-        optionDao.insert(option1);
+        Question question1 = QuestionDaoTest.exampleQuestion();
+        questionDao.insert(question1);
 
-        Option option2 = OptionDaoTest.exampleOption();
-        optionDao.insert(option2);
+        Question question2 = QuestionDaoTest.exampleQuestion();
+        questionDao.insert(question2);
 
         HttpClient client = new HttpClient(
                 "localhost",
@@ -143,7 +141,7 @@ public class HttpServerTest {
         );
 
         assertThat(client.getMessageBody())
-                .contains(option1.getOptionName(), option2.getOptionName());
+                .contains(question1.getQuestionTitle(), question2.getQuestionTitle());
 
     }
 
