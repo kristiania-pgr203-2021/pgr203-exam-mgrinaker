@@ -8,14 +8,10 @@
 </head>
 <body onload="checkCookie()">
     <h1>Questionnaire</h1>
-    <!--
-    <form method="POST" action="/api/setCookie" id="setCookie"> onsubmit="checkCookie()"
-        <label>Hi! Whats your name?<br><input type="text" id="cookieName" name="cookieName" placeholder="Enter your first name" /></label>
-        <button type="submit">OK</button>
-    </form>-->
 
     <div id="cookieDiv">
     <form action="/api/setCookie" method="post" id="personInfo">
+        <p>Please enter your information below.</p>
         <input class="field" type="text" id="firstName" placeholder="first name" style="text-transform: capitalize;" autofocus><br>
         <input class="field" type="text" id="lastName" name="lastName" placeholder="last name" style="text-transform: capitalize;"><br>
         <input class="field" type="email" id="email" name="email" placeholder="name@email.com"><br>
@@ -27,7 +23,6 @@
     </div>
 
     <form method="POST" action="/api/newAnswer" id="questions">
-
     </form>
     
     <div>
@@ -49,49 +44,18 @@
         document.cookie = firstName + "=" + firstNameValue + "; path=/; expires=" + expiry.toUTCString();
     }
 
-    function storeValues(form) {
-        setCookie("email", form.email - field.value);
-        return true;
-    }
-
-    function getCookie(name) {
-        let re = new RegExp(name + "=([^;]+)");
+    function getCookie(firstName) {
+        let re = new RegExp(firstName + "=([^;]+)");
         let value = re.exec(document.cookie);
-        return (value != null) ? unescape(value[1]) : null;
+        return value[1];
     }
 
     function checkCookie() {
-        let user = getCookie("firstName");
-        if (user != "" || user != null) {
-            //document.getElementById("cookieDiv").innerHTML = "<p>Welcome back, " + user + "!</p>";
+        let firstName = getCookie("firstName");
+        if (firstName !== "" || firstName != null) {
+            document.getElementById("cookieDiv").innerHTML = "<p>Welcome, " + firstName + "!</p>";
         }
     }
-
-    /*
-    function setCookie(cookieName, cookieValue, expireDays) {
-        const date = new Date();
-        date.setTime(date.getTime() + (expireDays * 24 * 60 * 60 * 1000));
-        let expires = "expires="+date.toUTCString();
-        document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
-    }
-    */
-
-    /*
-    function getCookie(cookieName) {
-        let name = cookieName + "=";
-        let ca = document.cookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-    */
 
     fetch("/api/question")
     .then(function(response){

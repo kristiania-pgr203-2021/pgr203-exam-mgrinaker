@@ -27,7 +27,7 @@ public class ListQuestionController implements HttpController {
         String response = "";
 
         for (Question question : questionDao.listAll()){
-            response += "<form method='POST' action='/api/newAnswer'>" +
+            response += "<form method='POST' action='/api/newAnswer' onsubmit='addMessage()'>" +
                     "<h2><input type='hidden' checked='true' name='questionId' value='" + question.getQuestionId() + "' +>" + question.getQuestionTitle() + "</input></h2>" +
                     question.getQuestionDescription() + "<br>";
 
@@ -39,7 +39,15 @@ public class ListQuestionController implements HttpController {
                     ;
                 }
             }
-        response += "<br><button>Add</button></form>";
+        response += "<br><button>Add</button></form><br><br>" +
+                "<div name='confirmationMessage'></div>" +
+
+                "<script>" +
+                "   function addMessage(){\n" +
+                "        document.getElementsByName(\"confirmationMessage\")[" + question.getQuestionId() + "].innerHTML\n" +
+                "        = \"alert('OK!')\";\n" +
+                "   }" +
+                "</script>";
         }
 
         return new HttpMessage("HTTP/1.1 200 OK", response);

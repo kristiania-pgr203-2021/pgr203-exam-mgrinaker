@@ -48,6 +48,6 @@ public class AddQuestionController implements HttpController {
         }
         questionDao.insert(question);
 
-        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/addOption.html" );
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/newQuestion.html" );
     }
 }

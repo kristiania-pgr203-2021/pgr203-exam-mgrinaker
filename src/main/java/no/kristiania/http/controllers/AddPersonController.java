@@ -24,8 +24,8 @@ public class AddPersonController implements HttpController {
 
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
-        Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Map<String, String> cookieQueryMap = HttpMessage.parseRequestParameters(request.getHeader("Cookie"));
+        Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
 
         String firstName = URLDecoder.decode(cookieQueryMap.get("firstName"), StandardCharsets.UTF_8);
         String lastName = URLDecoder.decode(queryMap.get("lastName"), StandardCharsets.UTF_8);
@@ -42,6 +42,6 @@ public class AddPersonController implements HttpController {
 
         personDao.insert(person);
 
-        return new HttpMessage("HTTP/1.1 200 OK", "WOOP");
+        return new HttpMessage("HTTP/1.1 303 See other", "WOOP", "/index.html");
     }
 }
