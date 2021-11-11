@@ -4,9 +4,7 @@ import no.kristiania.db.answer.AnswerDao;
 import no.kristiania.http.controllers.*;
 import no.kristiania.db.option.OptionDao;
 import no.kristiania.db.person.PersonDao;
-import no.kristiania.db.profession.ProfessionDao;
 import no.kristiania.db.question.QuestionDao;
-import no.kristiania.db.workplace.WorkplaceDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
@@ -24,9 +22,7 @@ public class SurveyServer {
         DataSource dataSource = createDataSource();
 
         PersonDao personDao = new PersonDao(dataSource);
-        ProfessionDao professionDao = new ProfessionDao(dataSource);
         QuestionDao questionDao = new QuestionDao(dataSource);
-        WorkplaceDao workplaceDao = new WorkplaceDao(dataSource);
         AnswerDao answerDao = new AnswerDao(dataSource);
         OptionDao optionDao = new OptionDao(dataSource);
 
