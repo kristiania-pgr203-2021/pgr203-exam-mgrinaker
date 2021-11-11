@@ -29,7 +29,7 @@ public class PersonDao extends AbstractDao<Person> {
     @Override
     protected Person rowToObject(ResultSet rs) throws SQLException {
         Person person = new Person();
-        person.setPerson_id(rs.getLong("person_id"));
+        person.setPerson_id(rs.getLong("id"));
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setMailAddress(rs.getString("email"));

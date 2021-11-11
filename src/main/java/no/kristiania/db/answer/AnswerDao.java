@@ -38,7 +38,7 @@ public class AnswerDao extends AbstractDao<Answer> {
     }
 
     public Answer retrieve(long id) throws SQLException {
-        return super.retrieve("SELECT * FROM question WHERE id = ?", id);
+        return super.retrieve("SELECT * FROM answer WHERE id = ?", id);
     }
 
     public long insert(Answer answer) throws SQLException {

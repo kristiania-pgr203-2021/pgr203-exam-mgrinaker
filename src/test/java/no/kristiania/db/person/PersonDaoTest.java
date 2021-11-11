@@ -14,8 +14,12 @@ public class PersonDaoTest {
 
     @Test
     void shouldRetrieveSavedPerson() throws SQLException {
+        dao.insert(examplePerson());
+        dao.insert(examplePerson());
+
         Person person = examplePerson();
-        dao.insert(person);
+        person.setPerson_id(dao.insert(person));
+
         assertThat(dao.retrieve(person.getPerson_id()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
@@ -25,15 +29,18 @@ public class PersonDaoTest {
 
     @Test
     void shouldListAllPeople() throws SQLException {
-        Person person = examplePerson();
-        dao.insert(person);
+        Person person1 = examplePerson();
+        dao.insert(person1);
 
         Person anotherPerson = examplePerson();
         dao.insert(anotherPerson);
 
+        Person person = examplePerson();
+        person.setPerson_id(dao.insert(person));
+
         assertThat(dao.listAll())
-                .extracting((Person::getPerson_id))
-                .contains(person.getPerson_id(), anotherPerson.getPerson_id());
+                .extracting((Person::getFirstName))
+                .contains(person.getFirstName(), anotherPerson.getFirstName());
     }
 
     public static Person examplePerson() {

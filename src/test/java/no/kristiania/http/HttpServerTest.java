@@ -104,6 +104,12 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldRetrieveNewQuestion() throws IOException {
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/newQuestion");
+
+    }
+
+    @Test
     void shouldListPeopleFormDatabase() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
@@ -133,7 +139,7 @@ public class HttpServerTest {
                 "/api/newPerson",
                 "lastName=Persson&firsName=Test"
         );
-        assertEquals(200, postClient.getStatusCode());
+        assertEquals(204, postClient.getStatusCode());
         assertThat(personDao.listAll())
                 .anySatisfy(p -> {
                     assertThat(p.getFirstName()).isEqualTo("Test");

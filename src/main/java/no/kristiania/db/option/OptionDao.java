@@ -38,7 +38,7 @@ public class OptionDao extends AbstractDao<Option> {
     }
 
     public long insert(Option option) throws SQLException {
-        return insert(option, "INSERT into option (option_name, question_id) values (?. ?)");
+        return insert(option, "INSERT into option (option_name, question_id) values (?, ?)");
     }
 
 }

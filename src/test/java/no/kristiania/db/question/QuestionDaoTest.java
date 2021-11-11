@@ -21,7 +21,6 @@ public class QuestionDaoTest {
         Question question = exampleQuestion();
         question.setQuestionId(dao.insert(question));
 
-
         assertThat(dao.retrieve(question.getQuestionId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()

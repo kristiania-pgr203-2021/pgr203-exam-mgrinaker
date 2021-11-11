@@ -13,8 +13,15 @@ public class AnswerDaoTest {
 
     @Test
     void shouldRetrieveSavedAnswer() throws SQLException {
+
+        Answer answer1 = exampleAnswer();
+        dao.insert(answer1);
+
+        Answer anotherAnswer = exampleAnswer();
+        dao.insert(anotherAnswer);
+
         Answer answer = exampleAnswer();
-        dao.insert(answer);
+        answer.setAnswerId(dao.insert(answer));
 
         assertThat(dao.retrieve(answer.getAnswerId()))
                 .hasNoNullFieldsOrProperties()
@@ -24,15 +31,18 @@ public class AnswerDaoTest {
 
     @Test
     void shouldListAllAnswers() throws SQLException {
-        Answer answer = exampleAnswer();
-        dao.insert(answer);
+        Answer answer1 = exampleAnswer();
+        dao.insert(answer1);
 
         Answer anotherAnswer = exampleAnswer();
         dao.insert(anotherAnswer);
 
+        Answer answer = exampleAnswer();
+        answer.setAnswerId(dao.insert(answer));
+
         assertThat(dao.listAll())
-                .extracting(Answer::getAnswerId)
-                .contains(answer.getAnswerId(), anotherAnswer.getAnswerId());
+                .extracting(Answer::getOptionId)
+                .contains(answer.getOptionId(), anotherAnswer.getOptionId());
 
     }
 
