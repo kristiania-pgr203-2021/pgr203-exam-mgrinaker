@@ -1,4 +1,4 @@
-package no.kristiania.db.option;
+package no.kristiania.db.objects;
 
 public class Option {
 

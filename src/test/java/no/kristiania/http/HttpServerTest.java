@@ -1,13 +1,13 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
-import no.kristiania.db.answer.Answer;
-import no.kristiania.db.answer.AnswerDao;
-import no.kristiania.db.option.Option;
-import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.person.PersonDao;
-import no.kristiania.db.question.Question;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.objects.Answer;
+import no.kristiania.db.dao.AnswerDao;
+import no.kristiania.db.objects.Option;
+import no.kristiania.db.dao.OptionDao;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.objects.Question;
+import no.kristiania.db.dao.QuestionDao;
 import no.kristiania.http.controllers.*;
 import org.junit.jupiter.api.Test;
 

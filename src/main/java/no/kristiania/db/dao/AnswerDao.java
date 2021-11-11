@@ -1,6 +1,6 @@
-package no.kristiania.db.answer;
+package no.kristiania.db.dao;
 
-import no.kristiania.http.AbstractDao;
+import no.kristiania.db.objects.Answer;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;

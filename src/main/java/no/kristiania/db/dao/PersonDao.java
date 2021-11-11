@@ -1,11 +1,14 @@
-package no.kristiania.db.person;
+package no.kristiania.db.dao;
 
-import no.kristiania.http.AbstractDao;
+import no.kristiania.db.objects.Person;
 import no.kristiania.http.SurveyServer;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class PersonDao extends AbstractDao<Person> {

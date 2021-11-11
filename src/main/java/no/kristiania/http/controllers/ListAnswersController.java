@@ -1,10 +1,10 @@
 package no.kristiania.http.controllers;
 
-import no.kristiania.db.answer.Answer;
-import no.kristiania.db.answer.AnswerDao;
-import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.person.PersonDao;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.objects.Answer;
+import no.kristiania.db.dao.AnswerDao;
+import no.kristiania.db.dao.OptionDao;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.dao.QuestionDao;
 import no.kristiania.http.HttpMessage;
 
 import java.io.IOException;

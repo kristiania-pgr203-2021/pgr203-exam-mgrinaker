@@ -1,10 +1,10 @@
 package no.kristiania.http;
 
-import no.kristiania.db.answer.AnswerDao;
+import no.kristiania.db.dao.AnswerDao;
 import no.kristiania.http.controllers.*;
-import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.person.PersonDao;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.dao.OptionDao;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.dao.QuestionDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;

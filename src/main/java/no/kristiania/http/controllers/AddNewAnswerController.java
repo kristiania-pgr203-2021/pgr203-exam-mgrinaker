@@ -1,13 +1,11 @@
 package no.kristiania.http.controllers;
 
-import no.kristiania.db.answer.Answer;
-import no.kristiania.db.answer.AnswerDao;
-import no.kristiania.db.person.Person;
-import no.kristiania.db.person.PersonDao;
+import no.kristiania.db.objects.Answer;
+import no.kristiania.db.dao.AnswerDao;
+import no.kristiania.db.objects.Person;
+import no.kristiania.db.dao.PersonDao;
 import no.kristiania.http.HttpMessage;
-import no.kristiania.http.SurveyServer;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;

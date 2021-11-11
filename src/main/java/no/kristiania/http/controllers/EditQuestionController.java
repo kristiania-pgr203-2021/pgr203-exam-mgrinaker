@@ -1,7 +1,7 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.dao.QuestionDao;
 
 import java.io.IOException;
 import java.net.URLDecoder;

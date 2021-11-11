@@ -1,9 +1,9 @@
 package no.kristiania;
 
-import no.kristiania.db.answer.Answer;
-import no.kristiania.db.option.Option;
-import no.kristiania.db.person.Person;
-import no.kristiania.db.question.Question;
+import no.kristiania.db.objects.Answer;
+import no.kristiania.db.objects.Option;
+import no.kristiania.db.objects.Person;
+import no.kristiania.db.objects.Question;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 

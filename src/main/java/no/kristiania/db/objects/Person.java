@@ -1,4 +1,4 @@
-package no.kristiania.db.person;
+package no.kristiania.db.objects;
 
 public class Person { //aka User
     private long personId;

@@ -1,6 +1,8 @@
 package no.kristiania.db.person;
 
 import no.kristiania.TestData;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.objects.Person;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;

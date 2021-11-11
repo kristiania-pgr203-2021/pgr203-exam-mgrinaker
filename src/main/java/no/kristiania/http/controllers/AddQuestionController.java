@@ -1,8 +1,8 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.question.Question;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.objects.Question;
+import no.kristiania.db.dao.QuestionDao;
 
 import java.sql.SQLException;
 import java.util.Map;

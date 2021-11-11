@@ -1,9 +1,11 @@
-package no.kristiania.db.question;
+package no.kristiania.db.dao;
 
-import no.kristiania.http.AbstractDao;
+import no.kristiania.db.objects.Question;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class QuestionDao extends AbstractDao<Question> {

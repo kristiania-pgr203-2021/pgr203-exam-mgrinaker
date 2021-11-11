@@ -1,8 +1,8 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.option.Option;
-import no.kristiania.db.option.OptionDao;
+import no.kristiania.db.objects.Option;
+import no.kristiania.db.dao.OptionDao;
 
 import java.io.IOException;
 import java.net.URLDecoder;

@@ -1,7 +1,7 @@
 package no.kristiania.http.controllers;
 
-import no.kristiania.db.person.Person;
-import no.kristiania.db.person.PersonDao;
+import no.kristiania.db.objects.Person;
+import no.kristiania.db.dao.PersonDao;
 import no.kristiania.http.HttpMessage;
 
 import java.io.IOException;
