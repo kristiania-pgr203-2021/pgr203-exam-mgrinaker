@@ -50,7 +50,7 @@ public class SurveyServer {
         logger.info("Go to http://localhost:{}/index.html", httpServer.getPort());
     }
 
-    private static DataSource createDataSource() throws IOException {
+    public static DataSource createDataSource() throws IOException {
         Properties properties = new Properties();
         try (FileReader reader = new FileReader("pgr203.properties")) {
             properties.load(reader);

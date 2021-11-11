@@ -1,8 +1,10 @@
 package no.kristiania.db.person;
 
 import no.kristiania.http.AbstractDao;
+import no.kristiania.http.SurveyServer;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class PersonDao extends AbstractDao<Person> {
     @Override
     protected Person rowToObject(ResultSet rs) throws SQLException {
         Person person = new Person();
-        person.setPerson_id(rs.getLong("id"));
+        person.setPersonId(rs.getLong("id"));
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setMailAddress(rs.getString("email"));
@@ -47,6 +49,34 @@ public class PersonDao extends AbstractDao<Person> {
         insertStatement.setLong(5, obj.getWorkplaceId());
     }
 
+    public static Person readFromResultSet(ResultSet rs) throws SQLException {
+        Person person = new Person();
+        person.setPersonId(rs.getLong("id"));
+        person.setFirstName(rs.getString("first_name"));
+        person.setLastName(rs.getString("last_name"));
+        person.setMailAddress(rs.getString("email"));
+        person.setProfessionId(rs.getLong("profession_id"));
+        person.setWorkplaceId(rs.getLong("workplace_id"));
+        return person;
+    }
+
+    public static long listOutPersonFromCookieName(String cookieName) throws SQLException, IOException {
+        DataSource dataSource = SurveyServer.createDataSource();
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE first_name LIKE ?;")) {
+                statement.setString(1, cookieName);
+
+                ResultSet myId = statement.getResultSet();
+                return myId.getLong("id");
+
+//                try (ResultSet rs = statement.executeQuery()) {
+//                    rs.next();
+//
+//                    return readFromResultSet(rs);
+//                }
+            }
+        }
+    }
 
 
 }

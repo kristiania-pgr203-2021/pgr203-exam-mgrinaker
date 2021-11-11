@@ -18,9 +18,9 @@ public class PersonDaoTest {
         dao.insert(examplePerson());
 
         Person person = examplePerson();
-        person.setPerson_id(dao.insert(person));
+        person.setPersonId(dao.insert(person));
 
-        assertThat(dao.retrieve(person.getPerson_id()))
+        assertThat(dao.retrieve(person.getPersonId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(person)
@@ -36,7 +36,7 @@ public class PersonDaoTest {
         dao.insert(anotherPerson);
 
         Person person = examplePerson();
-        person.setPerson_id(dao.insert(person));
+        person.setPersonId(dao.insert(person));
 
         assertThat(dao.listAll())
                 .extracting((Person::getFirstName))
