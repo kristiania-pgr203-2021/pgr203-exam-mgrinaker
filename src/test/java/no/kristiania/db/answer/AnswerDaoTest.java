@@ -14,11 +14,8 @@ public class AnswerDaoTest {
     @Test
     void shouldRetrieveSavedAnswer() throws SQLException {
 
-        Answer answer1 = exampleAnswer();
-        dao.insert(answer1);
-
-        Answer anotherAnswer = exampleAnswer();
-        dao.insert(anotherAnswer);
+        dao.insert(exampleAnswer());
+        dao.insert(exampleAnswer());
 
         Answer answer = exampleAnswer();
         answer.setAnswerId(dao.insert(answer));
@@ -49,7 +46,7 @@ public class AnswerDaoTest {
     private Answer exampleAnswer(){
         Answer answer = new Answer();
         answer.setQuestionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
-        answer.setPersonId(TestData.pickOneInteger(1, 2, 3));
+        answer.setPersonId(TestData.pickOneInteger(1));
         answer.setOptionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
 
         return answer;

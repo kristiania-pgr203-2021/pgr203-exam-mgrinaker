@@ -1,6 +1,7 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
+import no.kristiania.db.option.Option;
 import no.kristiania.db.option.OptionDao;
 import no.kristiania.db.person.PersonDao;
 import no.kristiania.db.question.Question;
@@ -161,6 +162,23 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldCreateNewOption() throws IOException, SQLException {
+        OptionDao optionDao = new OptionDao(TestData.testDataSource());
+        server.addController(new AddOptionController(optionDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/alternativeAnswers",
+                "questionId=1&optionName=NeiTakk"
+        );
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(optionDao.listAll())
+                .extracting(Option::getOptionName)
+                .contains("NeiTakk");
+    }
+
+    @Test
     void shouldUpdateQuestion() throws IOException, SQLException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         server.addController(new EditQuestionController(questionDao));
@@ -180,9 +198,7 @@ public class HttpServerTest {
                 });
     }
 
-    @Test
-    void name() {
-    }
+
 
 
 }
