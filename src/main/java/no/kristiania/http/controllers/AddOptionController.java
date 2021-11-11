@@ -35,8 +35,6 @@ public class AddOptionController implements HttpController {
         option.setOptionName(decodedOptionName);
         optionDao.insert(option);
 
-
-
-        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/addOption.html");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/index.html");
     }
 }

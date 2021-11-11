@@ -10,7 +10,6 @@ import static no.kristiania.http.HttpServer.fileTarget;
 import static no.kristiania.http.HttpServer.requestTarget;
 
 public class CheckFileExtensionController implements HttpController {
-    //private ServerSocket serverSocket;
 
     @Override
     public String getPath() {
@@ -19,7 +18,6 @@ public class CheckFileExtensionController implements HttpController {
 
     @Override
     public HttpMessage handle(HttpMessage request) throws IOException {
-        //Socket clientSocket = serverSocket.accept();
         InputStream fileResource = getClass().getResourceAsStream(fileTarget);
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         String responseText = buffer.toString();
@@ -32,20 +30,8 @@ public class CheckFileExtensionController implements HttpController {
             } else if (requestTarget.endsWith(".css")) {
                 contentType ="text/css; "; //charset=utf-8
             }
-            //writeOkResponse(clientSocket, responseText, contentType);
-            //return;
         }
         return new HttpMessage("HTTP/1.1 200 OK", responseText);
     }
 
-    /*private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + responseText.getBytes().length + "\r\n" +
-                "Content-Type: " + contentType + "\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                responseText;
-
-        clientSocket.getOutputStream().write(response.getBytes());
-    }*/
 }

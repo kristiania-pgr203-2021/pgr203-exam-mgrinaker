@@ -38,6 +38,6 @@ public class AddPersonController implements HttpController {
 
         personDao.insert(person);
 
-        return new HttpMessage("HTTP/1.1 303 See other", "WOOP", "/index.html");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "/index.html");
     }
 }

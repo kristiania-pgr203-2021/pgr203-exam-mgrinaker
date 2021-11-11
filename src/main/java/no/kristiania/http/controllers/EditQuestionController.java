@@ -28,7 +28,6 @@ public class EditQuestionController implements HttpController{
         long questionTitle = Long.parseLong(queryMap.get("questionTitle"));
         String newTitle = URLDecoder.decode(queryMap.get("newTitle"), StandardCharsets.UTF_8);
         String newDescription = URLDecoder.decode(queryMap.get("newDescription"), StandardCharsets.UTF_8);
-        //questionDao.getQuestionId(questionTitle);
 
         if(newTitle == ""){
             questionDao.updateQuestionDescription(newDescription, questionTitle);

@@ -24,7 +24,6 @@ public class listQuestionController implements HttpController{
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         String responseText = "";
 
-        int value = 1;
         for(Question question : questionDao.listAll()){
             responseText += "<option value=" + question.getQuestionId() + ">" +question.getQuestionTitle() + ":  " + question.getQuestionDescription() + "</option>";
         }
