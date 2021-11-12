@@ -6,13 +6,13 @@ create table question
 );
 
 Insert into question (question_title, question_description)
-values ('Hvordan trives du?', 'Dette er viktig for oss');
+values ('Hvordan er din trivsel?', 'Trivsel står veldig høyt hos oss.');
 Insert into question (question_title, question_description)
-values ('Har du noen venner', 'Viktig');
+values ('Hva er ditt karriere-mål?', 'Velg kun ett.');
 Insert into question (question_title, question_description)
-values ('Er du lykkelig?', 'Ikke viktig');
+values ('Har du søkt andre jobber? (Ja/Nei)', 'Om ansatte ønsker å bli på sin arbeidsplass.');
 Insert into question (question_title, question_description)
-values ('Hvem er du?', 'Vi vil kjenne deg');
+values ('Hvor utfordret blir du på daglig basis?', 'Om oppgaver blir for lette eller avanserte.');
 Insert into question (question_title, question_description)
-values ('Spiser du lunsj alene', 'Viktig at ingen spiser alene');
+values ('Hvor fornøyd er du med dine oppgaver?', 'Om du er misfornøyd oppgavene, kan du få nye.');
 ;
