@@ -84,7 +84,7 @@ public class HttpServerTest {
     @Test
     void shouldReadFileFromDisk() throws IOException {
         String file = "Testing read file from disk";
-        File filePath = new File("src/main/resources");
+        File filePath = new File("target/test-classes/");
 
         Files.writeString(new File(filePath, "file.txt").toPath(), file);
 

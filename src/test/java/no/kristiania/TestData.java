@@ -21,12 +21,10 @@ public class TestData<T> {
 
     private static Random random = new Random();
 
-    public static String pickOne(String ... alternatives) {
+    public static String pickOne(String... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }
-
-    public static Integer pickOneInteger(Integer ... alternatives) {
-        return alternatives[random.nextInt(alternatives.length)];
+    public static Integer pickOneInteger(Integer... alternatives) { return alternatives[random.nextInt(alternatives.length)];
     }
 
 
