@@ -39,9 +39,8 @@ public class ListQuestionAndOptionController implements HttpController {
                     ;
                 }
             }
-        response += "<br><button class='optionsAddButton'>Submit answer</button></form></div><br><br>";
+            response += "<br><button class='optionsAddButton'>Submit answer</button></form></div><br><br>";
         }
-
         return new HttpMessage("HTTP/1.1 200 OK", response);
     }
 }

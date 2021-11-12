@@ -17,7 +17,6 @@ public class PersonDao extends AbstractDao<Person> {
         super(dataSource);
     }
 
-
     public Person retrieve(long id) throws SQLException {
         return super.retrieve("SELECT * FROM person WHERE id = ?", id);
     }
@@ -83,6 +82,4 @@ public class PersonDao extends AbstractDao<Person> {
             }
         }
     }
-
-
 }

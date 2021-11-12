@@ -17,7 +17,7 @@ import java.util.Properties;
 
 public class SurveyServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
- //slett denne
+
     public static void main(String[] args) throws IOException {
         DataSource dataSource = createDataSource();
 
@@ -25,7 +25,6 @@ public class SurveyServer {
         QuestionDao questionDao = new QuestionDao(dataSource);
         AnswerDao answerDao = new AnswerDao(dataSource);
         OptionDao optionDao = new OptionDao(dataSource);
-
 
         HttpServer httpServer = new HttpServer(1963);
         httpServer.addController(new AddQuestionController(questionDao));

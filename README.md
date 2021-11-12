@@ -30,7 +30,13 @@ Første gang man besøker undersøkelsen får de opp inputfelt der de må skrive
 Hver gang brukeren har lagt inn ett nytt spørsmål eller ett nytt option blir brukeren sendt tilbake til index.html.
 Dette ble gjort ved at vi startLine til "HTTP/1.1 303 See other" og location til "http://localhost:1963/index.html".
 
-UTF-8 
+Vi har lagt inn UTF-8-decoding på alle inputfelt, sånn at både Æ, Ø, Å og @ skal bli lest inn og tolka riktig.
+
+Der vi legger til brukerinformasjon i starten av surveyen har vi gjort sånn at navnet til brukeren lagres som en cookie.
+Senere bruker vi denne cookien når brukeren registrerer svarene sine i surveyen, og kobler den opp mot personId i person-databasen.
+
+I HttpServer har vi kode som leser filer fra disc, der den sjekker fil-endingene for å avgjøre hvilken content-type som
+skal brukes. Det gjør det mulig å laste inn både .txt, .html og .css-filer riktig.
 
 En abstractDao ble laget for å ikke få duplisert kode. Der har vi brukt generics for at de andre klassene kan få bruke 
 metodene. Der har vi insert(), retrieve(), listAll() og update().
@@ -46,8 +52,6 @@ Under datamodell har en illustrasjon over hvordan databasen og noen diagrammer o
 Vi føler vi har fått med oss de aller viktigste tabbellene som trengs for dette prosjektet. Vi kunne nok ha hatt med 
 oss mere, som hvilken jobb de har og hvor de jobber. Dette ble ikke med grunnet at vi heller ønsket å fokusere på andre
 oppgaver i dette prosjektet for å gjøre det bedre. 
-
-<!DOCTYPE html>
 
 ## Sjekkliste
 

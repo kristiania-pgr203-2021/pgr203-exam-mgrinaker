@@ -133,12 +133,11 @@ public class HttpServerTest {
         Question question2 = TestData.exampleQuestion();
         questionDao.insert(question2);
 
-
         server.addController(new ListQuestionAndOptionController(questionDao, optionDao));
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/question");
         assertThat(client.getMessageBody())
-                .contains(question1.getQuestionTitle() + "</h2>" + question1.getQuestionDescription());
+                .contains(question1.getQuestionTitle() + "</h2><p class='descriptionDiv'>" + question1.getQuestionDescription());
     }
 
     @Test
@@ -237,7 +236,6 @@ public class HttpServerTest {
                 "questionTitle=&questionDescription=Lollol"
         );
         assertEquals(400, postclient.getStatusCode());
-
     }
 
     @Test
@@ -455,10 +453,5 @@ public class HttpServerTest {
         );
 
         assertEquals(303, postclient.getStatusCode());
-    }
-
-    @Test
-    void shouldSetCookie() {
-
     }
 }

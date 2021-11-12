@@ -1,4 +1,4 @@
-package no.kristiania.db.question;
+package no.kristiania.db;
 
 import no.kristiania.TestData;
 import no.kristiania.db.dao.QuestionDao;
@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class QuestionDaoTest {
 
     private QuestionDao dao = new QuestionDao(TestData.testDataSource());
-
 
     @Test
     void shouldRetrievedInsertedQuestion() throws SQLException {
@@ -28,7 +27,6 @@ public class QuestionDaoTest {
                 .usingRecursiveComparison()
                 .isEqualTo(question);
     }
-
 
     @Test
     void shouldListAllQuestions() throws SQLException {
@@ -48,7 +46,6 @@ public class QuestionDaoTest {
 
     }
 
-
     @Test
     void shouldUpdateQuestion() throws SQLException {
         Question question = TestData.exampleQuestion();
@@ -64,5 +61,4 @@ public class QuestionDaoTest {
                 .extracting(Question::getQuestionTitle)
                 .isEqualTo(anotherQuestion.getQuestionTitle());
     }
-
 }

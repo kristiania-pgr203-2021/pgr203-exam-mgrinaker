@@ -1,4 +1,4 @@
-package no.kristiania.db.answer;
+package no.kristiania.db;
 
 import no.kristiania.TestData;
 import no.kristiania.db.dao.AnswerDao;
@@ -44,5 +44,4 @@ public class AnswerDaoTest {
                 .contains(answer.getOptionId(), anotherAnswer.getOptionId());
 
     }
-
 }

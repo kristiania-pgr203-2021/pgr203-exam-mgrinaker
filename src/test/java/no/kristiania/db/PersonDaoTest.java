@@ -1,4 +1,4 @@
-package no.kristiania.db.person;
+package no.kristiania.db;
 
 import no.kristiania.TestData;
 import no.kristiania.db.dao.PersonDao;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 public class PersonDaoTest {
 
@@ -44,6 +43,4 @@ public class PersonDaoTest {
                 .extracting((Person::getFirstName))
                 .contains(person.getFirstName(), anotherPerson.getFirstName());
     }
-
-
 }

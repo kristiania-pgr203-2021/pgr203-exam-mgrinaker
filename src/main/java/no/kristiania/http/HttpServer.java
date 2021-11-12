@@ -95,8 +95,6 @@ public class HttpServer {
 
             logger.info("Oh no, something went terribly wrong. Statuscode 500.");
         }
-
-
     }
 
     private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
@@ -113,7 +111,6 @@ public class HttpServer {
     public int getPort() {
         return serverSocket.getLocalPort();
     }
-
 
     public void addController(HttpController controller) {
         controllers.put(controller.getPath(), controller);

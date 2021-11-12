@@ -4,6 +4,8 @@ import no.kristiania.http.HttpMessage;
 import no.kristiania.db.objects.Question;
 import no.kristiania.db.dao.QuestionDao;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -25,8 +27,11 @@ public class AddQuestionController implements HttpController {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Question question = new Question();
 
-        question.setQuestionTitle(queryMap.get("questionTitle"));
-        question.setQuestionDescription(queryMap.get("questionDescription"));
+        String questionTitle = URLDecoder.decode(queryMap.get("questionTitle"), StandardCharsets.UTF_8);
+        String questionDescription = URLDecoder.decode(queryMap.get("questionDescription"), StandardCharsets.UTF_8);
+
+        question.setQuestionTitle(questionTitle);
+        question.setQuestionDescription(questionDescription);
 
         if ((question.getQuestionTitle() == null || question.getQuestionTitle().isBlank()) &&
                 (question.getQuestionDescription() == null || question.getQuestionDescription().isBlank())){

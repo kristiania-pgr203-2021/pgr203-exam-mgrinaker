@@ -24,6 +24,7 @@ public class TestData<T> {
     public static String pickOne(String ... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }
+
     public static Integer pickOneInteger(Integer ... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }

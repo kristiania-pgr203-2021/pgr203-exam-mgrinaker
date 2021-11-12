@@ -1,4 +1,4 @@
-package no.kristiania.db.option;
+package no.kristiania.db;
 
 import no.kristiania.TestData;
 import no.kristiania.db.dao.OptionDao;
@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class OptionDaoTest {
     private OptionDao dao = new OptionDao(TestData.testDataSource());
-
 
     @Test
     void shouldRetrieveSavedOption() throws SQLException {

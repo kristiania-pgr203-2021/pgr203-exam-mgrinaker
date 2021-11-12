@@ -10,7 +10,6 @@ import java.util.List;
 
 public class QuestionDao extends AbstractDao<Question> {
 
-
     public QuestionDao(DataSource dataSource){
         super(dataSource);
     }
@@ -46,10 +45,8 @@ public class QuestionDao extends AbstractDao<Question> {
     public void updateQuestionTitle(String questionTitle, long id) throws SQLException {
         updateRow(questionTitle, id, "UPDATE question set question_title = ? WHERE id = ?");
     }
-    
 
     public void updateQuestionDescription(String questionDescription, long id) throws SQLException {
         updateRow(questionDescription, id, "UPDATE question set question_description = ? WHERE id = ?");
     }
-
 }

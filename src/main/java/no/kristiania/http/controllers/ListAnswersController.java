@@ -13,9 +13,7 @@ public class ListAnswersController implements HttpController {
 
     public ListAnswersController(AnswerDao answerDao){
         this.answerDao = answerDao;
-
     }
-
 
     @Override
     public String getPath() {

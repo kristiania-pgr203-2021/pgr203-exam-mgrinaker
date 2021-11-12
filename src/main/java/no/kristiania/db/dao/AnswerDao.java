@@ -44,6 +44,4 @@ public class AnswerDao extends AbstractDao<Answer> {
     public long insert(Answer answer) throws SQLException {
         return insert(answer, "INSERT into answer (question_id, person_id, option_id) values (?, ?, ?)");
     }
-
-
 }

@@ -21,7 +21,6 @@ public class FileTargetController implements HttpController{
             yourName = queryMap.get("lastName") + ", " + queryMap.get("firstName");
         }
         String responseText = "<p>Hello " + yourName + "!</p>";
-        String contentType = "text/html; charset=utf-8";
 
         return new HttpMessage("HTTP/1.1 200 OK", responseText);
     }
