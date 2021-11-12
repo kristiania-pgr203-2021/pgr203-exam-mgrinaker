@@ -70,7 +70,8 @@ public class HttpServer {
                 }
                 writeOkResponse(clientSocket, responseText, contentType);
                 return;
-            }else{
+            }
+
                 String responseText = "File not found: " + requestTarget;
 
                 String response = "HTTP/1.1 404 Not found\r\n" +
@@ -80,19 +81,7 @@ public class HttpServer {
                         "\r\n" +
                         responseText;
                 clientSocket.getOutputStream().write(response.getBytes());
-            }
 
-            String responseText = "Statuscode 500";
-
-            String response = "HTTP/1.1 500 Internal Server Error\r\n" +
-                    "Content-Length: " + responseText.length() + "\r\n" +
-                    "Content-Type: text/html; charset=utf-8\r\n" +
-                    "Connection: close\r\n" +
-                    "\r\n" +
-                    responseText;
-            clientSocket.getOutputStream().write(response.getBytes());
-
-            logger.info("Oh no, something went terribly wrong. Statuscode 500.");
         }
     }
 
