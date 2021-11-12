@@ -11,7 +11,7 @@
 
 **Det er viktig å være klar over at eksempel HTML i eksamensoppgaven kun er til illustrasjon. Eksemplene er ikke tilstrekkelig for å løse alle ekstraoppgavene og kandidatene må endre HTML-en for å være tilpasset sin besvarelse**
 
-##Hvordan man kjører programmet
+## Hvordan man kjører programmet
 Først må man bygge en executable jar-fil:
 * Kjør en mvn clean
 * Kjør så en mvn package
@@ -30,11 +30,11 @@ Hvis man ønsker å redigere ett spørsmål er det mulighet for i navigationbar 
 Der ser man også at det er mulighet for å legge flere svaralternativer på ett spørsmål hvis man ønsker det.
 
 
-##Datamodell
+## Datamodell
 ![](docs/datamodell.png)
 ![](docs/plantUML.png)
 
-##Ekstra leveranse utover minimum
+## Ekstra leveranse utover minimum
 Første gang man besøker undersøkelsen får de opp inputfelt der de må skrive inn opplysnigner om seg selv. 
 
 Hver gang brukeren har lagt inn ett nytt spørsmål eller ett nytt option blir brukeren sendt tilbake til index.html.
