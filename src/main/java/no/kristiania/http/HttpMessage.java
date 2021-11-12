@@ -78,7 +78,7 @@ public class HttpMessage {
         while ((c = in.read()) != -1 && c != '\r'){
             result.append((char)c);
         }
-        in.read(); //leser en ekstra linje
+        in.read();
         return result.toString();
     }
 
