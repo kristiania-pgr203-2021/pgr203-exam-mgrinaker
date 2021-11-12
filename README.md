@@ -25,7 +25,8 @@ Først må man bygge en executable jar-fil:
 Programmet skal brukes via en browser, vi har kun brukt browseren chrome. 
 I urlen skal man skrive inn "http://localhost:1963/index.html".
 Man vi da få opp en rekke spørsmål som skal besvarsel med svaralternativer. Men man på trykke på add knappen
-for hvert svar som besvares for at det skal bli registrert. 
+for hvert svar som besvares for at det skal bli registrert.
+Før man kan besvare spørmsålene er man nødt til å lage bruker, hvis ikke fungerer det ikke å svare.(Da krsæjer serveren).
 Hvis man ønsker å redigere ett spørsmål er det mulighet for i navigationbar rett under overskriften. 
 Der ser man også at det er mulighet for å legge flere svaralternativer på ett spørsmål hvis man ønsker det.
 
@@ -35,7 +36,7 @@ Der ser man også at det er mulighet for å legge flere svaralternativer på ett
 ![](docs/plantUML.png)
 
 ## Ekstra leveranse utover minimum
-Første gang man besøker undersøkelsen får de opp inputfelt der de må skrive inn opplysnigner om seg selv. 
+Første gang man besøker undersøkelsen får de opp inputfelt der de må skrive inn opplysnigner om seg selv.
 
 Hver gang brukeren har lagt inn ett nytt spørsmål eller ett nytt option blir brukeren sendt tilbake til index.html.
 Dette ble gjort ved at vi startLine til "HTTP/1.1 303 See other" og location til "http://localhost:1963/index.html".

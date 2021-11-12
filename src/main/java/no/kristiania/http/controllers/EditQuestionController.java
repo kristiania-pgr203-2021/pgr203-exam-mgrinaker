@@ -29,6 +29,7 @@ public class EditQuestionController implements HttpController{
         String newTitle = URLDecoder.decode(queryMap.get("newTitle"), StandardCharsets.UTF_8);
         String newDescription = URLDecoder.decode(queryMap.get("newDescription"), StandardCharsets.UTF_8);
 
+        //Using if else to check if som of the input fields are empty.
         if(newTitle == ""){
             questionDao.updateQuestionDescription(newDescription, questionTitle);
         }else if(newDescription == ""){

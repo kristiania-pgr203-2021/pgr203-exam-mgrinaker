@@ -8,7 +8,6 @@ import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 
 import javax.sql.DataSource;
-import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 public class TestData<T> {
@@ -29,6 +28,7 @@ public class TestData<T> {
     public static Integer pickOneInteger(Integer ... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }
+
 
     public static Answer exampleAnswer(){
         Answer answer = new Answer();
