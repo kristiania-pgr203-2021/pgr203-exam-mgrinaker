@@ -28,3 +28,5 @@ jobs:
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@1.1.3
