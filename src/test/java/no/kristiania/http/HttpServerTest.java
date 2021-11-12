@@ -72,8 +72,6 @@ public class HttpServerTest {
 
     @Test
     void shouldServeFiles() throws IOException {
-        server.addController(new CheckFileExtensionController());
-
         String fileContent = "A file created at " + LocalTime.now();
         Files.write(Paths.get("target/test-classes/example-file.txt"), fileContent.getBytes());
 
@@ -85,10 +83,6 @@ public class HttpServerTest {
 
     @Test
     void shouldReadFileFromDisk() throws IOException {
-        CheckFileExtensionController fileExtension = new CheckFileExtensionController();
-        //fileExtension.handle();
-        server.addController(new CheckFileExtensionController());
-
         String file = "Testing read file from disk";
         File filePath = new File("src/main/resources");
 
@@ -100,8 +94,13 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldReadCSSFileFromDisk() throws IOException {
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/style.css");
+        assertEquals("text/css", client.getHeader("Content-Type"));
+    }
+
+    @Test
     void shouldUseFileExtensionForContentType() throws IOException {
-        server.addController(new CheckFileExtensionController());
         String fileContent = "<p>Hello</p>";
         Files.write(Paths.get("target/test-classes/example-file.html"), fileContent.getBytes());
 
@@ -439,5 +438,23 @@ public class HttpServerTest {
         );
 
         assertEquals(303, postclient.getStatusCode());
+    }
+
+    @Test
+    void shouldCreateNewAnswer() throws IOException, SQLException {
+        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+        server.addController(new AddNewAnswerController(answerDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newAnswer",
+                "questionId=1&optionId=2",
+                "firstName=Siri"
+        );
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(answerDao.listAll())
+                .extracting(Answer::getAnswerId)
+                .contains(Long.valueOf("1"));
     }
 }

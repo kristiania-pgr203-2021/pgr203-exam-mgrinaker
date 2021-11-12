@@ -8,6 +8,7 @@ import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 public class TestData<T> {
@@ -40,7 +41,7 @@ public class TestData<T> {
 
     public static Option exampleOption() {
         Option option = new Option();
-        option.setOptionName(pickOne("Bra", "Dårlig", "Okei"));
+        option.setOptionName(pickOne("Bra", "Fint", "Okei"));
         option.setQuestionId(pickOneInteger(1, 2, 3, 4));
         return option;
     }
@@ -56,7 +57,7 @@ public class TestData<T> {
     public static Question exampleQuestion() {
         Question question = new Question();
         question.setQuestionTitle(pickOne("Hvem er du?", "Har du det bra?", "Hvordan trives du?", "Hei"));
-        question.setQuestionDescription(pickOne("Vi ønsker å se hvordan du har det", "Vi vil se din tilstand", "Vi mene"));
+        question.setQuestionDescription(pickOne("Vi vil se hvordan du har det", "Vi vil se din tilstand", "Vi mene"));
         return question;
     }
 }

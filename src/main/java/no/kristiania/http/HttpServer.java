@@ -16,7 +16,6 @@ public class HttpServer {
 
     private final ServerSocket serverSocket;
     private final HashMap<String, HttpController> controllers = new HashMap<>();
-    private String fileLocation;
     public static String requestTarget;
     public static String query = null;
     public static String fileTarget;
@@ -114,9 +113,5 @@ public class HttpServer {
 
     public void addController(HttpController controller) {
         controllers.put(controller.getPath(), controller);
-    }
-
-    public String getFileLocation() {
-        return fileLocation;
     }
 }

@@ -31,7 +31,6 @@ public class SurveyServer {
         httpServer.addController(new ListQuestionAndOptionController(questionDao, optionDao));
         httpServer.addController(new AddOptionController(optionDao));
         httpServer.addController(new ListAnswersController(answerDao));
-        httpServer.addController(new CheckFileExtensionController());
         httpServer.addController(new listQuestionController(questionDao));
         httpServer.addController(new AddNewAnswerController(answerDao));
         httpServer.addController(new EditQuestionController(questionDao));
