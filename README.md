@@ -1,5 +1,6 @@
 # PGR203 Avansert Java eksamen
 
+[![.github/workflows/maven.yml](https://github.com/kristiania-pgr203-2021/pgr203-exam-mgrinaker/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/kristiania-pgr203-2021/pgr203-exam-mgrinaker/actions/workflows/maven.yml)
 
 ## Beskriv hvordan programmet skal testes:
 
