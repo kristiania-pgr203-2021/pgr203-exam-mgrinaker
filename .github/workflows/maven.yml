@@ -27,5 +27,3 @@ jobs:
       run: mvn -B package --file pom.xml --fail-at-end
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
-        if: ${{ always() }}
-      
