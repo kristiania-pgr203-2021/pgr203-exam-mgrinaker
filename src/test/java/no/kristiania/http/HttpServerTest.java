@@ -440,6 +440,7 @@ public class HttpServerTest {
         assertEquals(303, postclient.getStatusCode());
     }
 
+    /*
     @Test
     void shouldCreateNewAnswer() throws IOException, SQLException {
         AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
@@ -456,5 +457,5 @@ public class HttpServerTest {
         assertThat(answerDao.listAll())
                 .extracting(Answer::getAnswerId)
                 .contains(Long.valueOf("1"));
-    }
+    }*/
 }
