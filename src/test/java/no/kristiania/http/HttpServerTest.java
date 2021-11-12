@@ -440,6 +440,7 @@ public class HttpServerTest {
         assertEquals(303, postclient.getStatusCode());
     }
 
+    //This test passes when testing it in IntelliJ. But when building maven in github actions it does not work.
     /*
     @Test
     void shouldCreateNewAnswer() throws IOException, SQLException {
