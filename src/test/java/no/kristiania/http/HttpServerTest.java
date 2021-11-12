@@ -286,6 +286,106 @@ public class HttpServerTest {
     }
 
     @Test
+    void shouldUpdatePerson() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController(new editPersonController(personDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editPerson",
+                "personId=1&newFirstName=Tonje&newLastName=Husvik&newEmail=t@h.no"
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(personDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getFirstName()).isEqualTo("Tonje");
+                    assertThat(edit.getLastName()).isEqualTo("Husvik");
+                    assertThat(edit.getMailAddress()).isEqualTo("t@h.no");
+                });
+    }
+
+    @Test
+    void shouldUpdateFirstName() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController(new editPersonController(personDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editPerson",
+                "personId=1&newFirstName=Tonje&newLastName=&newEmail="
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(personDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getFirstName()).isEqualTo("Tonje");
+                });
+    }
+
+    @Test
+    void shouldUpdateLastNameAndLastName() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController(new editPersonController(personDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editPerson",
+                "personId=1&newFirstName=Tonje&newLastName=Husvik&newEmail="
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(personDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getFirstName()).isEqualTo("Tonje");
+                    assertThat(edit.getLastName()).isEqualTo("Husvik");
+                });
+    }
+
+    @Test
+    void shouldUpdateFirstNameAndEmail() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController(new editPersonController(personDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editPerson",
+                "personId=1&newFirstName=Tonje&newLastName=&newEmail=t@h.no"
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(personDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getFirstName()).isEqualTo("Tonje");
+                    assertThat(edit.getMailAddress()).isEqualTo("t@h.no");
+                });
+    }
+
+    @Test
+    void shouldUpdateLastNameAndEmail() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController(new editPersonController(personDao));
+
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/editPerson",
+                "personId=1&newFirstName=&newLastName=Husvik&newEmail=t@h.no"
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(personDao.listAll())
+                .anySatisfy(edit -> {
+                    assertThat(edit.getLastName()).isEqualTo("Husvik");
+                    assertThat(edit.getMailAddress()).isEqualTo("t@h.no");
+                });
+    }
+
+    @Test
     void shouldUpdateQuestion() throws IOException, SQLException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         server.addController(new EditQuestionController(questionDao));

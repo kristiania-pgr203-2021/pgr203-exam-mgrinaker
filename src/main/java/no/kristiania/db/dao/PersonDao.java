@@ -57,6 +57,18 @@ public class PersonDao extends AbstractDao<Person> {
         return person;
     }
 
+    public void updateFirstName(String firstName, long id) throws SQLException {
+        updateRow(firstName, id, "UPDATE person SET first_name = ? where id = ?");
+    }
+
+    public void updateLastName(String lastName, long id) throws SQLException {
+        updateRow(lastName, id, "UPDATE person SET last_name = ? where id = ?");
+    }
+
+    public void updateEmail(String email, long id) throws SQLException {
+        updateRow(email, id, "UPDATE person SET email = ? where id = ?");
+    }
+
     public static Person listOutPersonFromCookieName(String cookieName) throws SQLException, IOException {
         DataSource dataSource = SurveyServer.createDataSource();
         try (Connection connection = dataSource.getConnection()) {

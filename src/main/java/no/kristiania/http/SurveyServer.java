@@ -38,6 +38,7 @@ public class SurveyServer {
         httpServer.addController(new EditQuestionController(questionDao));
         httpServer.addController(new AddPersonController(personDao));
         httpServer.addController(new RedirectController());
+        httpServer.addController(new editPersonController(personDao));
 
         logger.info("Go to http://localhost:{}/index.html", httpServer.getPort());
     }
