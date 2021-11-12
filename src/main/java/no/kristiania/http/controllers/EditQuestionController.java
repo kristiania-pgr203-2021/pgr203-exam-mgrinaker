@@ -1,7 +1,7 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.dao.QuestionDao;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -28,7 +28,6 @@ public class EditQuestionController implements HttpController{
         long questionTitle = Long.parseLong(queryMap.get("questionTitle"));
         String newTitle = URLDecoder.decode(queryMap.get("newTitle"), StandardCharsets.UTF_8);
         String newDescription = URLDecoder.decode(queryMap.get("newDescription"), StandardCharsets.UTF_8);
-        //questionDao.getQuestionId(questionTitle);
 
         if(newTitle == ""){
             questionDao.updateQuestionDescription(newDescription, questionTitle);

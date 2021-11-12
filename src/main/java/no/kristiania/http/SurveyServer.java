@@ -1,12 +1,10 @@
 package no.kristiania.http;
 
-import no.kristiania.db.answer.AnswerDao;
+import no.kristiania.db.dao.AnswerDao;
 import no.kristiania.http.controllers.*;
-import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.person.PersonDao;
-import no.kristiania.db.profession.ProfessionDao;
-import no.kristiania.db.question.QuestionDao;
-import no.kristiania.db.workplace.WorkplaceDao;
+import no.kristiania.db.dao.OptionDao;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.dao.QuestionDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
@@ -24,9 +22,7 @@ public class SurveyServer {
         DataSource dataSource = createDataSource();
 
         PersonDao personDao = new PersonDao(dataSource);
-        ProfessionDao professionDao = new ProfessionDao(dataSource);
         QuestionDao questionDao = new QuestionDao(dataSource);
-        WorkplaceDao workplaceDao = new WorkplaceDao(dataSource);
         AnswerDao answerDao = new AnswerDao(dataSource);
         OptionDao optionDao = new OptionDao(dataSource);
 
@@ -34,7 +30,6 @@ public class SurveyServer {
         HttpServer httpServer = new HttpServer(1963);
         httpServer.addController(new AddQuestionController(questionDao));
         httpServer.addController(new ListQuestionAndOptionController(questionDao, optionDao));
-        //httpServer.addController(new FileTargetController());
         httpServer.addController(new AddOptionController(optionDao));
         httpServer.addController(new ListAnswersController(answerDao));
         httpServer.addController(new CheckFileExtensionController());
@@ -43,8 +38,6 @@ public class SurveyServer {
         httpServer.addController(new EditQuestionController(questionDao));
         httpServer.addController(new AddPersonController(personDao));
         httpServer.addController(new RedirectController());
-        // logger.info, logger.debug, logger.error, logger.warning etc
-        // {} er placeholder for parameteret httpServer.getPort()
 
         logger.info("Go to http://localhost:{}/index.html", httpServer.getPort());
     }

@@ -1,7 +1,7 @@
 package no.kristiania.http.controllers;
 
-import no.kristiania.db.person.Person;
-import no.kristiania.db.person.PersonDao;
+import no.kristiania.db.objects.Person;
+import no.kristiania.db.dao.PersonDao;
 import no.kristiania.http.HttpMessage;
 
 import java.io.IOException;
@@ -30,18 +30,14 @@ public class AddPersonController implements HttpController {
         String firstName = URLDecoder.decode(cookieQueryMap.get("firstName"), StandardCharsets.UTF_8);
         String lastName = URLDecoder.decode(queryMap.get("lastName"), StandardCharsets.UTF_8);
         String email = URLDecoder.decode(queryMap.get("email"), StandardCharsets.UTF_8);
-        String profession = queryMap.get("professionId");
-        String workplace = queryMap.get("workplaceId");
 
         Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setMailAddress(email);
-        person.setProfessionId(Long.parseLong(profession));
-        person.setWorkplaceId(Long.parseLong(workplace));
 
         personDao.insert(person);
 
-        return new HttpMessage("HTTP/1.1 303 See other", "WOOP", "/index.html");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "/index.html");
     }
 }

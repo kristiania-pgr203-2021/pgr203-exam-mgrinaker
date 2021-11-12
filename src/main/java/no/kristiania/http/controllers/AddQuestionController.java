@@ -1,8 +1,8 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.question.Question;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.objects.Question;
+import no.kristiania.db.dao.QuestionDao;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -28,7 +28,6 @@ public class AddQuestionController implements HttpController {
         question.setQuestionTitle(queryMap.get("questionTitle"));
         question.setQuestionDescription(queryMap.get("questionDescription"));
 
-        // Skrive test for at inputfelt ikke er tomt!
         if ((question.getQuestionTitle() == null || question.getQuestionTitle().isBlank()) &&
                 (question.getQuestionDescription() == null || question.getQuestionDescription().isBlank())){
             return new HttpMessage(
@@ -48,6 +47,6 @@ public class AddQuestionController implements HttpController {
         }
         questionDao.insert(question);
 
-        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/newQuestion.html" );
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/index.html" );
     }
 }

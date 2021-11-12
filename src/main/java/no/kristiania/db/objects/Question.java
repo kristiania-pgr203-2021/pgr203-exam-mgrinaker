@@ -1,4 +1,4 @@
-package no.kristiania.db.question;
+package no.kristiania.db.objects;
 
 public class Question {
 

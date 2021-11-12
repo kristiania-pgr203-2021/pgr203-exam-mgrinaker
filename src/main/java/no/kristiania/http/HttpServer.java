@@ -1,6 +1,8 @@
 package no.kristiania.http;
 
 import no.kristiania.http.controllers.HttpController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,10 +16,11 @@ public class HttpServer {
 
     private final ServerSocket serverSocket;
     private final HashMap<String, HttpController> controllers = new HashMap<>();
-
+    private String fileLocation;
     public static String requestTarget;
     public static String query = null;
     public static String fileTarget;
+    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -68,8 +71,7 @@ public class HttpServer {
                 }
                 writeOkResponse(clientSocket, responseText, contentType);
                 return;
-            }
-
+            }else{
                 String responseText = "File not found: " + requestTarget;
 
                 String response = "HTTP/1.1 404 Not found\r\n" +
@@ -79,6 +81,19 @@ public class HttpServer {
                         "\r\n" +
                         responseText;
                 clientSocket.getOutputStream().write(response.getBytes());
+            }
+
+            String responseText = "Statuscode 500";
+
+            String response = "HTTP/1.1 500 Internal Server Error\r\n" +
+                    "Content-Length: " + responseText.length() + "\r\n" +
+                    "Content-Type: text/html; charset=utf-8\r\n" +
+                    "Connection: close\r\n" +
+                    "\r\n" +
+                    responseText;
+            clientSocket.getOutputStream().write(response.getBytes());
+
+            logger.info("Oh no, something went terribly wrong. Statuscode 500.");
         }
 
 
@@ -102,5 +117,13 @@ public class HttpServer {
 
     public void addController(HttpController controller) {
         controllers.put(controller.getPath(), controller);
+    }
+
+    public String getFileLocation() {
+        return fileLocation;
+    }
+
+    public void setFileLocation(String fileLocation) {
+        this.fileLocation = fileLocation;
     }
 }

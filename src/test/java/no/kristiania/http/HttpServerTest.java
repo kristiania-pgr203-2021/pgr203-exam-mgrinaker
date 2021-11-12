@@ -1,15 +1,13 @@
 package no.kristiania.http;
 
 import no.kristiania.TestData;
-import no.kristiania.db.answer.Answer;
-import no.kristiania.db.answer.AnswerDao;
-import no.kristiania.db.answer.AnswerDaoTest;
-import no.kristiania.db.option.Option;
-import no.kristiania.db.option.OptionDao;
-import no.kristiania.db.person.PersonDao;
-import no.kristiania.db.question.Question;
-import no.kristiania.db.question.QuestionDao;
-import no.kristiania.db.question.QuestionDaoTest;
+import no.kristiania.db.objects.Answer;
+import no.kristiania.db.dao.AnswerDao;
+import no.kristiania.db.objects.Option;
+import no.kristiania.db.dao.OptionDao;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.objects.Question;
+import no.kristiania.db.dao.QuestionDao;
 import no.kristiania.http.controllers.*;
 import org.junit.jupiter.api.Test;
 
@@ -87,6 +85,8 @@ public class HttpServerTest {
 
     @Test
     void shouldReadFileFromDisk() throws IOException {
+        CheckFileExtensionController fileExtension = new CheckFileExtensionController();
+        //fileExtension.handle();
         server.addController(new CheckFileExtensionController());
 
         String file = "Testing read file from disk";
@@ -128,9 +128,9 @@ public class HttpServerTest {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
 
-        Question question1 = QuestionDaoTest.exampleQuestion();
+        Question question1 = TestData.exampleQuestion();
         questionDao.insert(question1);
-        Question question2 = QuestionDaoTest.exampleQuestion();
+        Question question2 = TestData.exampleQuestion();
         questionDao.insert(question2);
 
 
@@ -146,10 +146,10 @@ public class HttpServerTest {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         server.addController(new listQuestionController(questionDao));
 
-        Question question1 = QuestionDaoTest.exampleQuestion();
+        Question question1 = TestData.exampleQuestion();
         questionDao.insert(question1);
 
-        Question question2 = QuestionDaoTest.exampleQuestion();
+        Question question2 = TestData.exampleQuestion();
         questionDao.insert(question2);
 
         HttpClient client = new HttpClient(
@@ -168,10 +168,10 @@ public class HttpServerTest {
         AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
         server.addController(new ListAnswersController(answerDao));
 
-        Answer answer1 = AnswerDaoTest.exampleAnswer();
+        Answer answer1 = TestData.exampleAnswer();
         answerDao.insert(answer1);
 
-        Answer answer2 = AnswerDaoTest.exampleAnswer();
+        Answer answer2 = TestData.exampleAnswer();
         answerDao.insert(answer2);
 
         HttpClient client = new HttpClient(
@@ -194,7 +194,7 @@ public class HttpServerTest {
                 "localhost",
                 server.getPort(),
                 "/api/setCookie",
-                "lastName=Larsen&email=marit@larsen.no&professionId=1&workplaceId=2",
+                "lastName=Larsen&email=marit@larsen.no",
                 "firstName=Marit"
         );
         assertEquals(303, postClient.getStatusCode());
@@ -203,8 +203,6 @@ public class HttpServerTest {
                     assertThat(p.getFirstName()).isEqualTo("Marit");
                     assertThat(p.getLastName()).isEqualTo("Larsen");
                     assertThat(p.getMailAddress()).isEqualTo("marit@larsen.no");
-                    assertThat(p.getProfessionId()).isEqualTo(1);
-                    assertThat(p.getWorkplaceId()).isEqualTo(2);
                 });
     }
 

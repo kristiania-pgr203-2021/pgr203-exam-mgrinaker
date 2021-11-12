@@ -1,8 +1,8 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.option.Option;
-import no.kristiania.db.option.OptionDao;
+import no.kristiania.db.objects.Option;
+import no.kristiania.db.dao.OptionDao;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -35,8 +35,6 @@ public class AddOptionController implements HttpController {
         option.setOptionName(decodedOptionName);
         optionDao.insert(option);
 
-
-
-        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/addOption.html");
+        return new HttpMessage("HTTP/1.1 303 See other", "It is done", "http://localhost:1963/index.html");
     }
 }

@@ -1,6 +1,8 @@
 package no.kristiania.db.answer;
 
 import no.kristiania.TestData;
+import no.kristiania.db.dao.AnswerDao;
+import no.kristiania.db.objects.Answer;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -14,10 +16,10 @@ public class AnswerDaoTest {
     @Test
     void shouldRetrieveSavedAnswer() throws SQLException {
 
-        dao.insert(exampleAnswer());
-        dao.insert(exampleAnswer());
+        dao.insert(TestData.exampleAnswer());
+        dao.insert(TestData.exampleAnswer());
 
-        Answer answer = exampleAnswer();
+        Answer answer = TestData.exampleAnswer();
         answer.setAnswerId(dao.insert(answer));
 
         assertThat(dao.retrieve(answer.getAnswerId()))
@@ -28,13 +30,13 @@ public class AnswerDaoTest {
 
     @Test
     void shouldListAllAnswers() throws SQLException {
-        Answer answer1 = exampleAnswer();
+        Answer answer1 = TestData.exampleAnswer();
         dao.insert(answer1);
 
-        Answer anotherAnswer = exampleAnswer();
+        Answer anotherAnswer = TestData.exampleAnswer();
         dao.insert(anotherAnswer);
 
-        Answer answer = exampleAnswer();
+        Answer answer = TestData.exampleAnswer();
         answer.setAnswerId(dao.insert(answer));
 
         assertThat(dao.listAll())
@@ -43,12 +45,4 @@ public class AnswerDaoTest {
 
     }
 
-    public static Answer exampleAnswer(){
-        Answer answer = new Answer();
-        answer.setQuestionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
-        answer.setPersonId(TestData.pickOneInteger(1));
-        answer.setOptionId(TestData.pickOneInteger(1, 2, 3, 4, 5));
-
-        return answer;
-    }
 }

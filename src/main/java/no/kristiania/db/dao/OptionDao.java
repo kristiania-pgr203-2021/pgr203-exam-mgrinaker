@@ -1,9 +1,11 @@
-package no.kristiania.db.option;
+package no.kristiania.db.dao;
 
-import no.kristiania.http.AbstractDao;
+import no.kristiania.db.objects.Option;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class OptionDao extends AbstractDao<Option> {

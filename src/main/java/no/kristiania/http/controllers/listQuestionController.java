@@ -1,8 +1,8 @@
 package no.kristiania.http.controllers;
 
 import no.kristiania.http.HttpMessage;
-import no.kristiania.db.question.Question;
-import no.kristiania.db.question.QuestionDao;
+import no.kristiania.db.objects.Question;
+import no.kristiania.db.dao.QuestionDao;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,7 +24,6 @@ public class listQuestionController implements HttpController{
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         String responseText = "";
 
-        int value = 1;
         for(Question question : questionDao.listAll()){
             responseText += "<option value=" + question.getQuestionId() + ">" +question.getQuestionTitle() + ":  " + question.getQuestionDescription() + "</option>";
         }

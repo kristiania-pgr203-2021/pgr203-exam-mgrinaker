@@ -1,6 +1,8 @@
 package no.kristiania.db.question;
 
 import no.kristiania.TestData;
+import no.kristiania.db.dao.QuestionDao;
+import no.kristiania.db.objects.Question;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -15,10 +17,10 @@ public class QuestionDaoTest {
     @Test
     void shouldRetrievedInsertedQuestion() throws SQLException {
 
-        dao.insert(exampleQuestion());
-        dao.insert(exampleQuestion());
+        dao.insert(TestData.exampleQuestion());
+        dao.insert(TestData.exampleQuestion());
 
-        Question question = exampleQuestion();
+        Question question = TestData.exampleQuestion();
         question.setQuestionId(dao.insert(question));
 
         assertThat(dao.retrieve(question.getQuestionId()))
@@ -31,13 +33,13 @@ public class QuestionDaoTest {
     @Test
     void shouldListAllQuestions() throws SQLException {
 
-        Question question1 = exampleQuestion();
+        Question question1 = TestData.exampleQuestion();
         dao.insert(question1);
 
-        Question anotherQuestion = exampleQuestion();
+        Question anotherQuestion = TestData.exampleQuestion();
         dao.insert(anotherQuestion);
 
-        Question question = exampleQuestion();
+        Question question = TestData.exampleQuestion();
         question.setQuestionId(dao.insert(question));
 
         assertThat(dao.listAll())
@@ -49,12 +51,12 @@ public class QuestionDaoTest {
 
     @Test
     void shouldUpdateQuestion() throws SQLException {
-        Question question = exampleQuestion();
+        Question question = TestData.exampleQuestion();
         question.setQuestionId(dao.insert(question));
 
         System.out.println(question.getQuestionTitle());
 
-        Question anotherQuestion = exampleQuestion();
+        Question anotherQuestion = TestData.exampleQuestion();
 
         dao.updateQuestionTitle(anotherQuestion.getQuestionTitle(), question.getQuestionId());
 
@@ -63,10 +65,4 @@ public class QuestionDaoTest {
                 .isEqualTo(anotherQuestion.getQuestionTitle());
     }
 
-    public static Question exampleQuestion() {
-        Question question = new Question();
-        question.setQuestionTitle(TestData.pickOne("Hvem er du?", "Har du det bra?", "Hvordan trives du?", "Hei"));
-        question.setQuestionDescription(TestData.pickOne("Vi ønsker å se hvordan du har det", "Vi vil se din tilstand", "Vi mene"));
-        return question;
-    }
 }

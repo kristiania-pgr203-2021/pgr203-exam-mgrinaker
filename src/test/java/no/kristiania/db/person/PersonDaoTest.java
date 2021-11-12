@@ -1,6 +1,8 @@
 package no.kristiania.db.person;
 
 import no.kristiania.TestData;
+import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.objects.Person;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -14,10 +16,10 @@ public class PersonDaoTest {
 
     @Test
     void shouldRetrieveSavedPerson() throws SQLException {
-        dao.insert(examplePerson());
-        dao.insert(examplePerson());
+        dao.insert(TestData.examplePerson());
+        dao.insert(TestData.examplePerson());
 
-        Person person = examplePerson();
+        Person person = TestData.examplePerson();
         person.setPersonId(dao.insert(person));
 
         assertThat(dao.retrieve(person.getPersonId()))
@@ -29,30 +31,19 @@ public class PersonDaoTest {
 
     @Test
     void shouldListAllPeople() throws SQLException {
-        Person person1 = examplePerson();
+        Person person1 = TestData.examplePerson();
         dao.insert(person1);
 
-        Person anotherPerson = examplePerson();
+        Person anotherPerson = TestData.examplePerson();
         dao.insert(anotherPerson);
 
-        Person person = examplePerson();
+        Person person = TestData.examplePerson();
         person.setPersonId(dao.insert(person));
 
         assertThat(dao.listAll())
                 .extracting((Person::getFirstName))
                 .contains(person.getFirstName(), anotherPerson.getFirstName());
     }
-
-    public static Person examplePerson() {
-        Person person = new Person();
-        person.setFirstName(TestData.pickOne("Johanne", "Jill", "Jane", "James", "Jacob", "Nora", "Emil", "Noah", "Emma", "Maja", "Oliver", "Filip", "Lukas","Liam", "Henrik", "Sofia", "Emilie"));
-        person.setLastName(TestData.pickOne("Hansen", "Johansen", "Olsen", "Larsen", "Andersen", "Pedersen", "Nilsen", "Kristiansen", "Jensen", "Karlsen", "Johnsen"));
-        person.setMailAddress(TestData.pickOne("romantic01@online.no", "crypt@gmail.com", "kramulous@comcast.net", "gomor@icloud.com", "dbrobins@att.net", "lampcht@online.net", "mleary@mac.com", "gward@verizon.net", "dexter@msn.com", "oiyou-47@mail.com", "essi389@mail.com", "brovade5@ymail.com", "tebei41@yopl.com", "pauda9@mail.com", "blomster@yahoo.com", "boot.32@gmail.com"));
-        person.setProfessionId(TestData.pickOneInteger(1, 2, 2));
-        person.setWorkplaceId(TestData.pickOneInteger(1, 2, 3));
-        return person;
-    }
-
 
 
 }
