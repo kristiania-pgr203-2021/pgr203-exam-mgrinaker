@@ -6,17 +6,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Add question member</h1>
-<form method="POST" action="/api/newQuestion">
-    <label>Question title: <input type="text" name="questionTitle" /></label>
-    <label>Question text: <input type="text" name="questionDescription" /></label>
-    <label>Label for 1: <input type="text" name="low_label" /></label>
-    <label>Label for 5: <input type="text" name="high_label" /></label>
-    <button>Add</button>
-</form>
+<h1 class="headline">Add question member</h1><br>
 
-<div>
+<div  class="contentContainer" id="addQuestionDiv">
+    <form method="POST" action="/api/newQuestion">
+        <div  class="addQuestionLabels">
+        <label class="addQuestionLabel">Question title<br><input type="text" name="questionTitle" /></label><br>
+        <label class="addQuestionLabel">Question text<br><input type="text" name="questionDescription" /></label><br>
+        <label class="addQuestionLabel">Option 1<br><input type="text" name="low_label" /></label><br>
+        <label class="addQuestionLabel">Option 2<br><input type="text" name="high_label" /></label>
+        <button >Add</button>
+        </div>
+    </form>
+</div><br>
+
+<div class="returnToFrontpageDiv">
+    <a href="addOption.html">Add more options</a><br><br>
     <a href="index.html">Return to front page</a>
 </div>
+
 </body>
 </html>

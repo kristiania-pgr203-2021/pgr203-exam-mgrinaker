@@ -6,20 +6,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Edit the survey</h1>
-    <p>Feel free to change any of the title and descripton in the question, to a title/description you feel will suit you better.</p>
-    <h3>Edit either the title or description of the question, or edit both the title and the description</h3>
-    <form method="POST" encoding="UTF-8" action="/api/editQuestion">
-        <label>Titles:<select type="number" id="questions" name="questionTitle"/></label>
-        <input type="text" id="newTitle" name="newTitle" placeholder="New title here">
-        <input type="text" id="newDescription" name="newDescription" placeholder="New description here">
-        <button>Edit</button>
-        <br>
-        <br>
-    </form>
+    <h1 class="headline">Edit the survey</h1>
+    <div id="editSurveySubHeadline">
+        <p>Feel free to change any of the title and descripton in the question, to a title/description you feel will suit you better.</p>
+        <h3>Edit either the title or description of the question, or edit both the title and the description</h3>
+    </div>
 
-    <br><br>
-    <div>
+    <div class="contentContainer">
+        <form method="POST" encoding="UTF-8" action="/api/editQuestion">
+            <label>Titles<br><select type="number" id="questions" name="questionTitle"></select></label><br><br>
+            <label>New title<br><input type="text" id="newTitle" name="newTitle" placeholder="New title here"></label><br><br>
+            <label>New description<br><input type="text" id="newDescription" name="newDescription" placeholder="New description here"></label><br><br>
+            <button>Edit</button>
+        </form>
+    </div><br>
+
+    <div class="returnToFrontpageDiv">
         <a href="index.html">Back to frontpage</a>
     </div>
 

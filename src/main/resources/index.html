@@ -7,30 +7,31 @@
     <link href="https://cdn.discordapp.com/attachments/892652848842698757/908346996941795398/unknown.png" rel="icon" type="image/x-icon"/>
 </head>
 <body onload="checkCookie()">
-    <h1>Questionnaire</h1>
+    <h1 class="headline">Questionnaire</h1><br>
+
+    <div id="menuDiv">
+        <a class="menuLink" href="newQuestion.html">Add new question</a>
+        <a class="menuLink" href="addOption.html">Add options</a>
+        <a class="menuLink" href="showAnswers.html">Show all answers</a>
+        <a class="menuLink" href="editSurvey.html">Edit survey</a>
+    </div><br><br>
 
     <div id="cookieDiv">
-    <form action="/api/setCookie" method="post" id="personInfo">
-        <p>Please enter your information below.</p>
-        <input class="field" type="text" id="firstName" placeholder="first name" style="text-transform: capitalize;" autofocus><br>
-        <input class="field" type="text" id="lastName" name="lastName" placeholder="last name" style="text-transform: capitalize;"><br>
-        <input class="field" type="email" id="email" name="email" placeholder="name@email.com"><br>
-        <input class="field" type="number" id="professionId" name="professionId" placeholder="profession id"><br>
-        <input class="field" type="number" id="workplaceId" name="workplaceId" placeholder="workplace id"><br><br>
+    <form action="/api/setCookie" method="post">
+        <p>Please enter your information below before starting the survey.</p>
+        <div id="personInfo">
+            <input class="field" type="text" id="firstName" placeholder="first name" style="text-transform: capitalize;"><br>
+            <input class="field" type="text" id="lastName" name="lastName" placeholder="last name" style="text-transform: capitalize;"><br>
+            <input class="field" type="email" id="email" name="email" placeholder="name@email.com"><br>
 
-        <button type="submit" onclick="setCookie('firstName')">Submit</button><br>
+            <button id="submitPersonInfoButton" type="submit" onclick="setCookie('firstName')">Submit</button><br>
+        </div>
     </form>
     </div>
 
     <form method="POST" action="/api/newAnswer" id="questions">
     </form>
-    
-    <div>
-        <a href="newQuestion.html">Add new question</a><br>
-        <a href="addOption.html">Add options</a><br>
-        <a href="showAnswers.html">Show all answers</a><br>
-        <a href="editSurvey.html">Edit survey</a>
-    </div>
+
 </body>
 
 <script>

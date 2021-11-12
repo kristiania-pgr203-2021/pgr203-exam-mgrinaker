@@ -6,15 +6,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Add option to question</h1>
+<h1 class="headline">Add option to question</h1><br>
 
-<form method="POST" encoding="UTF-8" action="/api/alternativeAnswers">
-    <label>Question: <select id="questions" name="questionId"/></label>
-    <label>Option: <input type="text" name="optionName"/></label>
-    <button>Add</button>
-</form>
+<div class="contentContainer" id="addOptionContainer">
+    <form method="POST" action="/api/alternativeAnswers">
+        <label>Question<br><select id="questions" name="questionId"></select></label><br><br>
+        <label>Option<br><input type="text" name="optionName"/></label><br><br>
+        <button>Add</button>
+    </form>
+</div><br>
 
-<div>
+<div class="returnToFrontpageDiv">
     <a href="index.html">Return to front page</a>
 </div>
 </body>
