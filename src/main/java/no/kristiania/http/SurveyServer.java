@@ -17,7 +17,7 @@ import java.util.Properties;
 
 public class SurveyServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
-
+ //slett denne
     public static void main(String[] args) throws IOException {
         DataSource dataSource = createDataSource();
 
