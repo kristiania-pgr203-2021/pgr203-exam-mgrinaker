@@ -73,7 +73,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>no.kristiania.http.HttpServer</mainClass>
+                            <mainClass>no.kristiania.http.SurveyServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

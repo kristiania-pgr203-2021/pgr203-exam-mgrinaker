@@ -12,6 +12,16 @@
 **Det er viktig å være klar over at eksempel HTML i eksamensoppgaven kun er til illustrasjon. Eksemplene er ikke tilstrekkelig for å løse alle ekstraoppgavene og kandidatene må endre HTML-en for å være tilpasset sin besvarelse**
 
 ##Hvordan man kjører programmet
+Først må man bygge en executable jar-fil:
+* Kjør en mvn clean
+* Kjør så en mvn package
+* Så er det viktig å lage en pgr203.properties" med: 
+  * dataSource.password=passordet til database eieren
+  * dataSource.url=jdbc:postgresql://localhost:5432/'navnet på databasen'
+  * dataSource.username=brukernavnet til eieren
+* Skriv deretter i terminalen java -jar /target/prg203-axam-mgrinaker-1.0-SNAPSHOT.jar
+
+
 Programmet skal brukes via en browser, vi har kun brukt browseren chrome. 
 I urlen skal man skrive inn "http://localhost:1963/index.html".
 Man vi da få opp en rekke spørsmål som skal besvarsel med svaralternativer. Men man på trykke på add knappen

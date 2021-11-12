@@ -110,20 +110,6 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldUseFileExtensionForContentTypeCSS() throws IOException {
-        server.addController(new CheckFileExtensionController());
-        String fileContent = "body{ color: white}";
-        Files.write(Paths.get("target/test-classes/style.css"), fileContent.getBytes());
-
-        HttpClient client = new HttpClient(
-                "localhost",
-                server.getPort(),
-                "/style.css");
-
-        assertEquals("text/css; charset=utf-8", client.getHeader("Content-type"));
-    }
-
-    @Test
     void shouldListAllQuestionsWithOptions() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         OptionDao optionDao = new OptionDao(TestData.testDataSource());
