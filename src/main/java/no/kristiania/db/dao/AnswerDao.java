@@ -32,7 +32,6 @@ public class AnswerDao extends AbstractDao<Answer> {
     @Override
     protected void insertObject(Answer obj, PreparedStatement insertStatement) throws SQLException {
         insertStatement.setLong(1, obj.getQuestionId());
-        //insertStatement.setLong(2, obj.getPersonId());
         insertStatement.setLong(2, obj.getPersonId());
         insertStatement.setLong(3, obj.getOptionId());
     }
