@@ -2,15 +2,9 @@
 
 [![.github/workflows/maven.yml](https://github.com/kristiania-pgr203-2021/pgr203-exam-mgrinaker/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/kristiania-pgr203-2021/pgr203-exam-mgrinaker/actions/workflows/maven.yml)
 
-## Beskriv hvordan programmet skal testes:
+## Github repository
+https://github.com/kristiania-pgr203-2021/pgr203-exam-mgrinaker
 
-## Korreksjoner av eksamensteksten i Wiseflow:
-
-**DET ER EN FEIL I EKSEMPELKODEN I WISEFLOW:**
-
-* I `addOptions.html` skulle url til `/api/tasks` vært `/api/alternativeAnswers` (eller noe sånt)
-
-**Det er viktig å være klar over at eksempel HTML i eksamensoppgaven kun er til illustrasjon. Eksemplene er ikke tilstrekkelig for å løse alle ekstraoppgavene og kandidatene må endre HTML-en for å være tilpasset sin besvarelse**
 
 ## Hvordan man kjører programmet
 Først må man bygge en executable jar-fil:
