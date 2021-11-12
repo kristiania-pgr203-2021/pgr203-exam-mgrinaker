@@ -80,9 +80,11 @@ public class HttpServerTest {
         assertEquals("text/plain", client.getHeader("Content-Type"));
     }
 
-
     @Test
     void shouldReadFileFromDisk() throws IOException {
+        String fileContent = "A file created at " + LocalTime.now();
+        Files.write(Paths.get("target/test-classes/file.txt"), fileContent.getBytes());
+
         String file = "Testing read file from disk";
         File filePath = new File("target/test-classes/");
 
