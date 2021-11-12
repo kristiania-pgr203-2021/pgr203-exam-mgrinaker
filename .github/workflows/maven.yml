@@ -32,3 +32,8 @@ jobs:
       uses: coverallsapp/github-action@1.1.3
       with:
         github-token: ${{ secrets.github_token }}
+        path-to-lcov: ./coverage/lcov.info
+        coveralls-endpoint: https://coveralls.io/
+      env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/11.0.11-9/x64
+    Using lcov file: ./coverage/lcov.info
