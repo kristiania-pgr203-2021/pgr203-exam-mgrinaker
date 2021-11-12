@@ -34,7 +34,7 @@ public class ListQuestionAndOptionController implements HttpController {
             for (Option option : optionDao.listAll()){
                 if(question.getQuestionId() == option.getQuestionId()){
                     response +=
-                            "<div class='optionsInput'><input class='checkbox' type='checkbox' name='optionId' value='" + option.getOptionId() + "'>" +
+                            "<div class='optionsInput'><input class='checkbox' type='radio' name='optionId' value='" + option.getOptionId() + "'>" +
                             option.getOptionId() + ". " + option.getOptionName() + "</div>"
                     ;
                 }
