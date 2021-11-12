@@ -48,7 +48,6 @@ public class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertAll(
                 () -> assertEquals(200, client.getStatusCode()),
-                //        () -> assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type")),
                 () -> assertEquals("<p>Hello world!</p>", client.getMessageBody())
         );
     }
