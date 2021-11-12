@@ -64,23 +64,23 @@ oppgaver i dette prosjektet for å gjøre det bedre.
 ## Vedlegg: Sjekkliste for innlevering
 
 * [x] Dere har lest eksamensteksten
-* [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
-* [ ] Koden er sjekket inn på github.com/pgr203-2021-repository
+* [x] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
+* [x] Koden er sjekket inn på github.com/pgr203-2021-repository
 * [x] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
 
 ### README.md
 
-* [ ] `README.md` inneholder en korrekt link til Github Actions
+* [x] `README.md` inneholder en korrekt link til Github Actions
 * [x] `README.md` beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
 * [x] `README.md` beskriver eventuell ekstra leveranse utover minimum
 * [x] `README.md` inneholder et diagram som viser datamodellen
 
 ### Koden
 
-* [ ] `mvn package` bygger en executable jar-fil
-* [ ] Koden inneholder et godt sett med tester
-* [ ] `java -jar target/...jar` (etter `mvn package`) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
-* [ ] Serveren leser HTML-filer fra JAR-filen slik at den ikke er avhengig av å kjøre i samme directory som kildekoden
+* [x] `mvn package` bygger en executable jar-fil
+* [x] Koden inneholder et godt sett med tester
+* [x] `java -jar target/...jar` (etter `mvn package`) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
+* [x] Serveren leser HTML-filer fra JAR-filen slik at den ikke er avhengig av å kjøre i samme directory som kildekoden
 * [x] Programmet leser `dataSource.url`, `dataSource.username` og `dataSource.password` fra `pgr203.properties` for å connecte til databasen
 * [x] Programmet bruker Flywaydb for å sette opp databaseskjema
 * [x] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
