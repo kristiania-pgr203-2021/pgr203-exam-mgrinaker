@@ -224,22 +224,6 @@ public class HttpServerTest {
                 .contains("Heihei");
 
     }
-//    @Test
-//    void shouldCreateNewAnswer() throws IOException, SQLException {
-//        AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
-//        server.addController(new AddNewAnswerController(answerDao));
-//
-//        HttpPostClient postclient = new HttpPostClient(
-//                "localhost",
-//                server.getPort(),
-//                "/api/newAnswer",
-//                "questionId=1&optionId=2"
-//        );
-//        assertEquals(303, postclient.getStatusCode());
-//        assertThat(answerDao.listAll())
-//                .extracting(Answer::getQuestionId)
-//                .contains(Long.valueOf("1"));
-//    }
 
     @Test
     void shouldFailCreateNewQuestionWithoutTitle() throws IOException, SQLException {

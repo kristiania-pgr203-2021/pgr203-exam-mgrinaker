@@ -44,11 +44,12 @@ public class QuestionDao extends AbstractDao<Question> {
     }
 
     public void updateQuestionTitle(String questionTitle, long id) throws SQLException {
-        updateQuestionTitle(questionTitle, id, "UPDATE question set question_title = ? WHERE id = ?");
+        updateRow(questionTitle, id, "UPDATE question set question_title = ? WHERE id = ?");
     }
+    
 
     public void updateQuestionDescription(String questionDescription, long id) throws SQLException {
-        updateQuestionDescription(questionDescription, id, "UPDATE question set question_description = ? WHERE id = ?");
+        updateRow(questionDescription, id, "UPDATE question set question_description = ? WHERE id = ?");
     }
 
 }

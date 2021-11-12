@@ -41,15 +41,17 @@ public abstract class AbstractDao<T> {
         }
     }
 
-    public void updateQuestionTitle(String questionTitle, long id, String sql) throws SQLException {
+
+    public void updateRow(String updateString, long id, String sql) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, questionTitle);
+                statement.setString(1, updateString);
                 statement.setLong(2, id);
                 statement.executeUpdate();
             }
         }
     }
+
 
     public abstract List<T> listAll() throws SQLException;
 
@@ -67,15 +69,6 @@ public abstract class AbstractDao<T> {
         }
     }
 
-    public void updateQuestionDescription(String questionDescription, long id, String sql) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, questionDescription);
-                statement.setLong(2, id);
-                statement.executeUpdate();
-            }
-        }
-    }
 
     abstract protected T rowToObject(ResultSet rs) throws SQLException;
 

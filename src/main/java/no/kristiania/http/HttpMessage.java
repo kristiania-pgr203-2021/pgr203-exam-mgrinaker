@@ -64,8 +64,8 @@ public class HttpMessage {
         String headerLine;
         while(!(headerLine = HttpMessage.readLine(socket)).isBlank()){
             int colonPos = headerLine.indexOf(':');
-            String key = headerLine.substring(0, colonPos); //valuen som starter på index 0 og slutter på : sin index
-            String value = headerLine.substring(colonPos + 1).trim(); //tar valuen på indexen etter : og resten av linja. trim fjerner whitespace
+            String key = headerLine.substring(0, colonPos);
+            String value = headerLine.substring(colonPos + 1).trim();
             headerFields.put(key, value);
         }
     }

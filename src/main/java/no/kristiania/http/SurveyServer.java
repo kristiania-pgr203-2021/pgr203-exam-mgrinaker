@@ -47,7 +47,6 @@ public class SurveyServer {
         try (FileReader reader = new FileReader("pgr203.properties")) {
             properties.load(reader);
         }
-
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl(properties.getProperty(
                 "dataSource.url",

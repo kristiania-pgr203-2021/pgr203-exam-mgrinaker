@@ -122,8 +122,4 @@ public class HttpServer {
     public String getFileLocation() {
         return fileLocation;
     }
-
-    public void setFileLocation(String fileLocation) {
-        this.fileLocation = fileLocation;
-    }
 }
