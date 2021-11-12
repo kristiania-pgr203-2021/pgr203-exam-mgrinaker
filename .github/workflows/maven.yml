@@ -36,4 +36,4 @@ jobs:
         coveralls-endpoint: https://coveralls.io/
       env:
           JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/11.0.11-9/x64
-    Using lcov file: ./coverage/lcov.info
+        Using lcov file: ./coverage/lcov.info
