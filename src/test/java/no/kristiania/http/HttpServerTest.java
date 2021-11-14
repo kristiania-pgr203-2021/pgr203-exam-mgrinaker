@@ -451,6 +451,8 @@ public class HttpServerTest {
 
         Person person = new Person();
         person.setFirstName("Siri");
+        person.setLastName("Larsen");
+        person.setMailAddress("siri@larsen.no");
         personDao.insert(person);
 
         HttpPostClient postClient = new HttpPostClient(
