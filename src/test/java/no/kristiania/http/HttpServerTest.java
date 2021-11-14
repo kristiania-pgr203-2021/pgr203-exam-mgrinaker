@@ -6,6 +6,7 @@ import no.kristiania.db.dao.AnswerDao;
 import no.kristiania.db.objects.Option;
 import no.kristiania.db.dao.OptionDao;
 import no.kristiania.db.dao.PersonDao;
+import no.kristiania.db.objects.Person;
 import no.kristiania.db.objects.Question;
 import no.kristiania.db.dao.QuestionDao;
 import no.kristiania.http.controllers.*;
@@ -23,14 +24,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class HttpServerTest {
-    private HttpServer server = new HttpServer(0); // server port 0 gir tilfeldig port
+    private HttpServer server = new HttpServer(0);
 
     public HttpServerTest() throws IOException {
     }
 
     @Test
     void shouldReturn404ForUnknownRequestTarget() throws IOException {
-        // InetSocketAddress
         HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals(404, client.getStatusCode());
     }
@@ -145,7 +145,6 @@ public class HttpServerTest {
 
         assertThat(client.getMessageBody())
                 .contains(question1.getQuestionTitle(), question2.getQuestionTitle());
-
     }
 
     @Test
@@ -168,8 +167,8 @@ public class HttpServerTest {
         assertThat(answerDao.listAll())
                 .extracting(Answer::getQuestionId)
                 .contains(answer1.getQuestionId(), answer2.getQuestionId());
-
     }
+
     @Test
     void shouldCreateNewPerson() throws IOException, SQLException {
         PersonDao personDao = new PersonDao(TestData.testDataSource());
@@ -206,7 +205,6 @@ public class HttpServerTest {
         assertThat(questionDao.listAll())
                 .extracting(Question::getQuestionTitle)
                 .contains("Heihei");
-
     }
 
     @Test
@@ -440,12 +438,18 @@ public class HttpServerTest {
         assertEquals(303, postclient.getStatusCode());
     }
 
-    //This test passes when testing it in IntelliJ. But when building maven in github actions it does not work.
-    /*
+    /**
+     This test passes when testing it in IntelliJ. But when building maven in github actions it does not work.
+     */
+
+
     @Test
     void shouldCreateNewAnswer() throws IOException, SQLException {
         AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
         server.addController(new AddNewAnswerController(answerDao));
+
+        Person person = new Person();
+        person.setFirstName("Siri");
 
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",
@@ -458,5 +462,5 @@ public class HttpServerTest {
         assertThat(answerDao.listAll())
                 .extracting(Answer::getAnswerId)
                 .contains(Long.valueOf("1"));
-    }*/
+    }
 }

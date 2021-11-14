@@ -5,7 +5,6 @@
 ## Github repository
 https://github.com/kristiania-pgr203-2021/pgr203-exam-mgrinaker
 
-
 ## Hvordan man kjører programmet
 Først må man bygge en executable jar-fil:
 * Kjør en mvn clean
@@ -14,16 +13,17 @@ Først må man bygge en executable jar-fil:
   * dataSource.password=passordet til database eieren
   * dataSource.url=jdbc:postgresql://localhost:5432/'navnet på databasen'
   * dataSource.username=brukernavnet til eieren
-* Skriv deretter i terminalen java -jar /target/prg203-axam-mgrinaker-1.0-SNAPSHOT.jar
+* Skriv deretter i terminalen: java -jar /target/prg203-axam-mgrinaker-1.0-SNAPSHOT.jar
 
-
-Programmet skal brukes via en browser, vi har kun brukt browseren chrome. 
-I urlen skal man skrive inn "http://localhost:1963/index.html".
-Man vi da få opp en rekke spørsmål som skal besvarsel med svaralternativer. Men man på trykke på add knappen
-for hvert svar som besvares for at det skal bli registrert.
-Før man kan besvare spørmsålene er man nødt til å lage bruker, hvis ikke fungerer det ikke å svare.(Da krsæjer serveren).
-Hvis man ønsker å redigere ett spørsmål er det mulighet for i navigationbar rett under overskriften. 
-Der ser man også at det er mulighet for å legge flere svaralternativer på ett spørsmål hvis man ønsker det.
+Programmet skal brukes via en browser, der vi selv kun har brukt browseren Google Chrome. 
+Man starter med å gå til "http://localhost:1963/index.html".
+Der vil aller først få opp en form der man skal skrive inn fornavn, etternavn og epost. Gjør man ikke dette,
+vil det ikke være mulig å svare på spørsmål, da man trenger å registrere brukeren før man kan registrere et svar.
+Serveren vil altså krasje hvis den ikke får tak i en bruker.
+Etter at brukeren er registrert, kommer man til en rekke spørsmål som skal besvares med svaralternativer. Man trykker så 
+på Submit answer-knappen for hvert spørsmål for å registrere sitt svar.
+Hvis man ønsker å redigere et spørsmål er det mulighet for det i navigationbaren rett under overskriften. 
+Der ser man også at det er mulighet for å legge til flere svaralternativer på et spørsmål hvis man ønsker det.
 
 
 ## Datamodell
@@ -31,10 +31,10 @@ Der ser man også at det er mulighet for å legge flere svaralternativer på ett
 ![](docs/plantUML.png)
 
 ## Ekstra leveranse utover minimum
-Første gang man besøker undersøkelsen får de opp inputfelt der de må skrive inn opplysnigner om seg selv.
+Første gang man besøker undersøkelsen får man opp tre inputfelt der man må skrive inn og lagre opplysnigner om seg selv.
 
 Hver gang brukeren har lagt inn ett nytt spørsmål eller ett nytt option blir brukeren sendt tilbake til index.html.
-Dette ble gjort ved at vi startLine til "HTTP/1.1 303 See other" og location til "http://localhost:1963/index.html".
+Dette ble gjort ved at vi gjorde startLine til "HTTP/1.1 303 See other" og location til "http://localhost:1963/index.html".
 
 Vi har lagt inn UTF-8-decoding på alle inputfelt, sånn at både Æ, Ø, Å og @ skal bli lest inn og tolka riktig.
 
@@ -54,10 +54,10 @@ så vil de ble sendt rett til index.html.
 
 I tab-vinduet har vi lagt inn ett lite favicon. Dette favicon ble kodet inn i alle html-filer i headeren.
 
-Under datamodell har en illustrasjon over hvordan databasen og noen diagrammer over hvordan programmet vårt fungerer.
-Vi føler vi har fått med oss de aller viktigste tabbellene som trengs for dette prosjektet. Vi kunne nok ha hatt med 
-oss mere, som hvilken jobb de har og hvor de jobber. Dette ble ikke med grunnet at vi heller ønsket å fokusere på andre
-oppgaver i dette prosjektet for å gjøre det bedre. 
+Under datamodell har vi en illustrasjon over hvordan databasen er satt opp, og noen diagrammer over hvordan programmet vårt fungerer.
+Vi føler vi har fått med oss de aller viktigste tabellene som trengs for dette prosjektet. Vi prøvde oss i starten med to
+ekstra tabeller, workplace og profession, men syntes disse ble overflødige og vi valgte heller å fokusere på å forbedre
+andre aspekter i prosjektet enn å ha en unødvendig komplisert datamodell.
 
 ## Sjekkliste
 
