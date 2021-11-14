@@ -13,7 +13,7 @@ Først må man bygge en executable jar-fil:
   * dataSource.password=passordet til database eieren
   * dataSource.url=jdbc:postgresql://localhost:5432/'navnet på databasen'
   * dataSource.username=brukernavnet til eieren
-* Skriv deretter i terminalen: java -jar /target/prg203-axam-mgrinaker-1.0-SNAPSHOT.jar
+* Skriv deretter i terminalen: java -Dfile.encoding="UTF-8" -jar target/pgr203-exam-mgrinaker-1.0-SNAPSHOT.jar
 
 Programmet skal brukes via en browser, der vi selv kun har brukt browseren Google Chrome. 
 Man starter med å gå til "http://localhost:1963/index.html".
@@ -36,7 +36,9 @@ Første gang man besøker undersøkelsen får man opp tre inputfelt der man må 
 Hver gang brukeren har lagt inn ett nytt spørsmål eller ett nytt option blir brukeren sendt tilbake til index.html.
 Dette ble gjort ved at vi gjorde startLine til "HTTP/1.1 303 See other" og location til "http://localhost:1963/index.html".
 
-Vi har lagt inn UTF-8-decoding på alle inputfelt, sånn at både Æ, Ø, Å og @ skal bli lest inn og tolka riktig.
+Vi har lagt inn UTF-8-decoding på alle inputfelt, sånn at både Æ, Ø, Å og @ skal bli lest inn og tolka riktig. Likevel vil
+ikke ÆØÅ funke når man kjører jar-fila, så derfor skal man kjøre java -Dfile.encoding="UTF-8" -jar target/pgr203-exam-mgrinaker-1.0-SNAPSHOT.jar
+når man kjører jar-fila for å få de med.
 
 Der vi legger til brukerinformasjon i starten av surveyen har vi gjort sånn at navnet til brukeren lagres som en cookie.
 Senere bruker vi denne cookien når brukeren registrerer svarene sine i surveyen, og kobler den opp mot personId i person-databasen.
@@ -45,7 +47,8 @@ I HttpServer har vi kode som leser filer fra disc, der den sjekker fil-endingene
 skal brukes. Det gjør det mulig å laste inn både .txt, .html og .css-filer riktig.
 
 En abstractDao ble laget for å ikke få duplisert kode. Der har vi brukt generics for at de andre klassene kan få bruke 
-metodene. Der har vi insert(), retrieve(), listAll() og update().
+metodene. Der har vi insert(), retrieve(), listAll() og update(). Vi har med update() i PersonDao, men de brukes ikke i
+løsningen. Vi valge likevel å ta de med så vi skulle ha mulighet til å bruke de om det trengtes.
 
 Hvis handleClient får "HTTP/1.1 500 Internal Server Error" så vil den skrive ut "Statuscode 500" til brukeren for å 
 fortelle at serveren har kræsjet.
@@ -109,3 +112,5 @@ andre aspekter i prosjektet enn å ha en unødvendig komplisert datamodell.
 * [x] I forelesningen fikk vi en rar feil med CSS når vi hadde `<!DOCTYPE html>`. Grunnen til det er feil content-type. Klarer dere å fikse det slik at det fungerer å ha `<!DOCTYPE html>` på starten av alle HTML-filer?
 * [ ] Klarer dere å lage en Coverage-rapport med GitHub Actions med Coveralls? (Advarsel: Foreleser har nylig opplevd feil med Coveralls så det er ikke sikkert dere får det til å virke)
 * [ ] FARLIG: I løpet av kurset har HttpServer og tester fått funksjonalitet som ikke lenger er nødvendig. Klarer dere å fjerne alt som er overflødig nå uten å også fjerne kode som fortsatt har verdi? (Advarsel: Denne kan trekke ned dersom dere gjør det feil!)
+
+Laget av Martine Grinaker,Tonje Husvik, Cathrine Jakobsen
