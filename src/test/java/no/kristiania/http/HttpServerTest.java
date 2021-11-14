@@ -446,10 +446,12 @@ public class HttpServerTest {
     @Test
     void shouldCreateNewAnswer() throws IOException, SQLException {
         AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
         server.addController(new AddNewAnswerController(answerDao));
 
         Person person = new Person();
         person.setFirstName("Siri");
+        personDao.insert(person);
 
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",
